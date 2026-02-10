@@ -111,6 +111,27 @@
             "koken": "Japonca",
             "harfSayisi": 8,
             "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Boşa konuşmak, gevezelik etmek",
+            "kelime": "Cazyapmak",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 2
+        },
+        {
+            "aciklama": "Kuşatılmış, sarılmış, çevrilmiş",
+            "kelime": "Mahsur",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Ortaya koyma, gösterme, meydana çıkarma",
+            "kelime": "İbraz",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1
         }
     ]
 }
