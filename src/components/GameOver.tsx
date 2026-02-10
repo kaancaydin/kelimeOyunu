@@ -17,6 +17,7 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
       className="flex justify-center items-center flex-col gap-8 p-10 
                 bg-white/10 backdrop-blur-xl border border-white/20 
                 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
+                w-[60vw] max-w-225 min-h-125 
                 transition-all duration-500 hover:shadow-indigo-500/20"
     >
       {/* Başlık Bölümü */}
@@ -24,8 +25,8 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
         <h2 className="text-5xl font-black tracking-tighter bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
           TEBRİKLER!
         </h2>
-        <p className="text-gray-400 font-medium tracking-widest uppercase text-sm">
-          Oyun Sona Erdi
+        <p className="text-gray-400 uppercase font-medium tracking-widest  text-sm">
+          OYUN SONA ERDİ
         </p>
       </div>
 

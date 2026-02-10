@@ -7,6 +7,7 @@ import { CloseIcon } from "./components/CloseIcon";
 import { WordInput } from "./components/WordInput";
 import { GameOver } from "./components/GameOver";
 import { ScoreBoard } from "./components/ScoreBoard";
+import { WordDescription } from "./components/WordDescription";
 
 type Kelime = {
   aciklama: string;
@@ -90,16 +91,6 @@ function App() {
 
   return (
     <>
-      {kelimeler.map((item, index) => (
-        <ul className="hidden">
-          <li key={index}>
-            <b>{item.kelime}</b> - {item.aciklama} - Harf : {item.harfSayisi} -
-            Köken : {item.koken}
-            {/* <p>{item.kelime.split("")[0]}</p> */}
-          </li>
-        </ul>
-      ))}
-
       {gameEnd ? (
         <GameOver
           onRestart={RestartTheGame}
@@ -108,23 +99,11 @@ function App() {
         />
       ) : (
         <div
-          className="p-8 rounded-[3rem] flex flex-col justify-center items-center gap-8 
+          className="p-8 rounded-[3rem] flex flex-col justify-center items-center gap-6 
              bg-white/5 backdrop-blur-md border border-white/10 
              w-[90vw] max-w-225 min-h-150 shadow-2xl transition-all duration-300 mx-auto"
         >
-          <div className="relative w-full px-10 py-6 text-center italic text-gray-200">
-            <span className="absolute top-0 left-4 text-6xl text-indigo-500/20 font-serif">
-              “
-            </span>
-            <div className="w-full flex items-center justify-center px-6 min-h-37.5">
-              <p className="text-3xl font-medium leading-relaxed tracking-tight text-center italic text-gray-200 wrap-break-word">
-                {aktifKelime.aciklama}
-              </p>
-            </div>
-            <span className="absolute bottom-0 right-4 text-6xl text-indigo-500/20 font-serif">
-              ”
-            </span>
-          </div>
+          <WordDescription aktifKelime={aktifKelime} />
           <WordInput
             key={`${currentIndex}-${gameEnd}`}
             setHarfler={setHarfler}
@@ -132,7 +111,10 @@ function App() {
             inputRefs={inputRefs}
             onEnter={kontrolEt}
           />
-
+          <button className="uppercase px-10 py-3 rounded-full font-extrabold cursor-pointer text-lg
+          bg-linear-to-bl from-blue-600 to-blue-500 text-white">
+            Harf Al
+          </button>
           <div className="w-full flex justify-center py-2 border-y border-white/5">
             <ScoreBoard score={score} />
           </div>
@@ -166,7 +148,7 @@ function App() {
               </button>
             </Tippy>
           </div>
-          <div className="h-12 overflow-hidden"></div>
+          <div className=" overflow-hidden"></div>
           {sonuc && (
             <p
               className={`text-3xl font-black tracking-widest animate-bounce 
@@ -179,6 +161,23 @@ function App() {
       )}
 
       <Timer ref={timerRef} />
+      <div className="hidden">
+        {kelimeler.map((item, index) => (
+          <ul
+            className="flex justify-center items-center flex-col gap-8 p-5
+                bg-white/10 backdrop-blur-xl border border-white/20 
+                rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
+                w-[60vw] max-w-225 min-h-20
+                transition-all duration-500 hover:shadow-indigo-500/20"
+          >
+            <li key={index}>
+              <b>{item.kelime}</b> - {item.aciklama} - Harf : {item.harfSayisi}{" "}
+              - Köken : {item.koken}
+              {/* <p>{item.kelime.split("")[0]}</p> */}
+            </li>
+          </ul>
+        ))}
+      </div>
     </>
   );
 }
