@@ -1,0 +1,48 @@
+{
+    "5harfliler": [
+        {
+            "aciklama": "ucu sivri, ölümcül silah",
+            "kelime": "kılıç",
+            "koken": "arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Motorlu taşıtların çekiş ve hızını ayarlamaya yarayan dişliler düzeni",
+            "kelime": "Vites",
+            "koken": "Fransızca",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "bitti",
+            "kelime": "bitti",
+            "koken": "bitiş",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1
+        }
+    ],
+    "6harfliler": [
+        {
+            "aciklama": "Günün konusu olan, şimdiki, bugünkü",
+            "kelime": "Güncel",
+            "koken": "Türkçe",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "İri, yırtıcı bir tür kuş",
+            "kelime": "Kartal",
+            "koken": "Türkçe",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "bitti",
+            "kelime": "bitti",
+            "koken": "bitiş",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1
+        }
+    ]
+} 

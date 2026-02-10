@@ -1,0 +1,79 @@
+/*
+  const aktifListe = data[aktifGrup]
+  const aktifKelime = aktifListe[currentIndex]
+
+   function tahmin(){
+    if(!aktifKelime) return
+
+    if(
+      aktifKelime.kelime.toLocaleLowerCase() === inputValue.toLocaleLowerCase()
+    ){
+      setSonuc(`Doğru. Kelime: ${aktifKelime.kelime}`)
+    }else{
+      setSonuc(`Yanlış. Kelime: ${aktifKelime.kelime}`)
+    }
+    if(currentIndex + 1 < aktifListe.length){
+      setIndex(prev => prev + 1)
+    }else{
+      if(aktifGrup === "5harfliler"){
+        setGrup("6harfliler")
+        setIndex(0)
+      }else{
+        setSonuc("Oyun sona erdi!")
+      }
+    }
+    setInputValue("")
+    
+  } */
+
+{/* <ul>
+{data["6harfliler"].map((item,index)=>(
+<li key={index}>
+<b>{item.kelime}</b> - {item.aciklama} - Harf : {item.harfSayisi} - Köken : {item.koken}
+</li>
+))}
+</ul>  */}
+
+{/* <p>{aktifKelime.aciklama}</p> */}
+{/* <input type="text" className='kelimeTahmin' onChange={(e)=> setInputValue(e.target.value)}/>  */}
+{/* <button className='tahminEt' onClick={tahmin}>Tahmin Et</button> */}
+{/* <p>{sonuc}</p> */}
+
+const kelime = "kartal";
+{kelime.split("").map((harf, index) => (
+  <input key={index} type="text" value={harf} readOnly maxLength={1} />
+))}
+
+// const [aktifKelime, setAktifKelime] = useState<Kelime | null >(null)
+
+// function yeniKelimeyeGec(kelime : Kelime){
+//   setAktifKelime(kelime)
+//   setHarfler(Array(kelime.kelime.length).fill(""))
+// }
+
+
+function startTimer() {
+  setZaman(50)
+  const interval = setInterval(() => {
+    setZaman((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+}
+
+
+function resetTimer(){
+  setZaman(0)
+}
+
+<p
+className={`sure ${
+  zaman > 45 ? "green" : zaman > 15 ? "orange" : "red"
+}`}
+>
+{formatTime(zaman)}
+</p>
