@@ -3,7 +3,8 @@ import type { TimerHandle } from "./components/Timer";
 import { Timer } from "./components/Timer";
 import Tippy from "@tippyjs/react";
 import "./App.css";
-import { CloseIcon } from "./components/CloseIcon";
+import { CloseIcon, PassIcon } from "./components/Icons";
+import { InfoTab } from "./components/InfoTab";
 import { WordInput } from "./components/WordInput";
 import { GameOver } from "./components/GameOver";
 import { ScoreBoard } from "./components/ScoreBoard";
@@ -29,8 +30,14 @@ function App() {
   const [sonuc, setSonuc] = useState<string>("");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [gameEnd, setGameEnd] = useState(false);
-  const [score, setScore] = useState({ correct: 0, wrong: 0 });
-  const totalPoints = score.correct * 10 + score.wrong * 5;
+  const [score, setScore] = useState({
+    correct: 0,
+    wrong: 0,
+    takenWords: 0,
+    pass: 5,
+  });
+  const totalPoints =
+    score.correct * 10 - score.wrong * 5 - score.takenWords * 2;
 
   // const [inputValue, setInputValue] = useState<string>("");
   // const [aktifGrup, setGrup] = useState<"5harfliler" | "6harfliler">("5harfliler")
@@ -39,15 +46,30 @@ function App() {
   const [yanlisSayisi, setYanlisSayisi] = useState(0); */
 
   useEffect(() => {
-    fetch("/kelimeler.json")
-      .then((res) => res.json())
-      .then((data: KelimeData) => {
-        setData(data);
-        // 👉 data GELDİĞİ ANDA inputları ayarla
-        setHarfler(Array(data.kelimeler[currentIndex].kelime.length).fill(""));
-        inputRefs.current[0]?.focus();
-      });
-  }, [currentIndex]);
+    const loadWords = async () => {
+      try {
+        const res = await fetch("/kelimeler.json");
+
+        if (!res.ok) throw new Error("JSON yüklenemedi");
+
+        const json: KelimeData = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadWords();
+  }, []);
+
+  useEffect(() => {
+    if (!data) return;
+
+    const uzunluk = data.kelimeler[currentIndex].kelime.length;
+
+    setHarfler(Array(uzunluk).fill(""));
+    inputRefs.current[0]?.focus();
+  }, [currentIndex, data]);
 
   if (!data) {
     return <div>Loading...</div>;
@@ -59,21 +81,56 @@ function App() {
     const girilen = harfler.join("").toLowerCase();
     const dogru = aktifKelime.kelime.toLowerCase();
     setSonuc(girilen === dogru ? "Doğru!" : "Yanlış!");
+    if (currentIndex === kelimeler.length - 1) {
+      //Bitti mi kontrolü
+      setGameEnd(true);
+      return;
+    }
+
     if (girilen === dogru) {
       /* setDogruSayisi(prev => prev + 1); */
       setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
+      setIndex((i) => i + 1);
     } else {
       /* setYanlisSayisi(prev => prev + 1); */
       setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
     }
-    if (currentIndex === kelimeler.length - 1) {
-      setGameEnd(true);
-      return;
-    }
-    setIndex(currentIndex + 1);
+
     console.log("aktif kelime:", aktifKelime.kelime);
     console.log("harfler uzunluk:", harfler.length);
   }
+
+  const harfVer = () => {
+    //const bosIndex = harfler.findIndex((h) => h === ""); sıralı seçme. random seçmez
+    const bosIndex = harfler
+      .map((h, index) => (h === "" ? index : null)) //boş olup olmayan yerleri kontrol ettik
+      .filter((index) => index !== null) as number[]; //boş ise sayı dizisine attık
+    if (bosIndex.length > 0) {
+      const randomSecim = Math.floor(Math.random() * bosIndex.length);
+      const secilenIndex = bosIndex[randomSecim];
+      const yeniHarfler = [...harfler]; //harflerin lopyası oluşturuldu
+      const alinanHarf = aktifKelime.kelime[secilenIndex];
+      yeniHarfler[secilenIndex] = alinanHarf; //harfi yerleştirdik
+      setHarfler(yeniHarfler); //güncelleme
+      setSonuc(`${aktifKelime.kelime[secilenIndex]} Harfi alındı`);
+      inputRefs.current[secilenIndex]?.focus(); //alınan harfe odaklanma sağlandı
+
+      //Puan düşürme
+
+      setScore((prev) => ({ ...prev, takenWords: prev.takenWords + 1 }));
+    } else {
+      setSonuc(`Alınacak harf kalmadı!`);
+    }
+  };
+
+  const gaveUp = () => {
+    if (score.pass <= 0) {
+      setSonuc("Pas hakkın kalmadı!");
+      return;
+    }
+    setScore((prev) => ({ ...prev, pass: prev.pass - 1 }));
+    setIndex((i) => i + 1);
+  };
 
   const RestartTheGame = () => {
     setIndex(0);
@@ -81,7 +138,7 @@ function App() {
     setSonuc("");
     setHarfler([]);
     inputRefs.current = [];
-    setScore({ correct: 0, wrong: 0 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
 
     if (data) {
       const ilkKelimeUzunlugu = data.kelimeler[0].kelime.length;
@@ -90,7 +147,9 @@ function App() {
   };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col items-center justify-center ">
+      <InfoTab />
+
       {gameEnd ? (
         <GameOver
           onRestart={RestartTheGame}
@@ -99,60 +158,106 @@ function App() {
         />
       ) : (
         <div
-          className="p-8 rounded-[3rem] flex flex-col justify-center items-center gap-6 
+          className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
+             flex flex-col justify-between items-center gap-4 sm:gap-6 
              bg-white/5 backdrop-blur-md border border-white/10 
-             w-[90vw] max-w-225 min-h-150 shadow-2xl transition-all duration-300 mx-auto"
+             w-[95vw] sm:w-[90vw] max-w-4xl 
+             h-fit max-h-[92svh] sm:max-h-none
+             shadow-2xl transition-all duration-300 mx-auto overflow-y-auto
+             "
         >
-          <WordDescription aktifKelime={aktifKelime} />
-          <WordInput
-            key={`${currentIndex}-${gameEnd}`}
-            setHarfler={setHarfler}
-            harfler={harfler}
-            inputRefs={inputRefs}
-            onEnter={kontrolEt}
-          />
-          <button className="uppercase px-10 py-3 rounded-full font-extrabold cursor-pointer text-lg
-          bg-linear-to-bl from-blue-600 to-blue-500 text-white">
-            Harf Al
-          </button>
-          <div className="w-full flex justify-center py-2 border-y border-white/5">
-            <ScoreBoard score={score} />
+          <div className="w-screen/2 sm:w-full text-center">
+            <WordDescription aktifKelime={aktifKelime} />
+          </div>
+          <div className=" py-1 sm:py-4 flex justify-center">
+            <WordInput
+              key={`${currentIndex}-${gameEnd}`}
+              setHarfler={setHarfler}
+              harfler={harfler}
+              inputRefs={inputRefs}
+              onEnter={kontrolEt}
+            />
           </div>
 
-          <div className="flex items-center gap-4">
+          <button
+            onClick={harfVer}
+            className="group relative uppercase px-4 sm:px-10 py-2 sm:py-3 rounded-full font-extrabold 
+            cursor-pointer text-base sm:text-lg
+               bg-white/5 backdrop-blur-sm border border-white/20 text-blue-400
+               hover:bg-blue-500 hover:text-white hover:border-blue-400
+               shadow-sm hover:shadow-[0_10px_20px_-10px_rgba(59,130,246,0.5)]
+               transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-20 blur-md transition-opacity"></span>
+            <span className="relative flex items-center gap-2">
+              <span>Harf Al</span>
+              <span className="text-blue-200 group-hover:rotate-12 transition-transform">
+                ✨
+              </span>
+            </span>
+          </button>
+          <div className="w-full flex justify-center py-2 border-y border-white/5 overflow-hidden">
+            <div className="grid  grid-cols-4 gap-3 w-full max-w-md mx-auto">
+              <ScoreBoard score={score} />
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
             <button
-              className="cursor-pointer px-10 py-3 rounded-full text-white font-bold text-lg
+              className="w-full sm:w-auto cursor-pointer px-10 py-3 rounded-full text-white font-bold text-lg
                  bg-linear-to-r from-indigo-600 to-purple-600 uppercase
-                 hover:from-indigo-500 hover:to-purple-500
+                 hover:from-indigo-500 hover:to-purple-500 text-[10px] sm:text-sm
                  shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40
                  transition-all hover:scale-105 active:scale-95"
               onClick={kontrolEt}
             >
               Kontrol Et
             </button>
-            <Tippy
-              arrow={false}
-              offset={[0, -80]}
-              content={
-                <span className="text-[12px] px-2 py-1 rounded shadow-xl font-medium bg-black">
-                  Oyundan Çık
-                </span>
-              }
-            >
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
               <button
-                onClick={() => setGameEnd(true)}
-                className=" cursor-pointer hover:scale-90
-                p-3 bg-red-500/10 border border-red-500/20 rounded-full hover:bg-red-500/20 transition-colors"
+                onClick={gaveUp}
+                disabled={score.pass === 0}
+                className={`group flex items-center gap-3 p-3 px-6 sm:px-4 rounded-3xl
+                   cursor-pointer font-black tracking-wider w-full sm:w-auto justify-center
+                   bg-linear-to-r from-slate-200 to-slate-300 shadow-[0_4px_0_0_#B6C3D4] 
+                   hover:from-slate-300 hover:to-slate-400 active:shadow-none active:translate-y-1 
+                   transition-all duration-150 ease-in-out
+                   ${score.pass === 0 ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]" : "text-slate-700"}`}
               >
-                <CloseIcon />
+                <div className="group-hover:translate-x-1 transition-transform duration-200">
+                  <PassIcon />
+                </div>
+                <span>PAS</span>
+                <div
+                  className={`flex items-center justify-center text-center
+               rounded-lg px-2 py-1 text-[0.8em]
+              ${score.pass === 0 ? "text-red-400 bg-red-500/20" : "text-white/80 bg-gray-500 "}`}
+                >
+                  {score.pass}
+                </div>
               </button>
-            </Tippy>
+              <Tippy
+                arrow={false}
+                offset={[0, 10]}
+                content={
+                  <span className="text-[12px] px-2 py-1 rounded shadow-xl bg-black">
+                    Oyundan Çık
+                  </span>
+                }
+              >
+                <button
+                  onClick={() => setGameEnd(true)}
+                  className="cursor-pointer hover:scale-90 p-3 bg-red-500/10 border border-red-500/20 rounded-full hover:bg-red-500/20 transition-all"
+                >
+                  <CloseIcon />
+                </button>
+              </Tippy>
+            </div>
           </div>
-          <div className=" overflow-hidden"></div>
           {sonuc && (
             <p
-              className={`text-3xl font-black tracking-widest animate-bounce 
-         ${sonuc === "Doğru!" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" : "text-rose-500"}`}
+              className={`text-xl sm:text-3xl mt-2 font-black tracking-widest animate-bounce
+                   ${sonuc === "Doğru!" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" : "text-rose-500"}`}
             >
               {sonuc.toUpperCase()}
             </p>
@@ -160,8 +265,8 @@ function App() {
         </div>
       )}
 
-      <Timer ref={timerRef} />
       <div className="hidden">
+        <Timer ref={timerRef} />
         {kelimeler.map((item, index) => (
           <ul
             className="flex justify-center items-center flex-col gap-8 p-5
@@ -178,7 +283,7 @@ function App() {
           </ul>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -3,6 +3,8 @@ import { ScoreBoard } from "./ScoreBoard";
 interface ScoreProps {
   correct: number;
   wrong: number;
+  takenWords: number;
+  pass: number;
 }
 
 interface Props {
@@ -17,8 +19,9 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
       className="flex justify-center items-center flex-col gap-8 p-10 
                 bg-white/10 backdrop-blur-xl border border-white/20 
                 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
-                w-[60vw] max-w-225 min-h-125 
-                transition-all duration-500 hover:shadow-indigo-500/20"
+                w-[80vw] sm:w-[60vw] max-w-225 min-h-125 
+                transition-all duration-500 hover:shadow-indigo-500/20
+                mt-5"
     >
       {/* Başlık Bölümü */}
       <div className="text-center space-y-2">
@@ -29,9 +32,9 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
           OYUN SONA ERDİ
         </p>
       </div>
-
-      {/* Senin 3. Seçenek ScoreBoard */}
-      <ScoreBoard score={score} />
+      <div className="grid grid-cols-2 gap-4 w-full max-w-md mx-auto">
+        <ScoreBoard score={score} />
+      </div>
 
       {/* Puan Madalyonu */}
       <div className="relative group">
