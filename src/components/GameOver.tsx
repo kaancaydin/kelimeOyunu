@@ -1,8 +1,9 @@
 import { ScoreBoard } from "./ScoreBoard";
 import { GameButton } from "./GameButtons";
-import { ArrowIcon } from "./Icons";
+import { ArrowIcon, CloseIcon } from "./Icons";
+import Tippy from "@tippyjs/react";
 
-interface ScoreProps {
+/* interface ScoreProps {
   correct: number;
   wrong: number;
   takenWords: number;
@@ -13,9 +14,16 @@ interface Props {
   totalPoints: number;
   onRestart: () => void;
   score: ScoreProps;
+} */
+import type { GameLogicType } from "../types/GameLogicTypes";
+interface MainGameProps {
+  state: GameLogicType["state"];
+  actions: GameLogicType["actions"];
 }
 
-export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
+export const GameOver = ({ state, actions }: MainGameProps) => {
+  const { score, totalPoints } = state;
+  const { RestartTheGame, setStartGame } = actions;
   return (
     <div
       className="flex justify-center items-center flex-col gap-8 p-10 
@@ -25,6 +33,22 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
                 transition-all duration-500 hover:shadow-indigo-500/20
                 mt-5"
     >
+      <Tippy
+        arrow={false}
+        offset={[0, 10]}
+        content={
+          <span className="text-[12px] px-2 py-1 rounded shadow-xl bg-black">
+            Çıkış
+          </span>
+        }
+      >
+        <button onClick={()=>setStartGame(false)}
+        className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-1 rounded-full
+          hover:scale-105 active:opacity-50 transition-all duration-150">
+          <CloseIcon />
+        </button>
+      </Tippy>
+
       {/* Başlık Bölümü */}
       <div className="text-center space-y-2">
         <h2 className="text-5xl font-black tracking-tighter bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
@@ -48,31 +72,8 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
         </div>
       </div>
 
-      {/* 
-      <button
-        onClick={onRestart}
-        className="group relative inline-flex items-center justify-center px-10 py-4 
-               font-bold text-white transition-all duration-200 cursor-pointer
-               bg-blue-600 font-pj rounded-full focus:outline-none 
-               focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 
-               hover:bg-blue-500 hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30"
-      >
-        <span className="text-xl uppercase tracking-widest">Tekrar Oyna</span>
-        <svg
-          className="w-5 h-5 ml-2 -mr-1 group-hover:translate-x-1 transition-transform"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button> */}
-
       <GameButton
-        onClick={onRestart}
+        onClick={RestartTheGame}
         variant="restart"
         className="text-xl uppercase tracking-widest"
       >

@@ -1,10 +1,21 @@
 import { ScoreBoard } from "../components/ScoreBoard";
 import { WordDescription } from "../components/WordDescription";
 import { WordInput } from "../components/WordInput";
-import { CloseIcon, PassIcon } from "../components/Icons";
+import { CloseIcon, PassIcon, BackIcon } from "../components/Icons";
 import Tippy from "@tippyjs/react";
+import { GameButton } from "./GameButtons";
+import type { GameLogicType } from "../types/GameLogicTypes";
 
-export const MainGame = () => {
+interface MainGameProps {
+  state: GameLogicType["state"];
+  actions: GameLogicType["actions"];
+  refs: GameLogicType["refs"];
+}
+
+export const MainGame = ({ state, actions, refs }: MainGameProps) => {
+  const { aktifKelime, currentIndex, gameEnd, harfler, score, sonuc } = state;
+  const { setHarfler, kontrolEt, harfVer, gaveUp, setGameEnd } = actions;
+  const { inputRefs } = refs;
   return (
     <div
       className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
@@ -15,6 +26,9 @@ export const MainGame = () => {
              shadow-2xl transition-all duration-300 mx-auto overflow-y-auto
              "
     >
+      <button className="fixed bottom-20 left-4 hidden">
+        <BackIcon  />
+      </button>
       <div className="w-screen/2 sm:w-full text-center">
         <WordDescription aktifKelime={aktifKelime} />
       </div>
@@ -28,23 +42,17 @@ export const MainGame = () => {
         />
       </div>
 
-      <button
+      <GameButton
+        variant="clue"
         onClick={harfVer}
-        className="group relative uppercase px-4 sm:px-10 py-2 sm:py-3 rounded-full font-extrabold 
-            cursor-pointer text-base sm:text-lg
-               bg-white/5 backdrop-blur-sm border border-white/20 text-blue-400
-               hover:bg-blue-500 hover:text-white hover:border-blue-400
-               shadow-sm hover:shadow-[0_10px_20px_-10px_rgba(59,130,246,0.5)]
-               transition-all duration-300 hover:-translate-y-1 active:scale-95"
+        className="relative flex items-center gap-2"
       >
-        <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-20 blur-md transition-opacity"></span>
-        <span className="relative flex items-center gap-2">
-          <span>Harf Al</span>
-          <span className="text-blue-200 group-hover:rotate-12 transition-transform">
-            ✨
-          </span>
+        Harf Al
+        <span className="text-blue-200 group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 drop-shadow-[0_0_8px_rgba(191,219,254,0.8)]">
+          ✨
         </span>
-      </button>
+        <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity -z-10" />
+      </GameButton>
       <div className="w-full flex justify-center py-2 border-y border-white/5 overflow-hidden">
         <div className="grid  grid-cols-4 gap-3 w-full max-w-md mx-auto">
           <ScoreBoard score={score} />
@@ -52,27 +60,21 @@ export const MainGame = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-        <button
-          className="w-full sm:w-auto cursor-pointer px-10 py-3 rounded-full 
-               text-white font-bold text-lg
-                 bg-linear-to-r from-indigo-600 to-purple-600 uppercase
-                 hover:from-indigo-500 hover:to-purple-500 text-[10px] sm:text-sm
-                 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40
-                 transition-all hover:scale-105 active:scale-95"
+        <GameButton
+          variant="check"
           onClick={kontrolEt}
-        >
-          Kontrol Et
-        </button>
+          children={"Kontrol Et"}
+        />
         <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
-          <button
+          <GameButton
+            variant="pass"
             onClick={gaveUp}
             disabled={score.pass === 0}
-            className={`group flex items-center gap-3  py-2 sm:px-4 rounded-3xl
-                   cursor-pointer font-black tracking-wider w-full sm:w-auto justify-center
-                   bg-linear-to-r from-slate-200 to-slate-300 shadow-[0_4px_0_0_#B6C3D4] 
-                   hover:from-slate-300 hover:to-slate-400 active:shadow-none active:translate-y-1 
-                   transition-all duration-150 ease-in-out
-                   ${score.pass === 0 ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]" : "text-slate-700"}`}
+            ternaryOp={
+              score.pass === 0
+                ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]"
+                : "text-slate-700"
+            }
           >
             <div className="group-hover:translate-x-1 transition-transform duration-200">
               <PassIcon />
@@ -85,7 +87,7 @@ export const MainGame = () => {
             >
               {score.pass}
             </div>
-          </button>
+          </GameButton>
           <Tippy
             arrow={false}
             offset={[0, 10]}
@@ -95,23 +97,22 @@ export const MainGame = () => {
               </span>
             }
           >
-            <button
-              onClick={() => setGameEnd(true)}
-              className="cursor-pointer hover:scale-90 p-3 bg-red-500/10 border border-red-500/20 rounded-full hover:bg-red-500/20 transition-all"
-            >
+            <GameButton variant="close" onClick={() => setGameEnd(true)}>
               <CloseIcon />
-            </button>
+            </GameButton>
           </Tippy>
         </div>
       </div>
-      {sonuc && (
-        <p
-          className={`text-xl sm:text-3xl mt-2 font-black tracking-widest animate-bounce
-                   ${sonuc === "Doğru!" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" : "text-rose-500"}`}
-        >
-          {sonuc.toUpperCase()}
-        </p>
-      )}
+      <p
+        className={`text-xl sm:text-3xl mt-2 font-black tracking-widest
+    ${
+      sonuc === "Doğru!"
+        ? "text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.6)] animate-[bounce_2s_infinite]"
+        : "text-rose-500 animate-[shake_0.5s_ease-in-out]" /* Yanlışsa titresin */
+    }`}
+      >
+        {sonuc.toUpperCase()}
+      </p>
     </div>
   );
 };

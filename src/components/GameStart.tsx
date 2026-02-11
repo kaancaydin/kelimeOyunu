@@ -1,13 +1,18 @@
 import { PlayIcon } from "./Icons";
-
-interface Props {
+/* interface Props {
   onStart: () => void;
-}
+} */
+import type { GameLogicType } from "../types/GameLogicTypes";
+ interface MainGameProps {
+  actions: GameLogicType["actions"];
+} 
 
-export const GameStart = ({ onStart }: Props) => {
+export const GameStart = ({ actions }: MainGameProps) => {
+  const { StartTheGame } = actions;
+
   const handleStart = () => {
     setTimeout(() => {
-      onStart();
+      StartTheGame()
     }, 400);
   };
 
