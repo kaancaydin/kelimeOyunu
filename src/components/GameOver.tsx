@@ -1,5 +1,6 @@
 import { ScoreBoard } from "./ScoreBoard";
-
+import { GameButton } from "./GameButtons";
+import { ArrowIcon } from "./Icons";
 
 interface ScoreProps {
   correct: number;
@@ -47,17 +48,16 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
         </div>
       </div>
 
-      {/* Buton Alanı */}
+      {/* 
       <button
         onClick={onRestart}
         className="group relative inline-flex items-center justify-center px-10 py-4 
-               font-bold text-white transition-all duration-200 
+               font-bold text-white transition-all duration-200 cursor-pointer
                bg-blue-600 font-pj rounded-full focus:outline-none 
                focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 
                hover:bg-blue-500 hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30"
       >
         <span className="text-xl uppercase tracking-widest">Tekrar Oyna</span>
-        {/* Küçük bir ok ikonu hoş durur */}
         <svg
           className="w-5 h-5 ml-2 -mr-1 group-hover:translate-x-1 transition-transform"
           fill="currentColor"
@@ -69,7 +69,16 @@ export const GameOver = ({ totalPoints, score, onRestart }: Props) => {
             clipRule="evenodd"
           />
         </svg>
-      </button>
+      </button> */}
+
+      <GameButton
+        onClick={onRestart}
+        variant="restart"
+        className="text-xl uppercase tracking-widest"
+      >
+        Tekrar oyna
+        <ArrowIcon />
+      </GameButton>
     </div>
   );
 };

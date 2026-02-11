@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import type { TimerHandle } from "./components/Timer";
-import { Timer } from "./components/Timer";
+//import { Timer } from "./components/Timer";
 import Tippy from "@tippyjs/react";
 import "./App.css";
 import { CloseIcon, PassIcon } from "./components/Icons";
@@ -11,164 +9,35 @@ import { ScoreBoard } from "./components/ScoreBoard";
 import { WordDescription } from "./components/WordDescription";
 import { GameStart } from "./components/GameStart";
 import { GameButton } from "./components/GameButtons";
-
-type Kelime = {
-  aciklama: string;
-  kelime: string;
-  harfSayisi: number;
-  kelimeSayisi: number;
-  koken: string;
-};
-
-type KelimeData = {
-  kelimeler: Kelime[];
-};
+import { useGameLogic } from "./hooks/useGameLogic";
 
 function App() {
-  const timerRef = useRef<TimerHandle>(null);
-  const [data, setData] = useState<KelimeData | null>(null);
-  const [harfler, setHarfler] = useState<string[]>([]);
-  const [currentIndex, setIndex] = useState<number>(0);
-  const [sonuc, setSonuc] = useState<string>("");
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-  const [gameEnd, setGameEnd] = useState(false);
-  const [gameList, setGameList] = useState<Kelime[]>([]);
-  const [startGame, setStartGame] = useState(false);
-  const [score, setScore] = useState({
-    correct: 0,
-    wrong: 0,
-    takenWords: 0,
-    pass: 10,
-  });
-  const totalPoints =
-    score.correct * 10 - score.wrong * 5 - score.takenWords * 2;
-
-  useEffect(() => {
-    const loadWords = async () => {
-      try {
-        const res = await fetch("/kelimeler.json");
-
-        if (!res.ok) throw new Error("JSON yüklenemedi");
-
-        const json: KelimeData = await res.json();
-        setData(json);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    loadWords();
-  }, []);
-
-  // const [aktifGrup, setGrup] = useState<"5harfliler" | "6harfliler">("5harfliler")
-
-  useEffect(() => {
-    if (!startGame || gameList.length === 0) return;
-
-    const aktifKelime = gameList[currentIndex];
-
-    if (aktifKelime) {
-      setHarfler(Array(aktifKelime.kelime.length).fill(""));
-      setSonuc("");
-      // Input focus için ufak bir timeout (render beklemek için)
-      setTimeout(() => inputRefs.current[0]?.focus(), 50);
-    }
-  }, [currentIndex, gameList, startGame]);
-
-  if (!data) {
-    return <div>Loading...</div>;
+  const { state, actions, refs } = useGameLogic();
+  if (!state.data) {
+    return <div className="p-3">Loading....</div>;
   }
+  const {
+    startGame,
+    gameEnd,
+    score,
+    aktifKelime,
+    currentIndex,
+    harfler,
+    sonuc,
+    totalPoints,
+  } = state;
 
-  const kelimeler = data!.kelimeler;
-  const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
-  const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler
-  //const aktifKelime = kelimeler[currentIndex];
-  const aktifKelime = gameList[currentIndex] || null;
-  if (!data) return <div className="text-white">Loading Data...</div>;
+  const {
+    StartTheGame,
+    RestartTheGame,
+    gaveUp,
+    kontrolEt,
+    harfVer,
+    setHarfler,
+    setGameEnd,
+  } = actions;
 
-  const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
-    return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
-  };
-
-  const StartTheGame = () => {
-    if (!data) return;
-    //const chosenWords = randomWords(kelimeler); tüm kelimeler
-    const list5 = randomWords(harf5).slice(0, 5); //5 harfliler seçildi
-    const list6 = randomWords(harf6).slice(0, 5); //6 harfliler seçildi
-    const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
-    setGameList(birlesikListe);
-    setIndex(0);
-    setStartGame(true);
-    setGameEnd(false);
-  };
-
-  const NextQuestion = () => {
-    if (currentIndex < gameList.length - 1) {
-      setIndex((i) => i + 1);
-    } else {
-      setGameEnd(true);
-    }
-  };
-
-  const kontrolEt = () => {
-    if (!aktifKelime || sonuc === "Doğru!") return;
-    const girilen = harfler.join("").toLowerCase();
-    const dogru = aktifKelime.kelime.toLowerCase();
-    if (girilen === dogru) {
-      setSonuc("Doğru!");
-      setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
-      // 1 saniye bekleyip sonraki soruya geç (süre eklenirse kaldırılacak)
-      setTimeout(NextQuestion, 1000);
-    } else {
-      setSonuc("Yanlış!");
-      setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
-    }
-  };
-
-  const harfVer = () => {
-    if (!aktifKelime) return;
-    //const bosIndex = harfler.findIndex((h) => h === ""); sıralı seçme. random seçmez
-    const bosIndex = harfler
-      .map((h, index) => (h === "" ? index : null)) //boş olup olmayan yerleri kontrol ettik
-      .filter((index) => index !== null) as number[]; //boş ise sayı dizisine attık
-    if (bosIndex.length > 0) {
-      const randomSecim = bosIndex[Math.floor(Math.random() * bosIndex.length)];
-      const yeniHarfler = [...harfler]; //harflerin lopyası oluşturuldu
-      const alinanHarf = aktifKelime.kelime[randomSecim];
-      yeniHarfler[randomSecim] = alinanHarf; //harfi yerleştirdik
-      setHarfler(yeniHarfler); //güncelleme
-      setSonuc(`${aktifKelime.kelime[randomSecim]} Harfi alındı`);
-      inputRefs.current[randomSecim]?.focus(); //alınan harfe odaklanma sağlandı
-
-      //Puan düşürme
-      setScore((prev) => ({ ...prev, takenWords: prev.takenWords + 1 }));
-    } else {
-      setSonuc(`Alınacak harf kalmadı!`);
-    }
-  };
-
-  const gaveUp = () => {
-    if (score.pass > 0) {
-      setScore((prev) => ({ ...prev, pass: prev.pass - 1 }));
-      NextQuestion();
-    } else {
-      setSonuc("Pas hakkın kalmadı!");
-      return;
-    }
-  };
-
-  const RestartTheGame = () => {
-    setIndex(0);
-    setGameEnd(false);
-    setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 10 });
-    StartTheGame();
-    /*     
-    if (data) {
-      const ilkKelimeUzunlugu = data.kelimeler[0].kelime.length;
-      setHarfler(Array(ilkKelimeUzunlugu).fill(""));
-    } */
-  };
+  const { inputRefs } = refs;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center ">
@@ -223,11 +92,12 @@ function App() {
             <GameButton
               variant="clue"
               onClick={harfVer}
-              icon={"✨"}
-              iconClass="text-blue-200 group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 drop-shadow-[0_0_8px_rgba(191,219,254,0.8)]"
               className="relative flex items-center gap-2"
             >
               Harf Al
+              <span className="text-blue-200 group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 drop-shadow-[0_0_8px_rgba(191,219,254,0.8)]">
+                ✨
+              </span>
               <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity -z-10" />
             </GameButton>
             <div className="w-full flex justify-center py-2 border-y border-white/5 overflow-hidden">
@@ -254,7 +124,7 @@ function App() {
                 children={"Kontrol Et"}
               />
               <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
-                {/* <button
+                {/*                  <button
                   onClick={gaveUp}
                   disabled={score.pass === 0}
                   className={`group flex items-center gap-3  py-2 sm:px-4 rounded-3xl
@@ -275,7 +145,7 @@ function App() {
                   >
                     {score.pass}
                   </div>
-                </button>  */}
+                </button>   */}
                 <GameButton
                   variant="pass"
                   onClick={gaveUp}
@@ -285,16 +155,18 @@ function App() {
                       ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]"
                       : "text-slate-700"
                   }
-                  icon={<PassIcon />}
-                  iconClass="group-hover:translate-x-1 transition-transform duration-200"
-                  extra={score.pass}
-                  extraClass={`flex items-center justify-center text-center rounded-lg px-2 py-1 text-[0.8em] transition-colors ${
-                    score.pass === 0
-                      ? "text-red-400 bg-red-500/20"
-                      : "text-white/80 bg-gray-500"
-                  }`}
                 >
-                  PAS
+                  <div className="group-hover:translate-x-1 transition-transform duration-200">
+                    <PassIcon />
+                  </div>
+                  <span>PAS</span>
+                  <div
+                    className={`flex items-center justify-center text-center
+               rounded-lg px-2 py-1 text-[0.8em]
+              ${score.pass === 0 ? "text-red-400 bg-red-500/20" : "text-white/80 bg-gray-500 "}`}
+                  >
+                    {score.pass}
+                  </div>
                 </GameButton>
                 <Tippy
                   arrow={false}
@@ -311,29 +183,29 @@ function App() {
                   >
                     <CloseIcon />
                   </button> */}
-                  <GameButton
-                    variant="close"
-                    icon={<CloseIcon />}
-                    onClick={() => setGameEnd(true)}
-                  />
+                  <GameButton variant="close" onClick={() => setGameEnd(true)}>
+                    <CloseIcon />{" "}
+                  </GameButton>
                 </Tippy>
               </div>
             </div>
-            {sonuc && (
-              <p
-                className={`text-xl sm:text-3xl mt-2 font-black tracking-widest animate-bounce
-                   ${sonuc === "Doğru!" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" : "text-rose-500"}`}
-              >
-                {sonuc.toUpperCase()}
-              </p>
-            )}
+            <p
+              className={`text-xl sm:text-3xl mt-2 font-black tracking-widest
+    ${
+      sonuc === "Doğru!"
+        ? "text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.6)] animate-[bounce_2s_infinite]"
+        : "text-rose-500 animate-[shake_0.5s_ease-in-out]" /* Yanlışsa titresin */
+    }`}
+            >
+              {sonuc.toUpperCase()}
+            </p>
           </div>
         )
       ) : (
         <GameStart onStart={StartTheGame} />
       )}
 
-      <div className="hidden">
+{/*       <div className="hidden">
         <Timer ref={timerRef} />
         {kelimeler.map((item, index) => (
           <ul
@@ -346,11 +218,10 @@ function App() {
             <li key={index}>
               <b>{item.kelime}</b> - {item.aciklama} - Harf : {item.harfSayisi}{" "}
               - Köken : {item.koken}
-              {/* <p>{item.kelime.split("")[0]}</p> */}
             </li>
           </ul>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
