@@ -1,3 +1,4 @@
+import type { TimerHandle } from "../components/Timer";
 import type { KelimeData, Kelime } from "../types/types";
 import { useEffect, useState, useRef } from "react";
 
@@ -9,6 +10,7 @@ export const useGameLogic = () => {
   const [gameEnd, setGameEnd] = useState(false);
   const [gameList, setGameList] = useState<Kelime[]>([]);
   const [startGame, setStartGame] = useState(false);
+
   const [score, setScore] = useState({
     correct: 0,
     wrong: 0,
@@ -16,7 +18,7 @@ export const useGameLogic = () => {
     pass: 10,
   });
 
-  //const timerRef = useRef<TimerHandle>(null);
+  const timerRef = useRef<TimerHandle>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const aktifKelime = gameList[currentIndex] || null;
@@ -52,7 +54,7 @@ export const useGameLogic = () => {
       // Input focus için ufak bir timeout (render beklemek için)
       setTimeout(() => inputRefs.current[0]?.focus(), 50);
     }
-  }, [currentIndex, aktifKelime,gameList.length, startGame]);
+  }, [currentIndex, aktifKelime, gameList.length, startGame]);
 
   /* if (!data) {
     return <div>Loading...</div>;
@@ -174,6 +176,6 @@ export const useGameLogic = () => {
       setStartGame,
       RestartTheGame,
     },
-    refs: { inputRefs },
+    refs: { inputRefs, timerRef },
   };
 };

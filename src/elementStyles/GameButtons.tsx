@@ -1,26 +1,15 @@
-interface ButtonProps {
-  children?: React.ReactNode;
-  onClick: () => void;
-  className?: string;
-/*   icon?: React.ReactNode;
-  iconClass?: string; */
-  variant: "check" | "pass" | "close" | "clue" | "restart";
-  disabled?: boolean;
-  ternaryOp?: React.ReactNode;
-/*   extra?: React.ReactNode;
-  extraClass?: React.ReactNode; */
-}
+import type { ButtonProps } from "../types/elementTypes";
 
 export const GameButton = ({
   onClick,
   children,
   className = "",
-/*   iconClass = "",
+  /*   iconClass = "",
   icon, */
   variant,
   ternaryOp,
   disabled,
-/*   extra,
+  /*   extra,
   extraClass = "", */
 }: ButtonProps) => {
   const variants = {
@@ -59,9 +48,9 @@ export const GameButton = ({
         `}
       onClick={onClick}
     >
-        {/*{icon && <div className={`${iconClass}`}>{icon}</div>}*/}      
-        {children}
-        {/*{extra && <div className={`${extraClass}`}>{extra}</div>}*/}    
+      {/*{icon && <div className={`${iconClass}`}>{icon}</div>}*/}
+      {children}
+      {/*{extra && <div className={`${extraClass}`}>{extra}</div>}*/}
     </button>
   );
 };

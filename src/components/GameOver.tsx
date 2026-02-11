@@ -4,18 +4,7 @@ import { ArrowIcon, CloseIcon } from "./Icons";
 //import Tippy from "@tippyjs/react";
 import { LiquidContainer } from "../elementStyles/LiquidContainer";
 
-/* interface ScoreProps {
-  correct: number;
-  wrong: number;
-  takenWords: number;
-  pass: number;
-}
 
-interface Props {
-  totalPoints: number;
-  onRestart: () => void;
-  score: ScoreProps;
-} */
 import type { GameLogicType } from "../types/GameLogicTypes";
 interface MainGameProps {
   state: GameLogicType["state"];

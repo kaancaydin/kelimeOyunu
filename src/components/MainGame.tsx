@@ -5,7 +5,7 @@ import { CloseIcon, PassIcon, BackIcon } from "../components/Icons";
 import Tippy from "@tippyjs/react";
 import { GameButton } from "../elementStyles/GameButtons";
 import type { GameLogicType } from "../types/GameLogicTypes";
-
+import { Timer } from "./Timer";
 
 interface MainGameProps {
   state: GameLogicType["state"];
@@ -16,7 +16,7 @@ interface MainGameProps {
 export const MainGame = ({ state, actions, refs }: MainGameProps) => {
   const { aktifKelime, currentIndex, gameEnd, harfler, score, sonuc } = state;
   const { setHarfler, kontrolEt, harfVer, gaveUp, setGameEnd } = actions;
-  const { inputRefs } = refs;
+  const { inputRefs, timerRef } = refs;
   return (
     <div
       className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
@@ -30,8 +30,12 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
       <button className="fixed bottom-20 left-4 hidden">
         <BackIcon />
       </button>
+
       <div className="w-screen/2 sm:w-full text-center">
         <WordDescription aktifKelime={aktifKelime} />
+      </div>
+      <div className="">
+        <Timer ref={timerRef} />
       </div>
       <div className=" py-1 sm:py-4 flex justify-center">
         <WordInput

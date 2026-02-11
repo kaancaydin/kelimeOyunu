@@ -1,11 +1,7 @@
 import { twMerge } from 'tailwind-merge'
 //eğer  ki çakışma olursa bunu engeller
+import type { LiquidGlassProps } from '../types/elementTypes';
 
-interface LiquidGlassProps<T extends React.ElementType> { //t'nin olabileceği her türlü html elemetine olanak verdik
-  as?: T; // Hangi etiket olacağını belirler
-  children?: React.ReactNode; 
-  className?: string;
-}
 
 export const LiquidContainer = <T extends React.ElementType = "div">({
   as,

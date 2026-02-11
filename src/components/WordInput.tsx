@@ -1,16 +1,11 @@
-interface Props {
-  harfler: string[];
-  setHarfler: React.Dispatch<React.SetStateAction<string[]>>;
-  inputRefs: React.RefObject<(HTMLInputElement | null)[]>;
-  onEnter: () => void;
-}
+import type { InputProps } from "../types/propTypes";
 
 export const WordInput = ({
   harfler,
   setHarfler,
   inputRefs,
   onEnter,
-}: Props) => {
+}: InputProps) => {
   return (
     <div>
       {harfler.map((harf, index) => (

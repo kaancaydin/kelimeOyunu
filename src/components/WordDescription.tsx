@@ -10,11 +10,7 @@ interface Props {
   aktifKelime: Kelime;
 }
 
-interface CluesProps {
-  parent: string;
-  children: React.ReactNode;
-  className?: string;
-}
+import type { CluesProps } from "../types/elementTypes";
 
 const Clues = ({ children, parent }: CluesProps) => {
   return (

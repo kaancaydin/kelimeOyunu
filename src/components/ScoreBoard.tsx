@@ -1,21 +1,5 @@
-interface ScoreProps {
-  correct: number;
-  wrong: number;
-  takenWords: number;
-  pass: number;
-}
+import type { Props, ScoreStatsProps } from "../types/propTypes";
 
-interface Props {
-  score: ScoreProps;
-  className?: string;
-}
-
-interface ScoreStatsProps {
-  children: React.ReactNode;
-  parent: string;
-  colors: string;
-  className?: string;
-}
 
 const ScoreStats = ({
   children,

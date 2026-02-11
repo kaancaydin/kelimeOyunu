@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Uncial+Antiqua&display=swap');
 @theme {
   --font-satoshi: "Satoshi", sans-serif;
   --font-clash: "Clash Display", sans-serif;
   --font-cinzel: "Cinzel Decorative", serif;
+  --font-antiqua: "Uncial Antiqua", system-ui;
+  --font-rubik: "Rubik", sans-serif;
 }
 
 @keyframes float {
@@ -55,7 +56,15 @@
   }
 }
 
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
 
+.animate-urgent {
+  animation: shake 0.2s ease-in-out infinite;
+}
 
 
 .animate-spin-slow {
@@ -116,6 +125,14 @@ body {
   place-items: center;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+/* Firefox için */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 
 
 /* button {
