@@ -19,7 +19,7 @@ export const GameStart = ({ actions }: MainGameProps) => {
   return (
     <div className=" text-center ">
       <h1
-        className="text-center uppercase font-black mb-8 font-cinzel flex flex-col items-center
+        className="text-center uppercase font-black mb-10 font-cinzel flex flex-col items-center
         animate-[float_6s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
         motion-reduce:animate-none
         "

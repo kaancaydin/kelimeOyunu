@@ -1,7 +1,8 @@
 import { ScoreBoard } from "./ScoreBoard";
-import { GameButton } from "./GameButtons";
+import { GameButton } from "../elementStyles/GameButtons";
 import { ArrowIcon, CloseIcon } from "./Icons";
-import Tippy from "@tippyjs/react";
+//import Tippy from "@tippyjs/react";
+import { LiquidContainer } from "../elementStyles/LiquidContainer";
 
 /* interface ScoreProps {
   correct: number;
@@ -33,7 +34,15 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
                 transition-all duration-500 hover:shadow-indigo-500/20
                 mt-5"
     >
-      <Tippy
+      <LiquidContainer
+        as="button"
+        onClick={() => setStartGame(false)}
+        className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-0.10 sm:p-0.5 rounded-full
+          hover:scale-105 active:opacity-50 transition-all duration-150"
+      >
+        <CloseIcon />
+      </LiquidContainer>
+      {/* <Tippy
         arrow={false}
         offset={[0, 10]}
         content={
@@ -42,12 +51,12 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
           </span>
         }
       >
-        <button onClick={()=>setStartGame(false)}
-        className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-1 rounded-full
-          hover:scale-105 active:opacity-50 transition-all duration-150">
-          <CloseIcon />
-        </button>
-      </Tippy>
+        <button
+          onClick={() => setStartGame(false)}
+          className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-0.10 sm:p-0.5 rounded-full
+          hover:scale-105 active:opacity-50 transition-all duration-150"
+        ></button>
+      </Tippy> */}
 
       {/* Başlık Bölümü */}
       <div className="text-center space-y-2">

@@ -10,24 +10,46 @@
 }
 
 @keyframes float {
-  0%,100% { transform: translateY(0) }
-  50% { transform: translateY(-6px) }
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-6px)
+  }
 }
 
 @keyframes sweep {
-  0% { transform: translateX(-100%) }
-  100% { transform: translateX(100%) }
+  0% {
+    transform: translateX(-100%)
+  }
+
+  100% {
+    transform: translateX(100%)
+  }
 }
 
 @keyframes sparkle {
-  0%,100% { opacity: 0; transform: translateY(0) }
-  50% { opacity: 1; transform: translateY(-6px) }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0)
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-6px)
+  }
 }
 
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -45,14 +67,46 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  font-synthesis: none;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+/*
+background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);  text-rendering: optimizeLegibility;
+background: linear-gradient(135deg, #334155 0%, #1e293b 100%);  -webkit-font-smoothing: antialiased;
+background: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);  -moz-osx-font-smoothing: grayscale;
+
+*/
+#root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
+  /* 0.15 - 0.25 arası bu desen için 'sweet spot' (ideal nokta) */
+  opacity: 0.20; 
+  pointer-events: none;
+  z-index: -1;
+}
+/* #root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/back-pattern.png");
+  opacity: 0.20; 
+
+  background-repeat: repeat; 
+  pointer-events: none;
+  z-index: 0;
+} */
+
+/* İçeriklerin desenin üstünde kalması için */
+#root > * {
+  position: relative;
+  z-index: 10;
+}
+
+html,
+body {
   width: 100%;
 }
 

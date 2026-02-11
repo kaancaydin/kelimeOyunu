@@ -3,8 +3,9 @@ import { WordDescription } from "../components/WordDescription";
 import { WordInput } from "../components/WordInput";
 import { CloseIcon, PassIcon, BackIcon } from "../components/Icons";
 import Tippy from "@tippyjs/react";
-import { GameButton } from "./GameButtons";
+import { GameButton } from "../elementStyles/GameButtons";
 import type { GameLogicType } from "../types/GameLogicTypes";
+
 
 interface MainGameProps {
   state: GameLogicType["state"];
@@ -20,14 +21,14 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     <div
       className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
              flex flex-col justify-between items-center gap-4 sm:gap-6 
-             bg-white/5 backdrop-blur-md border border-white/10 
+             bg-white/1 border border-white/10 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.3)]
              w-[95vw] sm:w-[90vw] max-w-4xl 
              h-fit max-h-[92svh] sm:max-h-none
-             shadow-2xl transition-all duration-300 mx-auto overflow-y-auto
+              transition-all duration-300 mx-auto overflow-y-auto
              "
     >
       <button className="fixed bottom-20 left-4 hidden">
-        <BackIcon  />
+        <BackIcon />
       </button>
       <div className="w-screen/2 sm:w-full text-center">
         <WordDescription aktifKelime={aktifKelime} />
