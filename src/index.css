@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap');
+
+@theme {
+  --font-satoshi: "Satoshi", sans-serif;
+  --font-clash: "Clash Display", sans-serif;
+  --font-cinzel: "Cinzel Decorative", serif;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) }
+  50% { transform: translateY(-6px) }
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-100%) }
+  100% { transform: translateX(100%) }
+}
+
+@keyframes sparkle {
+  0%,100% { opacity: 0; transform: translateY(0) }
+  50% { opacity: 1; transform: translateY(-6px) }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.animate-spin-slow {
+  animation: spin-slow 2.5s linear infinite;
+}
+
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;

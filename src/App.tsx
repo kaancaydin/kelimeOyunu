@@ -9,6 +9,8 @@ import { WordInput } from "./components/WordInput";
 import { GameOver } from "./components/GameOver";
 import { ScoreBoard } from "./components/ScoreBoard";
 import { WordDescription } from "./components/WordDescription";
+import { GameStart } from "./components/GameStart";
+import { GameButton } from "./components/GameButtons";
 
 type Kelime = {
   aciklama: string;
@@ -36,7 +38,7 @@ function App() {
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 5,
+    pass: 10,
   });
   const totalPoints =
     score.correct * 10 - score.wrong * 5 - score.takenWords * 2;
@@ -58,6 +60,8 @@ function App() {
     loadWords();
   }, []);
 
+  // const [aktifGrup, setGrup] = useState<"5harfliler" | "6harfliler">("5harfliler")
+
   useEffect(() => {
     if (!startGame || gameList.length === 0) return;
 
@@ -76,18 +80,23 @@ function App() {
   }
 
   const kelimeler = data!.kelimeler;
+  const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
+  const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler
   //const aktifKelime = kelimeler[currentIndex];
   const aktifKelime = gameList[currentIndex] || null;
   if (!data) return <div className="text-white">Loading Data...</div>;
 
   const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
-    return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10);
+    return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
   };
 
   const StartTheGame = () => {
     if (!data) return;
-    const chosenWords = randomWords(kelimeler);
-    setGameList(chosenWords);
+    //const chosenWords = randomWords(kelimeler); tüm kelimeler
+    const list5 = randomWords(harf5).slice(0, 5); //5 harfliler seçildi
+    const list6 = randomWords(harf6).slice(0, 5); //6 harfliler seçildi
+    const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
+    setGameList(birlesikListe);
     setIndex(0);
     setStartGame(true);
     setGameEnd(false);
@@ -152,7 +161,7 @@ function App() {
     setIndex(0);
     setGameEnd(false);
     setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 10 });
     StartTheGame();
     /*     
     if (data) {
@@ -194,7 +203,7 @@ function App() {
               />
             </div>
 
-            <button
+            {/* <button
               onClick={harfVer}
               className="group relative uppercase px-4 sm:px-10 py-2 sm:py-3 rounded-full font-extrabold 
             cursor-pointer text-base sm:text-lg
@@ -210,7 +219,17 @@ function App() {
                   ✨
                 </span>
               </span>
-            </button>
+            </button> */}
+            <GameButton
+              variant="clue"
+              onClick={harfVer}
+              icon={"✨"}
+              iconClass="text-blue-200 group-hover:rotate-12 group-hover:scale-125 transition-all duration-300 drop-shadow-[0_0_8px_rgba(191,219,254,0.8)]"
+              className="relative flex items-center gap-2"
+            >
+              Harf Al
+              <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity -z-10" />
+            </GameButton>
             <div className="w-full flex justify-center py-2 border-y border-white/5 overflow-hidden">
               <div className="grid  grid-cols-4 gap-3 w-full max-w-md mx-auto">
                 <ScoreBoard score={score} />
@@ -218,7 +237,7 @@ function App() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-              <button
+              {/* <button
                 className="w-full sm:w-auto cursor-pointer px-10 py-3 rounded-full 
                text-white font-bold text-lg
                  bg-linear-to-r from-indigo-600 to-purple-600 uppercase
@@ -228,9 +247,14 @@ function App() {
                 onClick={kontrolEt}
               >
                 Kontrol Et
-              </button>
+              </button> */}
+              <GameButton
+                variant="check"
+                onClick={kontrolEt}
+                children={"Kontrol Et"}
+              />
               <div className="flex items-center gap-3 w-full sm:w-auto justify-center">
-                <button
+                {/* <button
                   onClick={gaveUp}
                   disabled={score.pass === 0}
                   className={`group flex items-center gap-3  py-2 sm:px-4 rounded-3xl
@@ -251,7 +275,27 @@ function App() {
                   >
                     {score.pass}
                   </div>
-                </button>
+                </button>  */}
+                <GameButton
+                  variant="pass"
+                  onClick={gaveUp}
+                  disabled={score.pass === 0}
+                  ternaryOp={
+                    score.pass === 0
+                      ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]"
+                      : "text-slate-700"
+                  }
+                  icon={<PassIcon />}
+                  iconClass="group-hover:translate-x-1 transition-transform duration-200"
+                  extra={score.pass}
+                  extraClass={`flex items-center justify-center text-center rounded-lg px-2 py-1 text-[0.8em] transition-colors ${
+                    score.pass === 0
+                      ? "text-red-400 bg-red-500/20"
+                      : "text-white/80 bg-gray-500"
+                  }`}
+                >
+                  PAS
+                </GameButton>
                 <Tippy
                   arrow={false}
                   offset={[0, 10]}
@@ -261,12 +305,17 @@ function App() {
                     </span>
                   }
                 >
-                  <button
+                  {/* <button
                     onClick={() => setGameEnd(true)}
                     className="cursor-pointer hover:scale-90 p-3 bg-red-500/10 border border-red-500/20 rounded-full hover:bg-red-500/20 transition-all"
                   >
                     <CloseIcon />
-                  </button>
+                  </button> */}
+                  <GameButton
+                    variant="close"
+                    icon={<CloseIcon />}
+                    onClick={() => setGameEnd(true)}
+                  />
                 </Tippy>
               </div>
             </div>
@@ -281,15 +330,7 @@ function App() {
           </div>
         )
       ) : (
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-8">Kelime Oyunu</h1>
-          <button
-            className="px-12 py-4 bg-indigo-600 rounded-full font-bold text-xl hover:bg-indigo-500 transition-all shadow-xl"
-            onClick={StartTheGame}
-          >
-            OYUNU BAŞLAT
-          </button>
-        </div>
+        <GameStart onStart={StartTheGame} />
       )}
 
       <div className="hidden">

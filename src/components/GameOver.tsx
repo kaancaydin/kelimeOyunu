@@ -1,5 +1,6 @@
 import { ScoreBoard } from "./ScoreBoard";
 
+
 interface ScoreProps {
   correct: number;
   wrong: number;

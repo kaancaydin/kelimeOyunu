@@ -86,3 +86,54 @@ export const InfoIcon = () => (
     <line x1="12" y1="8" x2="12.01" y2="8" />
   </svg>
 );
+
+export const PlayIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor" // Rengi Tailwind class'ından alması için
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="inline-block mr-2" // Metinle hizalamak için
+  >
+    <path d="M5 3l14 9-14 9V3z" />
+  </svg>
+);
+
+export const BackIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5" // PlayIcon ile aynı kalınlık
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="inline-block mr-2"
+  >
+    {/* Klasik bir geri oku veya ters üçgen formunda */}
+    <path d="M19 12H5M12 19l-7-7 7-7" />
+  </svg>
+);
+
+export const SparklesIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+  </svg>
+);
