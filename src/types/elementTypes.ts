@@ -5,6 +5,7 @@ export interface ButtonProps {
   variant: "check" | "pass" | "close" | "clue" | "restart";
   disabled?: boolean;
   ternaryOp?: React.ReactNode;
+  tippyTitle?: string
   /*   extra?: React.ReactNode;
   extraClass?: React.ReactNode; */
   /*   icon?: React.ReactNode;
@@ -18,7 +19,7 @@ export interface LiquidGlassProps<T extends React.ElementType> { //t'nin olabile
 }
 
 export interface CluesProps {
-  parent: string;
+  parent?: string;
   children: React.ReactNode;
-  className?: string;
+  color: string;
 }

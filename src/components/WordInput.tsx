@@ -23,7 +23,7 @@ export const WordInput = ({
           }}
           type="text"
           maxLength={1}
-          inputMode="text"
+          inputMode="none"
           autoComplete="off"
           spellCheck={false}
           value={harf}

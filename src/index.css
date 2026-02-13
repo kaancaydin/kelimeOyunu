@@ -2,6 +2,7 @@
 
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Uncial+Antiqua&display=swap');
+
 @theme {
   --font-satoshi: "Satoshi", sans-serif;
   --font-clash: "Clash Display", sans-serif;
@@ -57,9 +58,19 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-2px);
+  }
+
+  75% {
+    transform: translateX(2px);
+  }
 }
 
 .animate-urgent {
@@ -76,6 +87,7 @@
     opacity: 0;
     transform: translateY(6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -87,6 +99,7 @@
     opacity: 0;
     transform: translateY(-6px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -94,18 +107,62 @@
 }
 
 @keyframes pop-fade {
-  from { opacity: 0 }
-  to { opacity: 1 }
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
 }
 
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+html, body {
+margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; /* Fallback */
+  color: white;
+  height: 100svh; /* Safari için 'Small Viewport' - net çözüm */
+  background-color: #0f172a; /* Beyaz boşluk yerine arka plan rengin gözüksün */
+  overflow-x: hidden; /* Sayfanın sağa sola oynamasını engelle */
+}
+
+#root {
+width: 100%;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
   background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-  text-rendering: optimizeLegibility;
 }
+/* Pattern overlay */
+#root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
+  background-size: 80px 80px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root > * {
+  position: relative;
+  z-index: 10;
+}
+
+
 
 /*
 background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);  text-rendering: optimizeLegibility;
@@ -113,16 +170,6 @@ background: linear-gradient(135deg, #334155 0%, #1e293b 100%);  -webkit-font-smo
 background: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);  -moz-osx-font-smoothing: grayscale;
 
 */
-#root::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
-  /* 0.15 - 0.25 arası bu desen için 'sweet spot' (ideal nokta) */
-  opacity: 0.20; 
-  pointer-events: none;
-  z-index: -1;
-}
 /* #root::before {
   content: "";
   position: absolute;
@@ -136,28 +183,16 @@ background: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);  -moz-o
 } */
 
 /* İçeriklerin desenin üstünde kalması için */
-#root > * {
-  position: relative;
-  z-index: 10;
-}
 
-html,
-body {
-  width: 100%;
-}
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-}
+
 
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-/* Firefox için */
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  display: none;
 }
 
+/* Firefox için */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -13,15 +13,16 @@ export const Timer = ({ zaman, setTimer, timerActivate }: Props) => {
     <div className="flex justify-center items-center gap-4">
       <div
         className={`
-          flex justify-center items-center min-w-20 h-[2.2rem] p-0 sm:px-3 sm:py-3 rounded-xl font-bold 
-           font-rubik ring-2 ring-white/20 border cursor-default select-none
-          text-base sm:text-2xl text-white tracking-wider transition-all duration-300 shadow-lg tabular-nums
+            flex justify-center items-center px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xl font-bold 
+           font-rubik ring-2   cursor-default select-none
+          text-sm sm:text-xl text-white tracking-wider transition-all duration-300 
+          shadow-lg tabular-nums
           ${
             zaman > 45
-              ? "bg-emerald-500 border-emerald-400 shadow-emerald-400/30"
+              ? "bg-emerald-500 ring-emerald-400/40 shadow-emerald-400/30"
               : zaman > 15
-                ? "bg-orange-500 border-orange-400 shadow-orange-400/30 scale-105 animate-[shake_.25s_infinite]"
-                : "bg-rose-600 border-rose-400 shadow-rose-500/30 scale-110 animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)] "
+                ? "bg-orange-500 ring-orange-400 shadow-orange-400/30 scale-105 animate-[shake_.25s_infinite]"
+                : "bg-rose-600 ring-rose-400/50 shadow-rose-500/30 scale-110 animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)] "
           } 
         `}
       >
@@ -38,7 +39,7 @@ export const Timer = ({ zaman, setTimer, timerActivate }: Props) => {
       >
         <button
           className="group cursor-pointer p-px sm:p-1 rounded-full ring transition-all duration-200
-          hover:scale-105 active:scale-95 ease-out "
+          hover:scale-105 active:scale-95 ease-out"
           onClick={() => setTimer(!timerActivate)}
         >
           {timerActivate ? (

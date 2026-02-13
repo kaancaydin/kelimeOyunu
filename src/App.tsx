@@ -12,22 +12,29 @@ function App() {
   if (!state.data) {
     return <div className="p-3">Loading....</div>;
   }
-  const { startGame, gameEnd, data } = state;
+  const { startGame, gameEnd } = state;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center ">
+    <div className="flex flex-col h-full w-full justify-between items-center overflow-hidden">
       <InfoTab />
-      {startGame ? (
-        gameEnd ? (
-          <GameOver actions={actions} state={state} />
+      <main className="flex-1 w-full flex items-center justify-center p-2 overflow-hidden">
+        {startGame ? (
+          gameEnd ? (
+            <GameOver actions={actions} state={state} />
+          ) : (
+            <MainGame state={state} actions={actions} refs={refs} />
+          )
         ) : (
-          <MainGame state={state} actions={actions} refs={refs} />
-        )
-      ) : (
-        <GameStart actions={actions} />
-      )}
+          <GameStart actions={actions} />
+        )}
+      </main>
+    </div>
+  );
+}
 
-      <div className="hidden">
+export default App;
+
+/*       <div className="hidden">
         <div className="hidden">
           {data.kelimeler.map((item, index) => (
             <ul
@@ -44,9 +51,4 @@ function App() {
             </ul>
           ))}
         </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+      </div> */

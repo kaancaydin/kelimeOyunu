@@ -1,23 +1,21 @@
 import { PlayIcon } from "./Icons";
-/* interface Props {
-  onStart: () => void;
-} */
+
 import type { GameLogicType } from "../types/GameLogicTypes";
- interface MainGameProps {
+interface MainGameProps {
   actions: GameLogicType["actions"];
-} 
+}
 
 export const GameStart = ({ actions }: MainGameProps) => {
   const { StartTheGame } = actions;
 
   const handleStart = () => {
     setTimeout(() => {
-      StartTheGame()
+      StartTheGame();
     }, 400);
   };
-
+  //geçici flex eklendi!!!
   return (
-    <div className=" text-center ">
+    <div className=" text-center flex justify-center flex-col ">
       <h1
         className="text-center uppercase font-black mb-10 font-cinzel flex flex-col items-center
         animate-[float_6s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
@@ -99,6 +97,7 @@ export const GameStart = ({ actions }: MainGameProps) => {
           </span>
         </div>
       </button>
+
     </div>
   );
 };

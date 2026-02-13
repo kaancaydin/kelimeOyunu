@@ -1,30 +1,31 @@
 export const CloseIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="30"
-    height="30"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#ef4444"
+    stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className="w-4 h-4 sm:w-6 sm:h-6"
   >
-    {" "}
-    <path d="M18 6 6 18" /> <path d="m6 6 12 12" />{" "}
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
   </svg>
 );
 export const PassIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className="w-5 h-5 sm:w-6 sm:h-6"
   >
     {" "}
     {/* İlk Ok */} <path d="M13 17l5-5-5-5" /> {/* İkinci Ok */}{" "}
@@ -95,19 +96,18 @@ export const BackIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2.5" // PlayIcon ile aynı kalınlık
+    strokeWidth="2.5" 
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="inline-block mr-2"
+    className="group-hover:-translate-x-2 transition-transform"
   >
-    {/* Klasik bir geri oku veya ters üçgen formunda */}
     <path d="M19 12H5M12 19l-7-7 7-7" />
   </svg>
 );
 
 export const ArrowIcon = () => (
   <svg
-    className="w-5 h-5 ml-2 -mr-1 group-hover:translate-x-1 transition-transform"
+    className="w-10 h-5 ml-2 -mr-1 group-hover:translate-x-1 transition-transform"
     fill="currentColor"
     viewBox="0 0 20 20"
   >
@@ -142,7 +142,7 @@ export const PlayIcon = () => (
     height="24"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor" 
+    stroke="currentColor"
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -170,7 +170,6 @@ export const PauseIcon = () => (
     <line x1="16" y1="7" x2="16" y2="17" />
   </svg>
 );
-
 
 export const CorrectIcon = () => (
   <svg
@@ -228,5 +227,38 @@ export const HintIcon = () => (
     {/* tiny sparkle */}
     <line x1="4" y1="10" x2="4" y2="10" />
     <line x1="20" y1="8" x2="20" y2="8" />
+  </svg>
+);
+
+export const EnterIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-5 h-5 sm:w-6 sm:h-6"
+  >
+    <polyline points="9 10 4 15 9 20" />
+    <path d="M20 4v7a4 4 0 0 1-4 4H4" />
+  </svg>
+);
+
+export const DeleteIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="w-5 h-5 sm:w-6 sm:h-6"
+  >
+    <path d="M21 4H8l-5 8 5 8h13z" />
+    <line x1="16" y1="9" x2="12" y2="15" />
+    <line x1="12" y1="9" x2="16" y2="15" />
   </svg>
 );

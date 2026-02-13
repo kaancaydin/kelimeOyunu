@@ -1,9 +1,6 @@
 import { ScoreBoard } from "./ScoreBoard";
 import { GameButton } from "../elementStyles/GameButtons";
-import { ArrowIcon, CloseIcon } from "./Icons";
-//import Tippy from "@tippyjs/react";
-import { LiquidContainer } from "../elementStyles/LiquidContainer";
-
+import { ArrowIcon, BackIcon } from "./Icons";
 import type { GameLogicType } from "../types/GameLogicTypes";
 interface MainGameProps {
   state: GameLogicType["state"];
@@ -18,34 +15,10 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
       className="flex justify-center items-center flex-col gap-8 p-10 
                 bg-white/1 backdrop-blur-xl border border-white/20 
                 rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
-                w-[80vw] sm:w-[60vw] max-w-225 min-h-125 
+                w-[85vw] sm:w-[70vw] max-w-225 min-h-125 
                 transition-all duration-500 hover:shadow-indigo-500/20
                 mt-5"
     >
-      <LiquidContainer
-        as="button"
-        onClick={() => setStartGame(false)}
-        className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-0.10 sm:p-0.5 rounded-full
-          hover:scale-105 active:opacity-50 transition-all duration-150"
-      >
-        <CloseIcon />
-      </LiquidContainer>
-      {/* <Tippy
-        arrow={false}
-        offset={[0, 10]}
-        content={
-          <span className="text-[12px] px-2 py-1 rounded shadow-xl bg-black">
-            Çıkış
-          </span>
-        }
-      >
-        <button
-          onClick={() => setStartGame(false)}
-          className="cursor-pointer fixed top-5 left-5 bg-[rgba(255,255,255,0.2)] p-0.10 sm:p-0.5 rounded-full
-          hover:scale-105 active:opacity-50 transition-all duration-150"
-        ></button>
-      </Tippy> */}
-
       {/* Başlık Bölümü */}
       <div className="text-center space-y-2">
         <h2 className="text-5xl font-black tracking-tighter bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
@@ -56,7 +29,9 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
         </p>
       </div>
       <div className="w-full flex justify-center py-1 border-y border-white/5 overflow-hidden">
-        <p className="uppercase text-sm sm:text-xl text-gray-300 font-semibold tracking-wider leading-6">İSTATİSTİKLER</p>
+        <p className="uppercase text-base sm:text-xl text-gray-300 font-semibold tracking-wider leading-6">
+          İSTATİSTİKLER
+        </p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 w-full max-w-md mx-auto">
@@ -72,15 +47,24 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
           </p>
         </div>
       </div>
-
-      <GameButton
-        onClick={RestartTheGame}
-        variant="restart"
-        className="text-xl uppercase tracking-widest"
-      >
-        Tekrar oyna
-        <ArrowIcon />
-      </GameButton>
+      <div className="grid grid-cols-[1fr_3fr] sm:grid-cols-[2fr_5fr] gap-2 sm:gap-3">
+        <button
+          onClick={() => setStartGame(false)}
+          className="cursor-pointer  bg-[rgba(255,255,255,0.2)] rounded-full
+           items-center justify-center group relative inline-flex p-2
+          hover:scale-105 active:opacity-50 transition-all duration-150"
+        >
+          <BackIcon />
+        </button>
+        <GameButton
+          onClick={RestartTheGame}
+          variant="restart"
+          className="text-base uppercase tracking-widest"
+        >
+          Tekrar oyna
+          <ArrowIcon />
+        </GameButton>
+      </div>
     </div>
   );
 };

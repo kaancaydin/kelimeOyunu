@@ -11,12 +11,13 @@ export const useGameLogic = () => {
   const [startGame, setStartGame] = useState(false);
   const [zaman, setZaman] = useState(180);
   const [isTimerActive, setIsTimerActive] = useState(false);
+  const keyboardProgress = useRef(false)
 
   const [score, setScore] = useState({
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 5,
+    pass: 10,
   });
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -44,8 +45,6 @@ export const useGameLogic = () => {
     loadWords();
   }, []);
 
-  // const [aktifGrup, setGrup] = useState<"5harfliler" | "6harfliler">("5harfliler")
-
   useEffect(() => {
     if (!startGame || gameList.length === 0) return;
 
@@ -59,7 +58,8 @@ export const useGameLogic = () => {
 
   //Timers
 
-  useEffect(() => { //useEffect veriyi hafızada tutar
+  useEffect(() => {
+    //useEffect veriyi hafızada tutar
     if (isTimerActive) {
       timerRef.current = window.setInterval(() => {
         setZaman((prev) => {
@@ -73,32 +73,47 @@ export const useGameLogic = () => {
       }, 1000);
     }
     return () => {
-      if (timerRef.current) { //timerRef.current !== null
+      if (timerRef.current) {
+        //timerRef.current !== null
         clearInterval(timerRef.current);
         timerRef.current = null;
       }
     };
   }, [isTimerActive]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
 
-/*   const pauseTimer = () => {
+  /*   const pauseTimer = () => {
     setIsTimerActive(!isTimerActive);
   }; */
 
-  const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
+  /*   const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
     return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
-  };
+  }; */
+
+  function shuffle<T>(arr: T[]) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
   const StartTheGame = () => {
-    if (!data) return;
     //const chosenWords = randomWords(kelimeler); tüm kelimeler
-    const kelimeler = data.kelimeler;
-    const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
-    const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler
+    //const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
+    //const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler
     //const aktifKelime = kelimeler[currentIndex];
-    const list5 = randomWords(harf5).slice(0, 5); //5 harfliler seçildi
-    const list6 = randomWords(harf6).slice(0, 5); //6 harfliler seçildi
-    const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
-    setGameList(birlesikListe);
+    //const list5 = randomWords(harf5).slice(0, 5); //5 harfliler seçildi
+    //const list6 = randomWords(harf6).slice(0, 5); //6 harfliler seçildi
+    //const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
+    if (!data) return;
+    const kelimeler = data.kelimeler;
+    const levels = [5, 6]; //harfleri seç
+    const pool = levels.flatMap((len) => {
+      const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
+      return group.slice(0, 5); //5er soru sor
+    });
+    setGameList(pool);
     setIndex(0);
     setStartGame(true);
     setGameEnd(false);
@@ -115,17 +130,23 @@ export const useGameLogic = () => {
   };
 
   const kontrolEt = () => {
-    if (!aktifKelime || sonuc === "Doğru!") return;
+    if (!aktifKelime || sonuc === "Doğru!" || keyboardProgress.current)  return;
     const girilen = harfler.join("").toLowerCase();
     const dogru = aktifKelime.kelime.toLowerCase();
+
+    keyboardProgress.current = true
     if (girilen === dogru) {
       setSonuc("Doğru!");
       setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
       // 1 saniye bekleyip sonraki soruya geç (süre eklenirse kaldırılacak)
-      setTimeout(NextQuestion, 1000);
+      setTimeout(()=>{
+        NextQuestion()
+        keyboardProgress.current = false
+      },1000);
     } else {
       setSonuc("Yanlış!");
       setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
+      setTimeout(() => { keyboardProgress.current = false; }, 500);
     }
     setIsTimerActive(true);
   };
@@ -174,14 +195,41 @@ export const useGameLogic = () => {
     setIndex(0);
     setGameEnd(false);
     setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 10 });
     StartTheGame();
+  };
 
-    /*     
-        if (data) {
-          const ilkKelimeUzunlugu = data.kelimeler[0].kelime.length;
-          setHarfler(Array(ilkKelimeUzunlugu).fill(""));
-        } */
+  //VirtualKeyboard
+
+  const handleVirtualKey = (key: string) => {
+    if (!aktifKelime) return;
+
+    setHarfler((prev) => {
+      const yeniHarfler = [...prev]; //kopayası alındı
+
+      if (key === "SİL") {
+        for (let i = yeniHarfler.length - 1; i >= 0; i--) {
+          if (yeniHarfler[i] !== "") {
+            yeniHarfler[i] = "";
+            inputRefs.current[i]?.focus();
+            break;
+          }
+        }
+      } else if (key === "ENTER") {
+        if (!yeniHarfler.includes("") && sonuc !== "Doğru!") {
+          kontrolEt();
+        }
+      } else {
+        const bosIndex = yeniHarfler.findIndex((h) => h === "");
+        if (bosIndex !== -1) {
+          yeniHarfler[bosIndex] = key.toUpperCase();
+          if (bosIndex + 1 < yeniHarfler.length) {
+            inputRefs.current[bosIndex + 1]?.focus();
+          }
+        }
+      }
+      return yeniHarfler;
+    });
   };
 
   return {
@@ -197,7 +245,7 @@ export const useGameLogic = () => {
       totalPoints,
       aktifKelime,
       zaman,
-      isTimerActive
+      isTimerActive,
     },
     actions: {
       setHarfler,
@@ -209,7 +257,8 @@ export const useGameLogic = () => {
       setStartGame,
       RestartTheGame,
       setZaman,
-      setIsTimerActive
+      setIsTimerActive,
+      handleVirtualKey,
     },
     refs: { inputRefs },
   };

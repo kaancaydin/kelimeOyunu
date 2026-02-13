@@ -88,7 +88,7 @@
             "aciklama": "Bir görevde, bir işte kullanma",
             "kelime": "istihdam",
             "koken": "Arapça",
-            "harfSayisi": 6,
+            "harfSayisi": 8,
             "kelimeSayisi": 1
         },
         {
@@ -132,6 +132,62 @@
             "koken": "Arapça",
             "harfSayisi": 5,
             "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Herhangi bir topluluğu temsil etmekle görevli yetkili kurul",
+            "kelime": "Delegasyon",
+            "koken": "Fransızca",
+            "harfSayisi": 10,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Tımarlıların sefer haricindeki zamanlarda bağlı bulundukları, sipahilerin sancak beyinden evvel sorumlu oldukları komutan",
+            "kelime": "Alaybeyi",
+            "koken": "Türkçe",
+            "harfSayisi": 8,
+            "kelimeSayisi": 2
+        },
+        {
+            "aciklama": "Bir sanat eserindeki ögelerin gerçek hayattan bir şeyleri temsil etmesi durumu",
+            "kelime": "Alegori",
+            "koken": "Fransızca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Hava, su veya buharı ısıtmak veya soğutmak suretiyle meydana gelen sıcaklığı veya soğukluğu yayan, böylece ısıtma ve soğutmada kullanılan cihaz",
+            "kelime": "Radyatör",
+            "koken": "Fransızca",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Denizlerde veya tatlı sularda yaşayan, yüzücü, orta büyüklükte kabuklu, eti yenir bir deniz hayvanı",
+            "kelime": "Karides",
+            "koken": "Rumca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Yazı makinesi",
+            "kelime": "Daktilo",
+            "koken": "Fransızca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Taksi, dolmuş vb.nin duraklarında yolcuların binişi ve taşıtların sıra düzenini sağlayan kimse; kâhya",
+            "kelime": "Değnekçi",
+            "koken": "Türkçe",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1
+        },
+        {
+            "aciklama": "Bilgisayarlarda görüntünün monitöre yansıtılmasını sağlayan ve kaliteyi belirleyen bağdaştırıcı",
+            "kelime": "Ekran Kartı",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 2
         }
     ]
 }

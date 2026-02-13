@@ -9,17 +9,17 @@ const ScoreStats = ({
 }: ScoreStatsProps) => {
   return (
     <div
-      className="bg-white/5  backdrop-blur-md border border-white/10 p-3  
-    h-12 sm:h-28 rounded-3xl text-center shadow-xl flex flex-col items-center justify-around"
+      className="bg-white/5  backdrop-blur-md border border-white/10 p-3 sm:p-5
+     rounded-3xl text-center shadow-xl gap-1 flex flex-col items-center justify-around"
     >
       <p
-        className={`text-base sm:text-3xl font-black font-rubik cursor-default select-none ${colors} ${className}`}
+        className={`text-xl sm:text-2xl font-black font-rubik cursor-default select-none ${colors} ${className}`}
       >
         {children}
       </p>
       <p
-        className="text-gray-400 text-[10px] sm:text-sm font-bold uppercase  sm:tracking-widest tracking-wide
- leading-tight text-center wrap-break-word"
+        className="text-gray-400 text-sm sm:text-xl font-bold font-rubik uppercase  sm:tracking-widest tracking-wide
+        leading-tight text-center wrap-break-word"
       >
         {parent}
       </p>
