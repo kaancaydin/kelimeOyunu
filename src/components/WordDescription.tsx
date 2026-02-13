@@ -34,7 +34,7 @@ export const WordDescription = ({ aktifKelime }: Props) => {
     );
   }
   return (
-    <div className="relative w-full px-4 sm:px-10 py-3 sm:py-6 text-center italic text-gray-200">
+    <div className="relative w-full px-4 sm:px-10 py-3 sm:py-6 text-center cursor-default select-none italic text-gray-200">
       <span className="absolute top-0 left-4 text-3xl sm:text-6xl text-indigo-500/20 font-serif">
         “
       </span>

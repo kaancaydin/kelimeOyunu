@@ -57,15 +57,6 @@ export const useGameLogic = () => {
     }
   }, [currentIndex, aktifKelime, gameList.length, startGame]);
 
-  /* if (!data) {
-    return <div>Loading...</div>;
-  } */
-
-  /* const kelimeler = data!.kelimeler;
-  const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
-  const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler */
-  //const aktifKelime = kelimeler[currentIndex]; 
-
   //Timers
 
   useEffect(() => { //useEffect veriyi hafızada tutar
@@ -89,9 +80,9 @@ export const useGameLogic = () => {
     };
   }, [isTimerActive]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
 
-  const pauseTimer = () => {
+/*   const pauseTimer = () => {
     setIsTimerActive(!isTimerActive);
-  };
+  }; */
 
   const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
     return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
@@ -206,6 +197,7 @@ export const useGameLogic = () => {
       totalPoints,
       aktifKelime,
       zaman,
+      isTimerActive
     },
     actions: {
       setHarfler,
@@ -217,7 +209,7 @@ export const useGameLogic = () => {
       setStartGame,
       RestartTheGame,
       setZaman,
-      pauseTimer,
+      setIsTimerActive
     },
     refs: { inputRefs },
   };

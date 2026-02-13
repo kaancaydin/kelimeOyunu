@@ -1,4 +1,4 @@
-import { ScoreBoard } from "../components/ScoreBoard";
+import { InGameScoreBoard } from "../components/ScoreBoard";
 import { WordDescription } from "../components/WordDescription";
 import { WordInput } from "../components/WordInput";
 import { CloseIcon, PassIcon, BackIcon } from "../components/Icons";
@@ -14,8 +14,24 @@ interface MainGameProps {
 }
 
 export const MainGame = ({ state, actions, refs }: MainGameProps) => {
-  const { aktifKelime, currentIndex, gameEnd, harfler, score, sonuc, zaman } = state;
-  const { setHarfler, kontrolEt, harfVer, gaveUp, setGameEnd, pauseTimer } = actions;
+  const {
+    aktifKelime,
+    currentIndex,
+    gameEnd,
+    harfler,
+    score,
+    sonuc,
+    zaman,
+    isTimerActive,
+  } = state;
+  const {
+    setHarfler,
+    kontrolEt,
+    harfVer,
+    gaveUp,
+    setGameEnd,
+    setIsTimerActive,
+  } = actions;
   const { inputRefs } = refs;
   //const { inputRefs, timerRef } = refs;
   return (
@@ -36,7 +52,11 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         <WordDescription aktifKelime={aktifKelime} />
       </div>
       <div className="">
-        <Timer zaman={zaman} onStop={pauseTimer} />
+        <Timer
+          zaman={zaman}
+          setTimer={setIsTimerActive}
+          timerActivate={isTimerActive}
+        />
       </div>
       <div className=" py-1 sm:py-4 flex justify-center">
         <WordInput
@@ -59,10 +79,13 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </span>
         <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity -z-10" />
       </GameButton>
-      <div className="w-full flex justify-center py-2 border-y border-white/5 ">
+      {/*       <div className="w-full flex justify-center py-2 border-y border-white/5 ">
         <div className="grid  grid-cols-4 gap-3 w-full max-w-md mx-auto">
-          <ScoreBoard score={score} />
+          
         </div>
+      </div> */}
+      <div className="flex gap-3">
+        <InGameScoreBoard score={score} />
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">

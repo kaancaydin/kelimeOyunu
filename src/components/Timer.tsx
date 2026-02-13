@@ -1,19 +1,20 @@
 import Tippy from "@tippyjs/react";
 import { formatTime } from "../utils/FormatTime";
-import { StopIcon } from "./Icons";
+import { PauseIcon, PlayIcon } from "./Icons";
 
 interface Props {
   zaman: number;
-  onStop: () => void;
+  setTimer: React.Dispatch<React.SetStateAction<boolean>>;
+  timerActivate: boolean;
 }
 
-export const Timer = ({ zaman, onStop }: Props) => {
+export const Timer = ({ zaman, setTimer, timerActivate }: Props) => {
   return (
     <div className="flex justify-center items-center gap-4">
       <div
         className={`
           flex justify-center items-center min-w-20 h-[2.2rem] p-0 sm:px-3 sm:py-3 rounded-xl font-bold 
-           font-rubik ring-2 ring-white/20 border
+           font-rubik ring-2 ring-white/20 border cursor-default select-none
           text-base sm:text-2xl text-white tracking-wider transition-all duration-300 shadow-lg tabular-nums
           ${
             zaman > 45
@@ -31,16 +32,24 @@ export const Timer = ({ zaman, onStop }: Props) => {
         offset={[0, 10]}
         content={
           <span className="text-[12px] px-2 py-1 rounded shadow-xl bg-black">
-            Zamanı durdur
+            {timerActivate ? "Zamanı durdur" : "Devam et"}
           </span>
         }
       >
         <button
-          className="cursor-pointer hover:scale-110 transition-all duration-150 p-1
-      rounded-full bg-[rgba(255,255,255,0.2)]"
-          onClick={onStop}
+          className="group cursor-pointer p-px sm:p-1 rounded-full ring transition-all duration-200
+          hover:scale-105 active:scale-95 ease-out "
+          onClick={() => setTimer(!timerActivate)}
         >
-          <StopIcon />
+          {timerActivate ? (
+            <div className="transition-all duration-200 ease-out group-active:translate-y-0.5">
+              <PauseIcon />
+            </div>
+          ) : (
+            <div className="transition-all duration-200 ease-out group-active:translate-x-1 group-active:scale-90">
+              <PlayIcon />
+            </div>
+          )}
         </button>
       </Tippy>
     </div>

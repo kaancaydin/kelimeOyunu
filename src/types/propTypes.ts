@@ -20,9 +20,10 @@ export interface Props {
 }
 
 export interface ScoreStatsProps {
-  children: React.ReactNode;
-  parent: string;
+  children: number
+  parent: React.ReactNode;
   colors: string;
   className?: string;
+  animate?: string
 }
 

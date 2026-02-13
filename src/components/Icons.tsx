@@ -1,4 +1,3 @@
-
 export const CloseIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +48,7 @@ export const CheckIcon = () => (
   </svg>
 );
 
-export const HintIcon = () => (
+export const HintIconSub = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -85,23 +84,6 @@ export const InfoIcon = () => (
     <line x1="12" y1="16" x2="12" y2="12" />
     {/* i harfinin noktası */}
     <line x1="12" y1="8" x2="12.01" y2="8" />
-  </svg>
-);
-
-export const PlayIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor" // Rengi Tailwind class'ından alması için
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="inline-block mr-2" // Metinle hizalamak için
-  >
-    <path d="M5 3l14 9-14 9V3z" />
   </svg>
 );
 
@@ -153,18 +135,98 @@ export const SparklesIcon = () => (
   </svg>
 );
 
-export const StopIcon = () => (
+export const PlayIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="30"
-    height="30"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
-    fill="currentColor"
-    stroke="none"
-    strokeWidth="2"
+    fill="none"
+    stroke="currentColor" 
+    strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+    //className="inline-block mr-2" // Metinle hizalamak için
   >
-    <rect x="6" y="6" width="12" height="12" rx="2" ry="2" />
+    <path d="M7 7l10 5-10 5V7z" />
+  </svg>
+);
+
+export const PauseIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+  >
+    <line x1="8" y1="7" x2="8" y2="17" />
+    <line x1="16" y1="7" x2="16" y2="17" />
+  </svg>
+);
+
+
+export const CorrectIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+  >
+    <polyline points="5 13 10 17 19 7" />
+  </svg>
+);
+
+export const WrongIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+  >
+    <line x1="6" y1="6" x2="18" y2="18" />
+    <line x1="18" y1="6" x2="6" y2="18" />
+  </svg>
+);
+
+export const HintIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="3.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+  >
+    {/* bulb */}
+    <path d="M9 18h6" />
+    <path d="M10 22h4" />
+    <path d="M12 2a7 7 0 0 0-4 12c.6.6 1 1.3 1 2h6c0-.7.4-1.4 1-2a7 7 0 0 0-4-12z" />
+
+    {/* tiny sparkle */}
+    <line x1="4" y1="10" x2="4" y2="10" />
+    <line x1="20" y1="8" x2="20" y2="8" />
   </svg>
 );
