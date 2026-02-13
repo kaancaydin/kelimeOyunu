@@ -1,5 +1,7 @@
 import type { Props, ScoreStatsProps } from "../types/propTypes";
-
+/*
+scoreboard tasarımını ingame ve gameover olarak ikiye ayır/ ingame ikonlarla olsun ve mobile uygun yap 
+*/
 
 const ScoreStats = ({
   children,
@@ -8,8 +10,9 @@ const ScoreStats = ({
   colors,
 }: ScoreStatsProps) => {
   return (
-    <div className="bg-white/5  backdrop-blur-md border border-white/10 p-3  h-28 rounded-3xl text-center shadow-xl flex flex-col items-center justify-around">
-      <p className={`text-3xl font-black ${colors} ${className}`}>{children}</p>
+    <div className="bg-white/5  backdrop-blur-md border border-white/10 p-3  
+    h-12 sm:h-28 rounded-3xl text-center shadow-xl flex flex-col items-center justify-around">
+      <p className={`text-base sm:text-3xl font-black font-rubik ${colors} ${className}`}>{children}</p>
       <p
         className="text-gray-400 text-[10px] sm:text-sm font-bold uppercase  sm:tracking-widest tracking-wide
  leading-tight text-center wrap-break-word"
@@ -32,12 +35,18 @@ export const ScoreBoard = ({ score }: Props) => {
         <ScoreStats colors="text-blue-400" parent="Kullanılan İpucu">
           {score.takenWords}
         </ScoreStats>
-        <ScoreStats colors="text-white" parent="KULLANILAN PAS HAKKI">
+        <ScoreStats colors="text-white" parent="kalan PAS HAKKI">
           {score.pass}
         </ScoreStats>
     </>
   );
 };
+
+export const InGameScore = () => {
+  return(
+    <p></p>
+  )
+}
 
 /*
 w-full flex justify-center py-2 border-y border-white/5

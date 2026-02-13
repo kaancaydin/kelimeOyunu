@@ -5,7 +5,6 @@ import { GameOver } from "./components/GameOver";
 import { GameStart } from "./components/GameStart";
 import { useGameLogic } from "./hooks/useGameLogic";
 import { MainGame } from "./components/MainGame";
-import { Timer } from "./components/Timer";
 
 function App() {
   const { state, actions, refs } = useGameLogic();
@@ -14,7 +13,6 @@ function App() {
     return <div className="p-3">Loading....</div>;
   }
   const { startGame, gameEnd, data } = state;
-  const { timerRef } = refs;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center ">
@@ -30,7 +28,6 @@ function App() {
       )}
 
       <div className="hidden">
-        <Timer ref={timerRef} />
         <div className="hidden">
           {data.kelimeler.map((item, index) => (
             <ul

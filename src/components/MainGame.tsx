@@ -14,9 +14,10 @@ interface MainGameProps {
 }
 
 export const MainGame = ({ state, actions, refs }: MainGameProps) => {
-  const { aktifKelime, currentIndex, gameEnd, harfler, score, sonuc } = state;
-  const { setHarfler, kontrolEt, harfVer, gaveUp, setGameEnd } = actions;
-  const { inputRefs, timerRef } = refs;
+  const { aktifKelime, currentIndex, gameEnd, harfler, score, sonuc, zaman } = state;
+  const { setHarfler, kontrolEt, harfVer, gaveUp, setGameEnd, pauseTimer } = actions;
+  const { inputRefs } = refs;
+  //const { inputRefs, timerRef } = refs;
   return (
     <div
       className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
@@ -35,7 +36,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         <WordDescription aktifKelime={aktifKelime} />
       </div>
       <div className="">
-        <Timer ref={timerRef} />
+        <Timer zaman={zaman} onStop={pauseTimer} />
       </div>
       <div className=" py-1 sm:py-4 flex justify-center">
         <WordInput
@@ -58,7 +59,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </span>
         <span className="absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-10 blur-xl transition-opacity -z-10" />
       </GameButton>
-      <div className="w-full flex justify-center py-2 border-y border-white/5 overflow-hidden">
+      <div className="w-full flex justify-center py-2 border-y border-white/5 ">
         <div className="grid  grid-cols-4 gap-3 w-full max-w-md mx-auto">
           <ScoreBoard score={score} />
         </div>

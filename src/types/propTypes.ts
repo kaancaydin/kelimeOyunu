@@ -25,3 +25,4 @@ export interface ScoreStatsProps {
   colors: string;
   className?: string;
 }
+

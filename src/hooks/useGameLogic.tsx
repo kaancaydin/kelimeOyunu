@@ -1,5 +1,4 @@
-import type { TimerHandle } from "../components/Timer";
-import type { KelimeData, Kelime } from "../types/types";
+import type { KelimeData, Kelime } from "../types/wordTypes";
 import { useEffect, useState, useRef } from "react";
 
 export const useGameLogic = () => {
@@ -10,16 +9,18 @@ export const useGameLogic = () => {
   const [gameEnd, setGameEnd] = useState(false);
   const [gameList, setGameList] = useState<Kelime[]>([]);
   const [startGame, setStartGame] = useState(false);
+  const [zaman, setZaman] = useState(180);
+  const [isTimerActive, setIsTimerActive] = useState(false);
 
   const [score, setScore] = useState({
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 10,
+    pass: 5,
   });
 
-  const timerRef = useRef<TimerHandle>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const timerRef = useRef<number | null>(null);
 
   const aktifKelime = gameList[currentIndex] || null;
 
@@ -63,7 +64,34 @@ export const useGameLogic = () => {
   /* const kelimeler = data!.kelimeler;
   const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
   const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler */
-  //const aktifKelime = kelimeler[currentIndex];
+  //const aktifKelime = kelimeler[currentIndex]; 
+
+  //Timers
+
+  useEffect(() => { //useEffect veriyi hafızada tutar
+    if (isTimerActive) {
+      timerRef.current = window.setInterval(() => {
+        setZaman((prev) => {
+          if (prev <= 1) {
+            setIsTimerActive(false);
+            setGameEnd(true);
+            return 0;
+          }
+          return prev - 1;
+        }); //buton odaklı zaman yerine durum bazlı zaman kontrolü yapmayı sağlar.
+      }, 1000);
+    }
+    return () => {
+      if (timerRef.current) { //timerRef.current !== null
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [isTimerActive]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
+
+  const pauseTimer = () => {
+    setIsTimerActive(!isTimerActive);
+  };
 
   const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
     return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
@@ -83,6 +111,8 @@ export const useGameLogic = () => {
     setIndex(0);
     setStartGame(true);
     setGameEnd(false);
+    setIsTimerActive(true);
+    setZaman(180);
   };
 
   const NextQuestion = () => {
@@ -106,11 +136,16 @@ export const useGameLogic = () => {
       setSonuc("Yanlış!");
       setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
     }
+    setIsTimerActive(true);
   };
 
   const harfVer = () => {
     if (!aktifKelime) return;
     //const bosIndex = harfler.findIndex((h) => h === ""); sıralı seçme. random seçmez
+    if (!isTimerActive) {
+      setSonuc(`Zaman durduğunda harf alamazsınız!`);
+      return;
+    }
     const bosIndex = harfler
       .map((h, index) => (h === "" ? index : null)) //boş olup olmayan yerleri kontrol ettik
       .filter((index) => index !== null) as number[]; //boş ise sayı dizisine attık
@@ -131,6 +166,10 @@ export const useGameLogic = () => {
   };
 
   const gaveUp = () => {
+    if (!isTimerActive) {
+      setSonuc(`Zaman durduğunda PAS YAPAMAZSIN.`);
+      return;
+    }
     if (score.pass > 0) {
       setScore((prev) => ({ ...prev, pass: prev.pass - 1 }));
       NextQuestion();
@@ -144,8 +183,9 @@ export const useGameLogic = () => {
     setIndex(0);
     setGameEnd(false);
     setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 10 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
     StartTheGame();
+
     /*     
         if (data) {
           const ilkKelimeUzunlugu = data.kelimeler[0].kelime.length;
@@ -165,6 +205,7 @@ export const useGameLogic = () => {
       score,
       totalPoints,
       aktifKelime,
+      zaman,
     },
     actions: {
       setHarfler,
@@ -175,7 +216,9 @@ export const useGameLogic = () => {
       setGameEnd,
       setStartGame,
       RestartTheGame,
+      setZaman,
+      pauseTimer,
     },
-    refs: { inputRefs, timerRef },
+    refs: { inputRefs },
   };
 };
