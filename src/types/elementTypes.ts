@@ -2,7 +2,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
   onClick: () => void;
   className?: string;
-  variant: "check" | "pass" | "close" | "clue" | "restart";
+  variant: "check" | "checkSmall" | "pass" | "close" | "clue" | "restart";
   disabled?: boolean;
   ternaryOp?: React.ReactNode;
   tippyTitle?: string

@@ -184,9 +184,16 @@
         },
         {
             "aciklama": "Bilgisayarlarda görüntünün monitöre yansıtılmasını sağlayan ve kaliteyi belirleyen bağdaştırıcı",
-            "kelime": "Ekran Kartı",
+            "kelime": "Ekrankartı",
             "koken": "Türkçe",
             "harfSayisi": 10,
+            "kelimeSayisi": 2
+        },
+        {
+            "aciklama": "12 harf deneme",
+            "kelime": "bucokuzunkel",
+            "koken": "Türkçe",
+            "harfSayisi": 12,
             "kelimeSayisi": 2
         }
     ]

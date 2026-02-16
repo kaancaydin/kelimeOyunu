@@ -31,6 +31,7 @@ export const Timer = ({ zaman, setTimer, timerActivate }: Props) => {
       <Tippy
         arrow={false}
         offset={[0, 10]}
+        touch={false}
         content={
           <span className="text-[12px] px-2 py-1 rounded shadow-xl bg-black">
             {timerActivate ? "Zamanı durdur" : "Devam et"}

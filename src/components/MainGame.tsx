@@ -1,12 +1,14 @@
 import { InGameScoreBoard } from "../components/ScoreBoard";
 import { WordDescription } from "../components/WordDescription";
 import { WordInput } from "../components/WordInput";
-import { CloseIcon, PassIcon } from "../components/Icons";
+import { CloseIcon , PassIcon } from "../components/Icons";
 import { GameButton } from "../elementStyles/GameButtons";
 import type { GameLogicType } from "../types/GameLogicTypes";
 import { Timer } from "./Timer";
 import { VirtualKeyboard } from "../virtualKeyboard/VirtualKeyboard";
 import { QuestionCounter } from "./QuestionCounter";
+import eye from "../assets/animations/Eye.json";
+import Lottie from "lottie-react";
 
 interface MainGameProps {
   state: GameLogicType["state"];
@@ -23,6 +25,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     score,
     sonuc,
     zaman,
+    theme,
     isTimerActive,
   } = state;
   const {
@@ -37,7 +40,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
   const { inputRefs } = refs;
   //const { inputRefs, timerRef } = refs;
   return (
-    <div className="flex flex-col gap-5 overflow-auto">
+    <div className="flex flex-col gap-5 overflow-x-hidden">
       <div
         className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
              flex flex-col justify-between items-center gap-4 sm:gap-6 
@@ -78,6 +81,14 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
           />
         </div>
         <div className="flex gap-2">
+          <GameButton variant="checkSmall" onClick={kontrolEt}>
+            {/* <SendIcon /> */}
+            {/* <ZapIcon /> */}
+            {/* <FingerprintIcon /> */}
+            {/* <EyeIcon /> */}
+            <Lottie animationData={eye} loop className="w-5 h-5 sm:w-6 sm:h-6"/>
+
+          </GameButton>
           <GameButton
             variant="clue"
             onClick={harfVer}
@@ -161,7 +172,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
           {sonuc.toUpperCase()}
         </p>
       </div>
-      <VirtualKeyboard onKey={handleVirtualKey} />
+      <VirtualKeyboard onKey={handleVirtualKey} theme={theme} />
     </div>
   );
 };

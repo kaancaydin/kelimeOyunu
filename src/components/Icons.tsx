@@ -96,7 +96,7 @@ export const BackIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2.5" 
+    strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className="group-hover:-translate-x-2 transition-transform"
@@ -115,6 +115,22 @@ export const ArrowIcon = () => (
       fillRule="evenodd"
       d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
       clipRule="evenodd"
+    />
+  </svg>
+);
+
+export const DownArrowIcon = () => (
+  <svg
+    className="w-4 h-4 text-white/50"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M19 9l-7 7-7-7"
     />
   </svg>
 );
@@ -260,5 +276,82 @@ export const DeleteIcon = () => (
     <path d="M21 4H8l-5 8 5 8h13z" />
     <line x1="16" y1="9" x2="12" y2="15" />
     <line x1="12" y1="9" x2="16" y2="15" />
+  </svg>
+);
+
+export const SendIcon = () => (
+  <svg
+    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+  </svg>
+);
+
+export const ZapIcon = () => (
+  <svg
+    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 group-hover:text-yellow-400 transition-all duration-300"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+  </svg>
+);
+
+export const FingerprintIcon = () => (
+  <svg
+    className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10" />
+    <path d="M5 15c0-3.866 3.134-7 7-7s7 3.134 7 7" />
+    <path d="M8 18c0-2.21 1.79-4 4-4s4 1.79 4 4" />
+    <path d="M12 12v1" />
+  </svg>
+);
+
+export const EyeIcon = () => (
+  <svg
+    className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:scale-110"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {/* 1. KATMAN: Dış Çerçeve */}
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+    
+    {/* 2. KATMAN: Hafif İç Derinlik (Gölge) */}
+    <circle cx="12" cy="12" r="7" className="opacity-5" fill="currentColor" />
+
+    {/* 3. KATMAN: Küçültülmüş Göz Bebeği (Daha odaklı) */}
+    <circle 
+      cx="12" 
+      cy="12" 
+      r="2.2"  /* Burayı küçülttük */
+      fill="currentColor" 
+      className="animate-pupil" 
+    />
+    
+    {/* 4. KATMAN: Mercek Parlaması (Bebeğe yaklaştırdık) */}
+    <circle 
+      cx="13" 
+      cy="11" 
+      r="0.7" 
+      fill="white" 
+      className="animate-glare opacity-90"
+    />
   </svg>
 );

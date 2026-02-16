@@ -23,6 +23,8 @@ export const GameButton = ({
             hover:from-indigo-500 hover:to-purple-500 text-[10px] sm:text-sm
             shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40
             hover:scale-105 active:scale-95`,
+    checkSmall: `group px-2 py-1.5 bg-[#47369B] rounded-full hover:bg-purple-700
+                text-base sm:text-lg active:scale-95 shadow-lg`,
     close: `hover:scale-90 p-0.5 sm:p-2 bg-red-500/10 border border-red-500/20 z-50
             rounded-full hover:bg-red-500/20 transition-all duration-200 top-3.5 fixed right-2`,
     pass: `group flex items-center gap-1.5 sm:gap-3 px-3 py-1 rounded-2xl flex-row
@@ -48,7 +50,7 @@ export const GameButton = ({
                 p-2 sm:p-3
                 hover:scale-105 hover:bg-white/20
                 active:scale-95
-                transition-all duration-150`
+                transition-all duration-150`,
   };
 
   return (
@@ -57,7 +59,7 @@ export const GameButton = ({
       disabled={!tippyTitle}
       offset={[0, 10]}
       content={
-        <span className="text-[12px] px-2 py-1 rounded shadow-xl text-white bg-black">
+        <span className="hidden md:block text-[12px] px-2 py-1 rounded shadow-xl text-white bg-black">
           {tippyTitle}
         </span>
       }

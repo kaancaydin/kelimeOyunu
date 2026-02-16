@@ -5,18 +5,25 @@ import { GameOver } from "./components/GameOver";
 import { GameStart } from "./components/GameStart";
 import { useGameLogic } from "./hooks/useGameLogic";
 import { MainGame } from "./components/MainGame";
+import loader from "./assets/animations/loader.json";
+import Lottie from "lottie-react";
 
 function App() {
   const { state, actions, refs } = useGameLogic();
 
   if (!state.data) {
-    return <div className="p-3">Loading....</div>;
+    return (
+      <div className="w-screen h-screen flex justify-center items-center backdrop-blur-lg">
+        <Lottie animationData={loader} loop className="w-48 h-48 sm:w-64 sm:h-64"/>
+      </div>
+    );
   }
-  const { startGame, gameEnd } = state;
+  const { startGame, gameEnd, theme } = state;
+  const { setTheme } = actions;
 
   return (
     <div className="flex flex-col h-full w-full justify-between items-center overflow-hidden">
-      <InfoTab />
+      <InfoTab theme={theme} setTheme={setTheme} />
       <main className="flex-1 w-full flex items-center justify-center p-2 overflow-hidden">
         {startGame ? (
           gameEnd ? (
