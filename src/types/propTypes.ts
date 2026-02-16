@@ -4,6 +4,7 @@ export interface InputProps {
   setHarfler: React.Dispatch<React.SetStateAction<string[]>>;
   inputRefs: React.RefObject<(HTMLInputElement | null)[]>;
   onEnter: () => void;
+  density: "normal" | "medium" | "compact";
 }
 
 //ScoreBoard.tsx
@@ -20,10 +21,9 @@ export interface Props {
 }
 
 export interface ScoreStatsProps {
-  children: number
+  children: number;
   parent: React.ReactNode;
   colors: string;
   className?: string;
-  animate?: string
+  animate?: string;
 }
-

@@ -5,7 +5,7 @@ const ScoreStats = ({
   children,
   parent,
   className,
-  colors,
+  colors
 }: ScoreStatsProps) => {
   return (
     <div
@@ -51,8 +51,14 @@ const InGameScoreStats = ({
   className,
   colors,
   parent,
-  animate
+  animate,
+
 }: ScoreStatsProps) => {
+ /* const sizeClasses = {
+    normal: "gap-2 px-2 py-1 text-lg sm:text-2xl [&>svg]:w-6 [&>svg]:h-6",
+    medium: "gap-1.5 px-1.5 py-0.5 text-base sm:text-xl [&>svg]:w-5 [&>svg]:h-5",
+    compact: "gap-1 px-1 py-0 text-sm sm:text-lg [&>svg]:w-4 [&>svg]:h-4",
+  }; */
   return (
     <>
       <div
@@ -62,7 +68,8 @@ const InGameScoreStats = ({
       >
         <span
           key={children}
-         className={`text-lg sm:text-2xl font-bold tracking-tight cursor-default select-none ${animate}`}>
+          className={`text-lg sm:text-2xl font-bold tracking-tight cursor-default select-none ${animate}`}
+        >
           {children}
         </span>
         <span className="opacity-80 relative top-px [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-6 sm:[&>svg]:h-6">
@@ -73,32 +80,27 @@ const InGameScoreStats = ({
   );
 };
 
-export const InGameScoreBoard = ({ score }: Props) => {
-
+export const InGameScoreBoard = ({ score, }: Props) => {
   return (
     <>
       <InGameScoreStats
         colors="bg-emerald-500/10 text-emerald-600 shadow-[inset_0_0_0_1px_rgba(34,197,94,0.3)]"
-        children={score.correct} 
+        children={score.correct}
         parent={<CorrectIcon />}
         animate="animate-[pop_0.2s_ease-out]"
       />
       <InGameScoreStats
         colors="bg-rose-500/10 text-rose-600 ring-1 ring-rose-500/30"
-        children={score.wrong} 
+        children={score.wrong}
         parent={<WrongIcon />}
         animate="animate-[pop-down_0.2s_ease-out]"
       />
       <InGameScoreStats
         colors="bg-cyan-500/10 text-cyan-600 ring-1 ring-cyan-500/30 "
-        children={score.takenWords} 
+        children={score.takenWords}
         parent={<HintIcon />}
         animate="animate-[pop-fade_0.2s_ease-out]"
       />
-
-      {/*       <div>
-        {score.pass} oyun içinde zaten butonda gözüktüğü için minimal bi tasarım amacıyla bu kısım kaldırıldı
-      </div> */}
     </>
   );
 };

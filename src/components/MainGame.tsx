@@ -1,7 +1,7 @@
 import { InGameScoreBoard } from "../components/ScoreBoard";
 import { WordDescription } from "../components/WordDescription";
 import { WordInput } from "../components/WordInput";
-import { CloseIcon , PassIcon } from "../components/Icons";
+import { CloseIcon, PassIcon } from "../components/Icons";
 import { GameButton } from "../elementStyles/GameButtons";
 import type { GameLogicType } from "../types/GameLogicTypes";
 import { Timer } from "./Timer";
@@ -38,7 +38,11 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     handleVirtualKey,
   } = actions;
   const { inputRefs } = refs;
-  //const { inputRefs, timerRef } = refs;
+
+  const harfSayisi = harfler.length;
+  const density =
+    harfSayisi <= 6 ? "normal" : harfSayisi <= 8 ? "medium" : "compact";
+
   return (
     <div className="flex flex-col gap-5 overflow-x-hidden">
       <div
@@ -62,7 +66,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </GameButton>
 
         <div className="w-screen/2 mt-2 sm:w-full text-center">
-          <WordDescription aktifKelime={aktifKelime} />
+          <WordDescription aktifKelime={aktifKelime} density={density} />
         </div>
         <div>
           <Timer
@@ -78,21 +82,20 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
             harfler={harfler}
             inputRefs={inputRefs}
             onEnter={kontrolEt}
+            density={density}
           />
         </div>
         <div className="flex gap-2">
           <GameButton variant="checkSmall" onClick={kontrolEt}>
-            {/* <SendIcon /> */}
-            {/* <ZapIcon /> */}
-            {/* <FingerprintIcon /> */}
-            {/* <EyeIcon /> */}
-            <Lottie animationData={eye} loop className="w-5 h-5 sm:w-6 sm:h-6"/>
-
+            <Lottie
+              animationData={eye}
+              loop
+              className="w-5 h-5 sm:w-6 sm:h-6"
+            />
           </GameButton>
           <GameButton
             variant="clue"
             onClick={harfVer}
-            // w-fit ekleyerek sadece içeriği kadar yer kaplamasını sağladık
             className="w-fit flex flex-1 items-center justify-center gap-1.5 mx-auto"
           >
             <span className="leading-none">Harf Al</span>
@@ -126,7 +129,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </div>
 
         <div className="flex gap-3">
-          <InGameScoreBoard score={score} />
+          <InGameScoreBoard score={score}  />
         </div>
 
         <div className=" hidden flex-col sm:flex-row items-center justify-center gap-4 w-full">

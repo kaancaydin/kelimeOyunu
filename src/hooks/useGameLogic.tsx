@@ -20,7 +20,7 @@ export const useGameLogic = () => {
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 10,
+    pass: 30,
   });
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -114,7 +114,7 @@ export const useGameLogic = () => {
     //const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
     if (!data) return;
     const kelimeler = data.kelimeler;
-    const levels = [5, 8]; //harfleri seç
+    const levels = [5,6,7,8,9,10,11,12]; //harfleri seç
     const pool = levels.flatMap((len) => {
       const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
       return group.slice(0, 5); //5er soru sor
@@ -137,7 +137,7 @@ export const useGameLogic = () => {
   };
 
   const kontrolEt = () => {
-    if (!aktifKelime || sonuc === "Doğru!" || keyboardProgress.current) return;
+    if (!aktifKelime || sonuc === "Doğru!" || keyboardProgress.current || harfler.includes("")) return;
     const girilen = harfler.join("").toLocaleUpperCase("tr-TR");
     const dogru = aktifKelime.kelime.toLocaleUpperCase("tr-TR");
 
@@ -203,7 +203,7 @@ export const useGameLogic = () => {
     setIndex(0);
     setGameEnd(false);
     setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 10 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 30 });
     StartTheGame();
   };
 
@@ -224,7 +224,7 @@ export const useGameLogic = () => {
           }
         }
       } else if (key === "ENTER") {
-        if (!yeniHarfler.includes("") && sonuc !== "Doğru!") {
+        if (sonuc !== "Doğru!") {
           kontrolEt();
         }
       } else {

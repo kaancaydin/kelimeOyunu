@@ -5,18 +5,34 @@ export const WordInput = ({
   setHarfler,
   inputRefs,
   onEnter,
+  density = "normal",
 }: InputProps) => {
+  const sizeClasses = {
+    normal: "w-10 h-10 sm:w-16 sm:h-16",
+    medium: "w-9 h-9 sm:w-16 sm:h-16",
+    compact: "w-7 h-7 sm:w-16 sm:h-16",
+  };
+
+  const gapClasses = {
+    normal: "gap-0.75",
+    medium: "gap-0.5",
+    compact: "gap-0.10",
+  };
   return (
-    <div>
+    <div
+      className={`flex  ${gapClasses[density]} justify-center `}
+    >
       {harfler.map((harf, index) => (
         <input
-          className="font-bold border-2 text-[1.2rem] sm:text-[1.6rem] caret-transparent 
-         border-[#ddd] outline-0 w-[2.5em] h-[2.5em] sm:w-[3.5em] sm:h-[3.5em]
-           rounded-full shadow-md text-center uppercase 
-           transition-all duration-150 leading-none tabular-nums
-           focus:border-indigo-600 focus:scale-105 focus:shadow-lg
-           focus:shadow-indigo-300/50 
-           "
+          className={`
+          ${sizeClasses[density]}
+          font-bold border-2 text-[clamp(1.2rem,3vw,1.6rem)]
+          caret-transparent border-[#ddd] outline-0
+          rounded-full shadow-md text-center uppercase shrink-0
+          transition-all duration-150 leading-none tabular-nums
+          focus:border-indigo-600 focus:scale-105 focus:shadow-lg
+          focus:shadow-indigo-300/50
+        `}
           key={index}
           ref={(el) => {
             inputRefs.current[index] = el;

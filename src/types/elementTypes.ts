@@ -22,4 +22,5 @@ export interface CluesProps {
   parent?: string;
   children: React.ReactNode;
   color: string;
+  className?: string;
 }

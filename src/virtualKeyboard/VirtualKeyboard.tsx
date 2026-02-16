@@ -37,11 +37,11 @@ const selectedTheme = keyboardThemes[theme];
                 className={` 
                 h-[clamp(40px,6vh,48px)] flex items-center justify-center  cursor-pointer
                 rounded-md font-medium transition-all duration-75 flex-1 shrink-0   
-                active:translate-y-[1.5px] active:shadow-inner md:hover:bg-[rgba(255,255,255,0.6)]  active:bg-[rgba(255,255,255,0.6)] 
+                active:translate-y-[1.5px] active:shadow-inner md:hover:bg-white/20  active:bg-[rgba(255,255,255,0.6)] 
                 ${
                   isNotStr
-                    ? `flex-[1.5] shrink-0 px-2 ${selectedTheme.actKeyBg} ${selectedTheme.actKeyText} ${selectedTheme.actKeyBorder} uppercase tracking-wider shadow-sm text-[clamp(10px,1.5vw,16px)]`
-                    : `flex-1 ${selectedTheme.keyBg} ${selectedTheme.keyText}  border border-slate-100 text-[clamp(14px,2vw,22px)]`
+                    ? `flex-[1.5] shrink-0 px-2 ${selectedTheme.actKeyBg} ${selectedTheme.actKeyText} ${selectedTheme.actKeyBorder} hover:text-black active:text-black uppercase tracking-wider shadow-sm text-[clamp(10px,1.5vw,16px)]`
+                    : `flex-1 ${selectedTheme.keyBg} ${selectedTheme.keyText}  border border-slate-100 text-[clamp(14px,2vw,22px)] `
                 }
             `}
               >
