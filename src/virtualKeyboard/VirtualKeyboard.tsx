@@ -11,9 +11,10 @@ const ROWS = [
 interface Props {
   onKey: (key: string) => void;
   theme: KeyboardTheme;
+
 }
 
-export const VirtualKeyboard = ({ onKey, theme }: Props) => {
+export const VirtualKeyboard = ({ onKey, theme}: Props) => {
 const selectedTheme = keyboardThemes[theme];
   return (
     <div
@@ -32,7 +33,7 @@ const selectedTheme = keyboardThemes[theme];
             const isNotStr = key === "ENTER" || key === "SİL";
             return (
               <button
-                key={key}
+                key={key} onMouseDown={(e) => e.preventDefault()}
                 onClick={() => onKey(key)}
                 className={` 
                 h-[clamp(40px,6vh,48px)] flex items-center justify-center  cursor-pointer

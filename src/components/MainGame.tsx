@@ -30,6 +30,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
   } = state;
   const {
     setHarfler,
+    setCharIndex,
     kontrolEt,
     harfVer,
     gaveUp,
@@ -83,6 +84,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
             inputRefs={inputRefs}
             onEnter={kontrolEt}
             density={density}
+            setCharIndex={setCharIndex}
           />
         </div>
         <div className="flex gap-2">

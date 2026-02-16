@@ -5,6 +5,7 @@ export interface InputProps {
   inputRefs: React.RefObject<(HTMLInputElement | null)[]>;
   onEnter: () => void;
   density: "normal" | "medium" | "compact";
+  setCharIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 //ScoreBoard.tsx

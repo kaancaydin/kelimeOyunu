@@ -215,7 +215,11 @@ background: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);  -moz-o
 
 /* İçeriklerin desenin üstünde kalması için */
 
-
+input:disabled {
+  background-color: #374151; /* Daha koyu bir gri */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
 
 .no-scrollbar::-webkit-scrollbar {

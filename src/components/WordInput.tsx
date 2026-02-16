@@ -6,6 +6,7 @@ export const WordInput = ({
   inputRefs,
   onEnter,
   density = "normal",
+  setCharIndex
 }: InputProps) => {
   const sizeClasses = {
     normal: "w-10 h-10 sm:w-16 sm:h-16",
@@ -19,9 +20,7 @@ export const WordInput = ({
     compact: "gap-0.10",
   };
   return (
-    <div
-      className={`flex  ${gapClasses[density]} justify-center `}
-    >
+    <div className={`flex  ${gapClasses[density]} justify-center `}>
       {harfler.map((harf, index) => (
         <input
           className={`
@@ -37,6 +36,7 @@ export const WordInput = ({
           ref={(el) => {
             inputRefs.current[index] = el;
           }}
+          onFocus={() => setCharIndex(index)}
           type="text"
           maxLength={1}
           inputMode="none"
@@ -57,26 +57,47 @@ export const WordInput = ({
           }}
           onKeyDown={(e) => {
             if (e.key === "Backspace") {
-              if (harfler[index] !== "") {
-                setHarfler((prev) => {
-                  const yeni = [...prev];
-                  yeni[index] = "";
-                  return yeni;
-                });
-              } else if (index > 0) {
-                inputRefs.current[index - 1]?.focus();
-                setHarfler((prev) => {
-                  const yeni = [...prev];
-                  yeni[index - 1] = "";
-                  return yeni;
-                });
+              if (inputRefs.current[index]?.disabled) {
+                e.preventDefault();
+                return;
+              }
+              if (harfler[index] === "" && index > 0) {
+                e.preventDefault();
+                const mesafe = inputRefs.current
+                  .slice(0, index)
+                  .reverse()
+                  .findIndex((input) => input && !input.disabled);
+                if (mesafe !== -1) {
+                  const hedefIndex = index - 1 - mesafe;
+                  inputRefs.current[hedefIndex]?.focus();
+                  setHarfler((prev) => {
+                    const yeni = [...prev];
+                    yeni[hedefIndex] = "";
+                    return yeni;
+                  });
+                }
               }
             }
             if (e.key === "ArrowLeft" && index > 0) {
-              inputRefs.current[index - 1]?.focus();
+              e.preventDefault();
+              const mesafe = inputRefs.current
+                .slice(0, index)
+                .reverse()
+                .findIndex((input) => input && !input.disabled);
+              if (mesafe !== -1) {
+                const hedefIndex = index - 1 - mesafe;
+                inputRefs.current[hedefIndex]?.focus();
+              }
             }
             if (e.key === "ArrowRight" && index < harfler.length - 1) {
-              inputRefs.current[index + 1]?.focus();
+              e.preventDefault();
+              const mesafe = inputRefs.current
+                .slice(index + 1)
+                .findIndex((input) => input && !input.disabled);
+              if (mesafe !== -1) {
+                const hedefIndex = index + 1 + mesafe;
+                inputRefs.current[hedefIndex]?.focus();
+              }
             }
           }}
           onKeyUp={(e) => {
@@ -91,3 +112,20 @@ export const WordInput = ({
     </div>
   );
 };
+
+
+/* 
+if (harfler[index] !== "") {
+  setHarfler((prev) => {
+    const yeni = [...prev];
+    yeni[index] = "";
+    return yeni;
+  });
+} else if (index > 0) {
+  inputRefs.current[index - 1]?.focus();
+  setHarfler((prev) => {
+    const yeni = [...prev];
+    yeni[index - 1] = "";
+    return yeni;
+});
+} */

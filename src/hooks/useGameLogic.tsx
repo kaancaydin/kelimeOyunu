@@ -14,7 +14,8 @@ export const useGameLogic = () => {
   const [zaman, setZaman] = useState(180);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const keyboardProgress = useRef(false);
-  const [theme, setTheme] = useState<KeyboardTheme>(() => getTheme())
+  const [theme, setTheme] = useState<KeyboardTheme>(() => getTheme());
+  const [charIndex, setCharIndex] = useState<number>(0); // sanal klavye için //v-keyboard
 
   const [score, setScore] = useState({
     correct: 0,
@@ -86,10 +87,9 @@ export const useGameLogic = () => {
   }, [isTimerActive]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
 
   //theme
-  useEffect(()=>{
-    localStorage.setItem("keyboardTheme",theme)
-  },[theme])
-
+  useEffect(() => {
+    localStorage.setItem("keyboardTheme", theme);
+  }, [theme]);
 
   /*   const randomWords = (tumKelimeler: Kelime[]): Kelime[] => {
     return [...tumKelimeler].sort(() => 0.5 - Math.random()).slice(0, 10); //soru havuzundan 10 soru seçtik
@@ -114,7 +114,7 @@ export const useGameLogic = () => {
     //const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
     if (!data) return;
     const kelimeler = data.kelimeler;
-    const levels = [5,6,7,8,9,10,11,12]; //harfleri seç
+    const levels = [5, 6, 7, 8, 9, 10, 11, 12]; //harfleri seç
     const pool = levels.flatMap((len) => {
       const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
       return group.slice(0, 5); //5er soru sor
@@ -125,7 +125,6 @@ export const useGameLogic = () => {
     setGameEnd(false);
     setIsTimerActive(true);
     setZaman(180);
-
   };
 
   const NextQuestion = () => {
@@ -137,7 +136,13 @@ export const useGameLogic = () => {
   };
 
   const kontrolEt = () => {
-    if (!aktifKelime || sonuc === "Doğru!" || keyboardProgress.current || harfler.includes("")) return;
+    if (
+      !aktifKelime ||
+      sonuc === "Doğru!" ||
+      keyboardProgress.current ||
+      harfler.includes("")
+    )
+      return;
     const girilen = harfler.join("").toLocaleUpperCase("tr-TR");
     const dogru = aktifKelime.kelime.toLocaleUpperCase("tr-TR");
 
@@ -149,7 +154,7 @@ export const useGameLogic = () => {
       setTimeout(() => {
         NextQuestion();
         keyboardProgress.current = false;
-      }, 1000);
+      }, 500);
     } else {
       setSonuc("Yanlış!");
       setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
@@ -172,11 +177,15 @@ export const useGameLogic = () => {
     if (bosIndex.length > 0) {
       const randomSecim = bosIndex[Math.floor(Math.random() * bosIndex.length)];
       const yeniHarfler = [...harfler]; //harflerin lopyası oluşturuldu
-      const alinanHarf = aktifKelime.kelime[randomSecim].toLocaleUpperCase('tr-TR');
+      const alinanHarf =
+        aktifKelime.kelime[randomSecim].toLocaleUpperCase("tr-TR");
       yeniHarfler[randomSecim] = alinanHarf; //harfi yerleştirdik
       setHarfler(yeniHarfler); //güncelleme
       setSonuc(`${aktifKelime.kelime[randomSecim]} Harfi alındı`);
       inputRefs.current[randomSecim]?.focus(); //alınan harfe odaklanma sağlandı
+      if (inputRefs.current[randomSecim]) {
+        inputRefs.current[randomSecim].disabled = true;
+      }
 
       //Puan düşürme
       setScore((prev) => ({ ...prev, takenWords: prev.takenWords + 1 }));
@@ -216,23 +225,38 @@ export const useGameLogic = () => {
       const yeniHarfler = [...prev]; //kopayası alındı
 
       if (key === "SİL") {
-        for (let i = yeniHarfler.length - 1; i >= 0; i--) {
-          if (yeniHarfler[i] !== "") {
-            yeniHarfler[i] = "";
-            inputRefs.current[i]?.focus();
-            break;
+        if (inputRefs.current[charIndex]?.disabled) return yeniHarfler;
+
+        if (yeniHarfler[charIndex] !== "") {
+          yeniHarfler[charIndex] = "";
+          setTimeout(() => inputRefs.current[charIndex]?.focus(), 10);
+        } else if (charIndex > 0) {
+          const mesafe = inputRefs.current
+            .slice(0, charIndex)
+            .reverse()
+            .findIndex((input) => input && !input.disabled);
+          if (mesafe !== -1) {
+            const hedefIndex = charIndex - 1 - mesafe;
+            yeniHarfler[hedefIndex] = "";
+            setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10);
           }
         }
+        return yeniHarfler;
       } else if (key === "ENTER") {
         if (sonuc !== "Doğru!") {
           kontrolEt();
         }
       } else {
-        const bosIndex = yeniHarfler.findIndex((h) => h === "");
-        if (bosIndex !== -1) {
-          yeniHarfler[bosIndex] = key.toLocaleUpperCase("tr-TR");
-          if (bosIndex + 1 < yeniHarfler.length) {
-            inputRefs.current[bosIndex + 1]?.focus();
+        if (!inputRefs.current[charIndex]?.disabled) {
+          yeniHarfler[charIndex] = key.toLocaleUpperCase("tr-TR");
+
+          const sonrakiMesafe = inputRefs.current
+            .slice(charIndex + 1)
+            .findIndex((input) => input && !input.disabled);
+
+          if (sonrakiMesafe !== -1) {
+            const hedefIndex = charIndex + 1 + sonrakiMesafe;
+            inputRefs.current[hedefIndex]?.focus(); //veya setCharIndex(hedefIndex)
           }
         }
       }
@@ -254,7 +278,8 @@ export const useGameLogic = () => {
       aktifKelime,
       zaman,
       isTimerActive,
-      theme
+      theme,
+      charIndex,
     },
     actions: {
       setHarfler,
@@ -268,7 +293,8 @@ export const useGameLogic = () => {
       setZaman,
       setIsTimerActive,
       handleVirtualKey,
-      setTheme
+      setTheme,
+      setCharIndex,
     },
     refs: { inputRefs },
   };
