@@ -126,6 +126,93 @@
     scale: 1;
   }
 }
+/* Base banner style */
+.creative-banner {
+  background: linear-gradient(135deg, #15803d, #22c55e, #16a34a);
+  box-shadow: 0 8px 25px rgba(34,197,94,0.5);
+  border-radius: 16px;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+/* Yukarı-aşağı hafif dans animasyonu */
+@keyframes banner-dance {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-6px); }
+  50% { transform: translateY(4px); }
+  75% { transform: translateY(-2px); }
+}
+.animate-banner-dance {
+  animation: banner-dance 3s ease-in-out infinite;
+}
+
+/* Gradient renk geçişi + glow yazı */
+@keyframes gradient-glow {
+  0% { filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a); }
+  50% { filter: drop-shadow(0 0 8px #22c55e) drop-shadow(0 0 16px #16a34a); }
+  100% { filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a); }
+}
+.animate-gradient-glow {
+  animation: gradient-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(50%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 2s linear infinite;
+}
+
+/* Kapsayıcının border'larının birleşme hissi için yumuşak geçiş */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+@keyframes morph-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.6); }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-morph-glow {
+  animation: morph-glow 2s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #fff, #adffd0, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 2s linear infinite;
+}
+/* sonuc kısmı animasyonları */
+@keyframes morph-out {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(0.5) rotate(90deg); opacity: 0; }
+}
+
+@keyframes morph-in {
+  0% { transform: scale(0.5) rotate(-90deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-morph-out {
+  animation: morph-out 0.3s ease-in forwards;
+}
+
+.animate-morph-in {
+  animation: morph-in 0.3s ease-out forwards;
+}
 
 @keyframes eye-pupil {
   0%, 100% { transform: translate(0, 0); }
@@ -139,12 +226,39 @@
   75% { transform: translate(0.5px, 0.2px); }
 }
 
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translateY(-10%); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 3s ease-in-out infinite;
+}
+
+
+
+
 .animate-pupil {
   animation: eye-pupil 4s ease-in-out infinite;
 }
 
 .animate-glare {
   animation: eye-glare 4s ease-in-out infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 html, body {

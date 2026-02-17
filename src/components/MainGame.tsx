@@ -26,7 +26,8 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     sonuc,
     zaman,
     theme,
-    isTimerActive,
+    extraTimer,
+    timerMode
   } = state;
   const {
     setHarfler,
@@ -35,7 +36,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     harfVer,
     gaveUp,
     setGameEnd,
-    setIsTimerActive,
+    setTimerMode,
     handleVirtualKey,
   } = actions;
   const { inputRefs } = refs;
@@ -72,8 +73,9 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         <div>
           <Timer
             zaman={zaman}
-            setTimer={setIsTimerActive}
-            timerActivate={isTimerActive}
+            setTimerMode={setTimerMode}
+            extraTimer={extraTimer}
+            timerMode={timerMode}
           />
         </div>
         <div className=" py-1 sm:py-4 flex justify-center">
@@ -130,9 +132,8 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
           </GameButton>
         </div>
 
-        <div className="flex gap-3">
-          <InGameScoreBoard score={score}  />
-        </div>
+          <InGameScoreBoard score={score} sonuc={sonuc}  />
+
 
         <div className=" hidden flex-col sm:flex-row items-center justify-center gap-4 w-full">
           <GameButton

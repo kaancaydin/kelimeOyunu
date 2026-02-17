@@ -25,11 +25,31 @@ export const PassIcon = () => (
     strokeWidth="2.5"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="w-5 h-5 sm:w-6 sm:h-6"
+    className="w-4 h-4 sm:w-6 sm:h-6"
   >
     {" "}
     {/* İlk Ok */} <path d="M13 17l5-5-5-5" /> {/* İkinci Ok */}{" "}
     <path d="M6 17l5-5-5-5" />{" "}
+  </svg>
+);
+export const QuestionIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    shapeRendering="geometricPrecision"
+    className="w-4 h-4 sm:w-6 sm:h-6"
+  >
+    {/* Soru işareti gövdesi */}
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+    {/* Alt nokta */}
+    <line x1="12" y1="17" x2="12.01" y2="17" />
+    {/* Dış daire */}
+    <circle cx="12" cy="12" r="10" />
   </svg>
 );
 
@@ -172,8 +192,6 @@ export const PlayIcon = () => (
 export const PauseIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -181,6 +199,7 @@ export const PauseIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     shapeRendering="geometricPrecision"
+    className="w-5 h-5 sm:w-7 sm:h-7"
   >
     <line x1="8" y1="7" x2="8" y2="17" />
     <line x1="16" y1="7" x2="16" y2="17" />
@@ -190,8 +209,6 @@ export const PauseIcon = () => (
 export const CorrectIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -199,6 +216,7 @@ export const CorrectIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     shapeRendering="geometricPrecision"
+    className="w-5 h-5 sm:w-7 sm:h-7"
   >
     <polyline points="5 13 10 17 19 7" />
   </svg>
@@ -207,8 +225,6 @@ export const CorrectIcon = () => (
 export const WrongIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -216,6 +232,7 @@ export const WrongIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     shapeRendering="geometricPrecision"
+    className="w-5 h-5 sm:w-7 sm:h-7"
   >
     <line x1="6" y1="6" x2="18" y2="18" />
     <line x1="18" y1="6" x2="6" y2="18" />
@@ -225,8 +242,6 @@ export const WrongIcon = () => (
 export const HintIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -234,6 +249,7 @@ export const HintIcon = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     shapeRendering="geometricPrecision"
+    className="w-5 h-5 sm:w-7 sm:h-7"
   >
     {/* bulb */}
     <path d="M9 18h6" />
@@ -332,25 +348,25 @@ export const EyeIcon = () => (
   >
     {/* 1. KATMAN: Dış Çerçeve */}
     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-    
+
     {/* 2. KATMAN: Hafif İç Derinlik (Gölge) */}
     <circle cx="12" cy="12" r="7" className="opacity-5" fill="currentColor" />
 
     {/* 3. KATMAN: Küçültülmüş Göz Bebeği (Daha odaklı) */}
-    <circle 
-      cx="12" 
-      cy="12" 
-      r="2.2"  /* Burayı küçülttük */
-      fill="currentColor" 
-      className="animate-pupil" 
+    <circle
+      cx="12"
+      cy="12"
+      r="2.2" /* Burayı küçülttük */
+      fill="currentColor"
+      className="animate-pupil"
     />
-    
+
     {/* 4. KATMAN: Mercek Parlaması (Bebeğe yaklaştırdık) */}
-    <circle 
-      cx="13" 
-      cy="11" 
-      r="0.7" 
-      fill="white" 
+    <circle
+      cx="13"
+      cy="11"
+      r="0.7"
+      fill="white"
       className="animate-glare opacity-90"
     />
   </svg>

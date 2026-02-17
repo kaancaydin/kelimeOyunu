@@ -1,4 +1,3 @@
-//import { Timer } from "./components/Timer";
 import "./App.css";
 import { InfoTab } from "./components/InfoTab";
 import { GameOver } from "./components/GameOver";
@@ -14,7 +13,11 @@ function App() {
   if (!state.data) {
     return (
       <div className="w-screen h-screen flex justify-center items-center backdrop-blur-lg">
-        <Lottie animationData={loader} loop className="w-48 h-48 sm:w-64 sm:h-64"/>
+        <Lottie
+          animationData={loader}
+          loop
+          className="w-48 h-48 sm:w-64 sm:h-64"
+        />
       </div>
     );
   }
@@ -22,40 +25,27 @@ function App() {
   const { setTheme } = actions;
 
   return (
-    <div className="flex flex-col h-full w-full justify-between items-center overflow-hidden">
+    <div className="flex flex-col h-full w-full justify-between items-center ">
       <InfoTab theme={theme} setTheme={setTheme} />
-      <main className="flex-1 w-full flex items-center justify-center p-2 overflow-hidden">
-        {startGame ? (
-          gameEnd ? (
-            <GameOver actions={actions} state={state} />
+      <main className="flex-1 w-full flex overflow-y-auto custom-scrollbar">
+        <div className="min-h-full w-full flex flex-col items-center py-10 px-2">
+          {startGame ? (
+            gameEnd ? (
+              <GameOver actions={actions} state={state} />
+            ) : (
+              <div className="my-auto">
+                <MainGame state={state} actions={actions} refs={refs} />
+              </div>
+            )
           ) : (
-            <MainGame state={state} actions={actions} refs={refs} />
-          )
-        ) : (
-          <GameStart actions={actions} />
-        )}
+            <div className="my-auto">
+              <GameStart actions={actions} />
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );
 }
 
 export default App;
-
-/*       <div className="hidden">
-        <div className="hidden">
-          {data.kelimeler.map((item, index) => (
-            <ul
-              className="flex justify-center items-center flex-col gap-8 p-5
-                bg-white/10 backdrop-blur-xl border border-white/20 
-                rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
-                w-[60vw] max-w-225 min-h-20
-                transition-all duration-500 hover:shadow-indigo-500/20"
-            >
-              <li key={index}>
-                <b>{item.kelime}</b> - {item.aciklama} - Harf :{" "}
-                {item.harfSayisi} - Köken : {item.koken}
-              </li>
-            </ul>
-          ))}
-        </div>
-      </div> */

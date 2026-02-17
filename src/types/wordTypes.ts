@@ -4,6 +4,7 @@ export type Kelime = {
   harfSayisi: number;
   kelimeSayisi: number;
   koken: string;
+  kelimeTuru: string;
 };
 
 export type KelimeData = {

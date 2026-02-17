@@ -5,196 +5,344 @@
             "kelime": "Kılıç",
             "koken": "Arapça",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Motorlu taşıtların çekiş ve hızını ayarlamaya yarayan dişliler düzeni",
             "kelime": "Vites",
             "koken": "Fransızca",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Günün konusu olan, şimdiki, bugünkü",
             "kelime": "Güncel",
             "koken": "Türkçe",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Sıfat"
         },
         {
             "aciklama": "İri, yırtıcı bir tür kuş",
             "kelime": "Kartal",
             "koken": "Türkçe",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Bir şeyin belli biçimde ve yolda yapılmasını söyleme, bunu üsteleyerek hatırlatma",
             "kelime": "Tembih",
             "koken": "Arapça",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Dış dünyanın dağlar, denizler, kırlar vb. daha çok güzelliğiyle insana hitap eden tarafı",
             "kelime": "Tabiat",
             "koken": "Arapça",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Midye, istiridye vb. deniz hayvanlarının kabuğunda bulunan sedefçilikte kullanılan, pırıltılı, beyaz, sert bir madde",
             "kelime": "Sedef",
             "koken": "Arapça",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Kana al rengini veren, çekirdeksiz, yuvarlak, küçük hücre; eritrosit",
             "kelime": "Alyuvar",
             "koken": "Türkçe",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "İnce ayrım",
             "kelime": "Nüans",
             "koken": "Fransızca",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "İyice dövülmüş buğdayın etle birlikte uzun süre kaynatılmasıyla yapılan bir yemek",
             "kelime": "Keşkek",
             "koken": "Türkçe",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Genellikle dükkânlarda satıcıların önündeki uzun masa",
             "kelime": "Tezgah",
             "koken": "Farsça",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Hava ve deniz taşıtlarında, taşıta istenilen yönü vermeye ve belirli bir doğrultuda götürmeye yarayan hareketli parça",
             "kelime": "Dümen",
             "koken": "İtalyanca",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Bir görevde, bir işte kullanma",
             "kelime": "istihdam",
             "koken": "Arapça",
             "harfSayisi": 8,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Kanalizasyona inmek, bakım ve onarım yapmak üzere yol düzeyinde kapağı bulunan özel baca",
             "kelime": "Rögar",
             "koken": "Fransızca",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Mısırın tanelerini taşıyan, üzeri yaprakla sarılı, püsküllü meyvesi",
             "kelime": "Koçan",
             "koken": "Türkçe",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "İkinci Dünya Savaşı yıllarında Japonların kullandığı intihar uçağı",
             "kelime": "Kamikaze",
             "koken": "Japonca",
             "harfSayisi": 8,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Boşa konuşmak, gevezelik etmek",
             "kelime": "Cazyapmak",
             "koken": "Türkçe",
             "harfSayisi": 9,
-            "kelimeSayisi": 2
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Deyim"
         },
         {
             "aciklama": "Kuşatılmış, sarılmış, çevrilmiş",
             "kelime": "Mahsur",
             "koken": "Arapça",
             "harfSayisi": 6,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Sıfat"
         },
         {
             "aciklama": "Ortaya koyma, gösterme, meydana çıkarma",
             "kelime": "İbraz",
             "koken": "Arapça",
             "harfSayisi": 5,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Herhangi bir topluluğu temsil etmekle görevli yetkili kurul",
             "kelime": "Delegasyon",
             "koken": "Fransızca",
             "harfSayisi": 10,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Tımarlıların sefer haricindeki zamanlarda bağlı bulundukları, sipahilerin sancak beyinden evvel sorumlu oldukları komutan",
             "kelime": "Alaybeyi",
             "koken": "Türkçe",
             "harfSayisi": 8,
-            "kelimeSayisi": 2
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Bir sanat eserindeki ögelerin gerçek hayattan bir şeyleri temsil etmesi durumu",
             "kelime": "Alegori",
             "koken": "Fransızca",
             "harfSayisi": 7,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Hava, su veya buharı ısıtmak veya soğutmak suretiyle meydana gelen sıcaklığı veya soğukluğu yayan, böylece ısıtma ve soğutmada kullanılan cihaz",
             "kelime": "Radyatör",
             "koken": "Fransızca",
             "harfSayisi": 8,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Denizlerde veya tatlı sularda yaşayan, yüzücü, orta büyüklükte kabuklu, eti yenir bir deniz hayvanı",
             "kelime": "Karides",
             "koken": "Rumca",
             "harfSayisi": 7,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Yazı makinesi",
             "kelime": "Daktilo",
             "koken": "Fransızca",
             "harfSayisi": 7,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Taksi, dolmuş vb.nin duraklarında yolcuların binişi ve taşıtların sıra düzenini sağlayan kimse; kâhya",
             "kelime": "Değnekçi",
             "koken": "Türkçe",
             "harfSayisi": 8,
-            "kelimeSayisi": 1
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
         },
         {
             "aciklama": "Bilgisayarlarda görüntünün monitöre yansıtılmasını sağlayan ve kaliteyi belirleyen bağdaştırıcı",
             "kelime": "Ekrankartı",
             "koken": "Türkçe",
             "harfSayisi": 10,
-            "kelimeSayisi": 2
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Ad"
         },
         {
-            "aciklama": "12 harf deneme",
-            "kelime": "bucokuzunkel",
+            "aciklama": "Piyasada olmayan bir malın gizlice yüksek fiyatla alınıp satılması işi",
+            "kelime": "karaborsa",
             "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Otomobilde, mekanizmayı oluşturan motor, makine, tekerlek, şasi vb. bölümlerin dışında kalan, görünen dış bölüm",
+            "kelime": "karoser",
+            "koken": "Fransızca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Bir birlik veya kurumun, kumandan ile yardımcı şube ve bölümlerinden oluşan kuruluş.",
+            "kelime": "karargah",
+            "koken": "Farsça",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Kuvvetlerin maddeler ve hareketler üzerine etkisini inceleyen fizik dalı",
+            "kelime": "Mekanik",
+            "koken": "Fransızca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Banka veya bir başka yere yatırılmak yerine evde, iş yerinde saklanan taşınabilir (değer)",
+            "kelime": "yastıkaltı",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Sıfat"
+        },
+        {
+            "aciklama": "Herhangi bir konuda sert ve kesin olarak son sözü söylemek",
+            "kelime": "restçekmek",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Deyim"
+        },
+        {
+            "aciklama": "Yüzde oluşan hafif gülümseme hali",
+            "kelime": "tebessüm",
+            "koken": "Arapça",
             "harfSayisi": 12,
-            "kelimeSayisi": 2
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Bir bilgisayarda bulunan fiziksel birimler",
+            "kelime": "donanım",
+            "koken": "Türkçe",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Sıkıntılı ve korkulu düş; kâbus",
+            "kelime": "karabasan",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Derslerde, konferanslarda asetat üzerine yazılan yazıyı veya grafiği kuvvetli bir ışık kaynağı aracılığıyla perdeye yansıtan optik araç",
+            "kelime": "Tepegöz",
+            "koken": "Türkçe",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Kır yaşamı içinde aşk konusunu işleyen kısa şiir",
+            "kelime": "idil",
+            "koken": "Yunanca",
+            "harfSayisi": 4,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Bir şeyi başka bir şeyin yerine koyma, yerine kullanma",
+            "kelime": "ikame",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "İyilik etme, iyi davranma",
+            "kelime": "ihsan",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Kötü bir ün kazanmak",
+            "kelime": "adıçıkmak",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Deyim"
+        },
+        {
+            "aciklama": "Davranışları ölçülü, olgun, ağır, ciddi (kimse)",
+            "kelime": "ağırbaşlı",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Sıfat"
+        },
+        {
+            "aciklama": "Davranışları ölçülü, olgun, ağır, ciddi (kimse)",
+            "kelime": "ağırbaşlı",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Sıfat"
         }
     ]
 }

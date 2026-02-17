@@ -19,6 +19,7 @@ interface ScoreProps {
 export interface Props {
   score: ScoreProps;
   className?: string;
+  sonuc? : string
 }
 
 export interface ScoreStatsProps {
@@ -28,3 +29,5 @@ export interface ScoreStatsProps {
   className?: string;
   animate?: string;
 }
+
+export type TimerModeProps = "main" | "extra" | "pause"

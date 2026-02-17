@@ -4,6 +4,7 @@ interface Kelime {
   harfSayisi: number;
   kelimeSayisi: number;
   koken: string;
+  kelimeTuru: string
 }
 
 interface Props {
@@ -86,11 +87,13 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
         <Clues
           color="ring-emerald-400"
         >
-          {" "}
-          {aktifKelime.koken}{" "}
+          {aktifKelime.koken}
         </Clues>
         <Clues color="ring-amber-400" >
           {`${aktifKelime.kelimeSayisi} Kelime`}
+        </Clues>
+        <Clues color="ring-pink-400" >
+          {`${aktifKelime.kelimeTuru}`}
         </Clues>
       </div>
     </div>

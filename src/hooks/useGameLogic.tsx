@@ -1,7 +1,9 @@
 import type { KelimeData, Kelime } from "../types/wordTypes";
-import { useEffect, useState, useRef } from "react";
+import type { TimerModeProps } from "../types/propTypes";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { getTheme } from "../utils/getTheme";
 import type { KeyboardTheme } from "../virtualKeyboard/KeyboardPalettes";
+import type { SoruOzeti } from "../types/kayitType";
 
 export const useGameLogic = () => {
   const [data, setData] = useState<KelimeData | null>(null);
@@ -12,20 +14,22 @@ export const useGameLogic = () => {
   const [gameList, setGameList] = useState<Kelime[]>([]);
   const [startGame, setStartGame] = useState(false);
   const [zaman, setZaman] = useState(180);
-  const [isTimerActive, setIsTimerActive] = useState(false);
   const keyboardProgress = useRef(false);
   const [theme, setTheme] = useState<KeyboardTheme>(() => getTheme());
   const [charIndex, setCharIndex] = useState<number>(0); // sanal klavye için //v-keyboard
-
+  const [ozetListesi, setOzetListesi] = useState<SoruOzeti[]>([]);
+  const [takenWordsPQ, setTakenWordsPQ] = useState<number>(0);
   const [score, setScore] = useState({
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 30,
+    pass: 5,
   });
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const timerRef = useRef<number | null>(null);
+  const [extraTimer, setExtraTimer] = useState<number>(15);
+  const [timerMode, setTimerMode] = useState<TimerModeProps>("pause");
 
   const aktifKelime = gameList[currentIndex] || null;
 
@@ -61,22 +65,49 @@ export const useGameLogic = () => {
     }
   }, [currentIndex, aktifKelime, gameList.length, startGame]);
 
+  const NextQuestion = useCallback(
+    (durum: "dogru" | "yanlis" | "pas") => {
+      if (aktifKelime) {
+        const yeniKayit: SoruOzeti = {
+          soruSayisi: currentIndex + 1,
+          kelime: aktifKelime.kelime,
+          aciklama: aktifKelime.aciklama,
+          durum: durum,
+          alinanHarf: takenWordsPQ
+        };
+        setOzetListesi((prev) => [...prev, yeniKayit]);
+      }
+
+      setIndex((prev) => {
+        if (prev < gameList.length - 1) {
+          setExtraTimer(15);
+          setTimerMode("main");
+          setTakenWordsPQ(0);
+          return prev + 1;
+        } else {
+          setGameEnd(true);
+          return prev;
+        }
+      });
+    },
+    [gameList.length, aktifKelime, takenWordsPQ, currentIndex],
+  );
+
   //Timers
 
   useEffect(() => {
     //useEffect veriyi hafızada tutar
-    if (isTimerActive) {
-      timerRef.current = window.setInterval(() => {
-        setZaman((prev) => {
-          if (prev <= 1) {
-            setIsTimerActive(false);
-            setGameEnd(true);
-            return 0;
-          }
-          return prev - 1;
-        }); //buton odaklı zaman yerine durum bazlı zaman kontrolü yapmayı sağlar.
-      }, 1000);
-    }
+    if (timerMode !== "main") return;
+    timerRef.current = window.setInterval(() => {
+      setZaman((prev) => {
+        if (prev <= 1) {
+          setTimerMode("pause");
+          setGameEnd(true);
+          return 0;
+        }
+        return prev - 1;
+      }); //buton odaklı zaman yerine durum bazlı zaman kontrolü yapmayı sağlar.
+    }, 1000);
     return () => {
       if (timerRef.current) {
         //timerRef.current !== null
@@ -84,7 +115,30 @@ export const useGameLogic = () => {
         timerRef.current = null;
       }
     };
-  }, [isTimerActive]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
+  }, [timerMode]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
+
+  useEffect(() => {
+    if (timerMode !== "extra") return;
+    if (extraTimer === 0) {
+      setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
+
+      setSonuc("Süre doldu, Yanlış!");
+      setTimerMode("pause");
+      setTimeout(() => {
+        NextQuestion("yanlis");
+        setSonuc("");
+      }, 500);
+
+      return; //süre doldu, diğer soruya geçer, süreyi sıfırlar ve cevap yoksa yanlış sayar
+    }
+    const timeout = setTimeout(() => {
+      setExtraTimer((prev) => {
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [extraTimer, timerMode, NextQuestion]);
 
   //theme
   useEffect(() => {
@@ -105,34 +159,22 @@ export const useGameLogic = () => {
   }
 
   const StartTheGame = () => {
-    //const chosenWords = randomWords(kelimeler); tüm kelimeler
-    //const harf5 = kelimeler.filter((h) => h.harfSayisi === 5); //5 harfli kelimeler
-    //const harf6 = kelimeler.filter((h) => h.harfSayisi === 6); //5 harfli kelimeler
-    //const aktifKelime = kelimeler[currentIndex];
-    //const list5 = randomWords(harf5).slice(0, 5); //5 harfliler seçildi
-    //const list6 = randomWords(harf6).slice(0, 5); //6 harfliler seçildi
-    //const birlesikListe = [...list5, ...list6]; //farklı soru havuzlarından listeler birleştirildi, spread operatörü ile
     if (!data) return;
     const kelimeler = data.kelimeler;
-    const levels = [5, 6, 7, 8, 9, 10, 11, 12]; //harfleri seç
+    const levels = [5, 6, 7, 8, 9, 10]; //harfleri seç
     const pool = levels.flatMap((len) => {
       const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
-      return group.slice(0, 5); //5er soru sor
+      return group.slice(0, 3); //5er soru sor
     });
     setGameList(pool);
     setIndex(0);
     setStartGame(true);
     setGameEnd(false);
-    setIsTimerActive(true);
+    setSonuc("");
+    setTimerMode("main");
+    setExtraTimer(15);
     setZaman(180);
-  };
-
-  const NextQuestion = () => {
-    if (currentIndex < gameList.length - 1) {
-      setIndex((i) => i + 1);
-    } else {
-      setGameEnd(true);
-    }
+    setOzetListesi([])
   };
 
   const kontrolEt = () => {
@@ -152,23 +194,29 @@ export const useGameLogic = () => {
       setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
       // 1 saniye bekleyip sonraki soruya geç (süre eklenirse kaldırılacak)
       setTimeout(() => {
-        NextQuestion();
+        NextQuestion("dogru");
         keyboardProgress.current = false;
-      }, 500);
+      }, 600);
     } else {
-      setSonuc("Yanlış!");
-      setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
+      setSonuc("Bir daha dene!");
+      //setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 })); yanlış sadece extra süre biterse
       setTimeout(() => {
+        setSonuc("");
         keyboardProgress.current = false;
-      }, 500);
+      }, 800);
     }
-    setIsTimerActive(true);
   };
 
   const harfVer = () => {
     if (!aktifKelime) return;
-    if (!isTimerActive) {
-      setSonuc(`Zaman durduğunda harf alamazsınız!`);
+    if (timerMode === "extra") {
+      setTimeout(() => {
+        setSonuc(`Zaman durduğunda harf alamazsınız!`);
+      }, 50);
+      setTimeout(() => {
+        setSonuc("");
+      }, 1000);
+
       return;
     }
     const bosIndex = harfler
@@ -181,38 +229,58 @@ export const useGameLogic = () => {
         aktifKelime.kelime[randomSecim].toLocaleUpperCase("tr-TR");
       yeniHarfler[randomSecim] = alinanHarf; //harfi yerleştirdik
       setHarfler(yeniHarfler); //güncelleme
-      setSonuc(`${aktifKelime.kelime[randomSecim]} Harfi alındı`);
+      setTimeout(() => {
+        setSonuc(`${aktifKelime.kelime[randomSecim]} Harfi alındı`);
+      }, 50);
+      setTimeout(() => {
+        setSonuc("");
+      }, 1000);
       inputRefs.current[randomSecim]?.focus(); //alınan harfe odaklanma sağlandı
       if (inputRefs.current[randomSecim]) {
         inputRefs.current[randomSecim].disabled = true;
       }
-
       //Puan düşürme
       setScore((prev) => ({ ...prev, takenWords: prev.takenWords + 1 }));
+      setTakenWordsPQ((prev) => prev + 1); //kelime bası alınan harf sayısı
     } else {
-      setSonuc(`Alınacak harf kalmadı!`);
+      /* NextQuestion('dogru')
+      setScore((prev) => ({ ...prev, correct: prev.correct + 1 })); */
+      setTimeout(() => {
+        setSonuc(`Alınacak harf kalmadı!`);
+      }, 50);
+      setTimeout(() => {
+        setSonuc("");
+      }, 1500);
     }
   };
 
   const gaveUp = () => {
-    if (!isTimerActive) {
-      setSonuc(`Zaman durduğunda PAS YAPAMAZSIN.`);
+    if (timerMode === "extra") {
+      setSonuc("");
+      setTimeout(() => {
+        setSonuc(`Zaman durduğunda PAS YAPAMAZSIN`);
+      }, 50);
+      setTimeout(() => {
+        setSonuc("");
+      }, 1000);
       return;
     }
     if (score.pass > 0) {
       setScore((prev) => ({ ...prev, pass: prev.pass - 1 }));
-      NextQuestion();
+      NextQuestion("pas");
     } else {
-      setSonuc("Pas hakkın kalmadı!");
+      setTimeout(() => {
+        setSonuc(`Pas hakkın kalmadı!`);
+      }, 50);
+      setTimeout(() => {
+        setSonuc("");
+      }, 1000);
       return;
     }
   };
 
   const RestartTheGame = () => {
-    setIndex(0);
-    setGameEnd(false);
-    setSonuc("");
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 30 });
+    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
     StartTheGame();
   };
 
@@ -256,7 +324,7 @@ export const useGameLogic = () => {
 
           if (sonrakiMesafe !== -1) {
             const hedefIndex = charIndex + 1 + sonrakiMesafe;
-            inputRefs.current[hedefIndex]?.focus(); //veya setCharIndex(hedefIndex)
+            setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10); //veya setCharIndex(hedefIndex)
           }
         }
       }
@@ -277,9 +345,11 @@ export const useGameLogic = () => {
       totalPoints,
       aktifKelime,
       zaman,
-      isTimerActive,
       theme,
       charIndex,
+      extraTimer,
+      timerMode,
+      ozetListesi
     },
     actions: {
       setHarfler,
@@ -291,10 +361,11 @@ export const useGameLogic = () => {
       setStartGame,
       RestartTheGame,
       setZaman,
-      setIsTimerActive,
       handleVirtualKey,
       setTheme,
       setCharIndex,
+      setExtraTimer,
+      setTimerMode,
     },
     refs: { inputRefs },
   };
