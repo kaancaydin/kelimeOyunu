@@ -1,11 +1,9 @@
-import Tippy from "@tippyjs/react";
 import type { ButtonProps } from "../types/elementTypes";
 
 export const GameButton = ({
   onClick,
   children,
   className = "",
-  tippyTitle = "",
   variant,
   ternaryOp,
   disabled,
@@ -57,17 +55,6 @@ export const GameButton = ({
   };
 
   return (
-    <Tippy
-      arrow={false}
-      touch={false}
-      disabled={!tippyTitle}
-      offset={[0, 10]}
-      content={
-        <span className="text-[12px] px-2 py-1 rounded shadow-xl text-white bg-black">
-          {tippyTitle}
-        </span>
-      }
-    >
       <button
         disabled={disabled}
         className={`cursor-pointer select-none
@@ -79,6 +66,5 @@ export const GameButton = ({
         {children}
         {/*{extra && <div className={`${extraClass}`}>{extra}</div>}*/}
       </button>
-    </Tippy>
   );
 };

@@ -1,11 +1,11 @@
-import Tippy from "@tippyjs/react";
 import { formatTime } from "../utils/FormatTime";
 import { PauseIcon } from "./Icons";
 import type { TimerModeProps } from "../types/propTypes";
+import { memo } from "react";
 
 interface Props {
   zaman: number;
-  setTimerMode: React.Dispatch<React.SetStateAction<TimerModeProps>>;
+  onPause: () => void;
   extraTimer: number;
   timerMode: TimerModeProps;
 }
@@ -50,12 +50,7 @@ const ExtraTimer = ({ extraTimer, timerMode }: ExtraTimerProps) => {
   );
 };
 
-export const Timer = ({
-  zaman,
-  setTimerMode,
-  extraTimer,
-  timerMode,
-}: Props) => {
+export const Timer = memo(({ zaman, onPause, extraTimer, timerMode }: Props) => {
   return (
     <div className="flex justify-center items-center sm:gap-6 gap-4">
       <div
@@ -81,23 +76,14 @@ export const Timer = ({
             <ExtraTimer extraTimer={extraTimer} timerMode={timerMode} />
           </div>
         ) : (
-          <Tippy
-            touch={false}
-            content={
-              <span className="text-[12px] px-2 py-1 rounded shadow-xl text-white bg-black">
-                Zamanı Durdur
-              </span>
-            }
+          <button
+            onClick={onPause}
+            className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/20 transition-all hover:bg-white/10"
           >
-            <button
-              onClick={() => setTimerMode("extra")}
-              className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/20 transition-all hover:bg-white/10"
-            >
-              <PauseIcon />
-            </button>
-          </Tippy>
+            <PauseIcon />
+          </button>
         )}
       </div>
     </div>
   );
-};
+});

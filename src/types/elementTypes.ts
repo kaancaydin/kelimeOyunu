@@ -5,11 +5,6 @@ export interface ButtonProps {
   variant: "check" | "checkSmall" | "pass" | "close" | "clue" | "restart";
   disabled?: boolean;
   ternaryOp?: React.ReactNode;
-  tippyTitle?: string
-  /*   extra?: React.ReactNode;
-  extraClass?: React.ReactNode; */
-  /*   icon?: React.ReactNode;
-  iconClass?: string; */
 }
 
 export interface LiquidGlassProps<T extends React.ElementType> { //t'nin olabileceği her türlü html elemetine olanak verdik

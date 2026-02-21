@@ -18,7 +18,7 @@ export const InfoTab = ({ theme, setTheme }: Props) => {
   return (
     <>
       <button
-        className="cursor-pointer absolute top-5 right-5 
+        className="cursor-pointer absolute top-5 left-5 
     hover:scale-110 active:brightness-125 transition-all duration-150"
         onClick={() => {
           setInfoTab(true);

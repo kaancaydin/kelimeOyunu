@@ -18,9 +18,7 @@ const ScoreStats = ({
       >
         {children}
       </p>
-      <p>
-        {parent}
-      </p>
+      <p>{parent}</p>
     </div>
   );
 };
@@ -51,16 +49,11 @@ const InGameScoreStats = ({
   parent,
   animate,
 }: ScoreStatsProps) => {
-  /* const sizeClasses = {
-    normal: "gap-2 px-2 py-1 text-lg sm:text-2xl [&>svg]:w-6 [&>svg]:h-6",
-    medium: "gap-1.5 px-1.5 py-0.5 text-base sm:text-xl [&>svg]:w-5 [&>svg]:h-5",
-    compact: "gap-1 px-1 py-0 text-sm sm:text-lg [&>svg]:w-4 [&>svg]:h-4",
-  }; */
   return (
     <>
       <div
         className={`flex items-center gap-1 sm:gap-1.5 px-1.5 py-0  sm:px-3 sm:py-1.5 rounded-full
-        transition-all overflow-hidden
+        border-b-2 transition-all overflow-hidden
           ${colors} ${className}`}
       >
         <span
@@ -79,22 +72,22 @@ const InGameScoreStats = ({
 
 export const InGameScoreBoard = ({ score, sonuc }: Props) => {
   const getBannerStyle = (sonuc: string | null) => {
-  switch (sonuc) {
-    case "Doğru!":
-      return "bg-emerald-600 border-emerald-400 animate-morph-glow";
-    case "Süre doldu, Yanlış!":
-      return "bg-rose-600  border-rose-400";
-    case "Bir daha dene!":
-      return "bg-orange-500  border-orange-300";
-    case "Zaman durduğunda PAS YAPAMAZSIN":
-    case "Pas hakkın kalmadı!":
-    case "Zaman durduğunda harf alamazsınız!":
-    case "Tüm harfleri aldınız!":
-      return "bg-red-800 border-red-600"
-    default:
-      return "bg-blue-500  border-blue-300 ";
-  }
-};
+    switch (sonuc) {
+      case "Doğru!":
+        return "bg-emerald-600 border-emerald-400 animate-morph-glow";
+      case "Süre doldu, Yanlış!":
+        return "bg-rose-600  border-rose-400";
+      case "Bir daha dene!":
+        return "bg-orange-500  border-orange-300";
+      case "Zaman durduğunda PAS YAPAMAZSIN":
+      case "Pas hakkın kalmadı!":
+      case "Zaman durduğunda harf alamazsınız!":
+      case "Harf vermek için yer yok!":
+        return "bg-red-800 border-red-600";
+      default:
+        return "bg-blue-500  border-blue-300 ";
+    }
+  };
 
   return (
     <div
@@ -134,17 +127,17 @@ export const InGameScoreBoard = ({ score, sonuc }: Props) => {
       `}
       >
         <InGameScoreStats
-          colors="bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/30"
+          colors="bg-emerald-500/10 text-emerald-600 border-emerald-500/30"
           children={score.correct}
           parent={<CorrectIcon />}
         />
         <InGameScoreStats
-          colors="bg-rose-500/10 text-rose-600 ring-1 ring-rose-500/30"
+          colors="bg-rose-500/10 text-rose-600 border-rose-500/30"
           children={score.wrong}
           parent={<WrongIcon />}
         />
         <InGameScoreStats
-          colors="bg-cyan-500/10 text-cyan-600 ring-1 ring-cyan-500/30"
+          colors="bg-cyan-500/10 text-cyan-600 border-cyan-500/30"
           children={score.takenWords}
           parent={<HintIcon />}
         />
@@ -152,3 +145,9 @@ export const InGameScoreBoard = ({ score, sonuc }: Props) => {
     </div>
   );
 };
+
+/* const sizeClasses = {
+    normal: "gap-2 px-2 py-1 text-lg sm:text-2xl [&>svg]:w-6 [&>svg]:h-6",
+    medium: "gap-1.5 px-1.5 py-0.5 text-base sm:text-xl [&>svg]:w-5 [&>svg]:h-5",
+    compact: "gap-1 px-1 py-0 text-sm sm:text-lg [&>svg]:w-4 [&>svg]:h-4",
+  }; */

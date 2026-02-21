@@ -4,7 +4,7 @@ interface Kelime {
   harfSayisi: number;
   kelimeSayisi: number;
   koken: string;
-  kelimeTuru: string
+  kelimeTuru: string;
 }
 
 interface Props {
@@ -39,7 +39,7 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
     compact: "min-h-16 sm:min-h-28",
   };
 
-/*   const cluesSize = {
+  /*   const cluesSize = {
     normal: "text-sm sm:text-base px-1.5 py-0.5 sm:px-3 sm:py-1.5",
     medium: "text-xs sm:text-base px-1.5 py-0.5 sm:px-3 sm:py-1",
     compact: "text-xs sm:text-xs px-1 py-0.5 sm:px-2 sm:py-0.5",
@@ -79,21 +79,11 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
         ”
       </span>
       <div className="flex justify-center items-center gap-6 mt-2">
-        <Clues
-          color="ring-sky-400"
-        >
-          {`${aktifKelime.harfSayisi} Harf`}
-        </Clues>
-        <Clues
-          color="ring-emerald-400"
-        >
-          {aktifKelime.koken}
-        </Clues>
-        <Clues color="ring-amber-400" >
+        <Clues color="ring-pink-400">{`${aktifKelime.kelimeTuru}`}</Clues>
+        <Clues color="ring-emerald-400">{aktifKelime.koken}</Clues>
+        <Clues color="ring-sky-400">{`${aktifKelime.harfSayisi} Harf`}</Clues>
+        <Clues color="ring-amber-400">
           {`${aktifKelime.kelimeSayisi} Kelime`}
-        </Clues>
-        <Clues color="ring-pink-400" >
-          {`${aktifKelime.kelimeTuru}`}
         </Clues>
       </div>
     </div>

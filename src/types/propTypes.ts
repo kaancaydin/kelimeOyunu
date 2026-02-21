@@ -1,11 +1,16 @@
+import type { Kelime } from "./wordTypes";
+
 //WordInput.tsx
 export interface InputProps {
   harfler: string[];
-  setHarfler: React.Dispatch<React.SetStateAction<string[]>>;
+  updateHarf: (index: number, value: string) => void;
+  deleteHarf: (targetIndex: number) => void;
   inputRefs: React.RefObject<(HTMLInputElement | null)[]>;
-  onEnter: () => void;
+  //onEnter: (guncelHarfler: string[], guncelJokerler: number[]) => void
   density: "normal" | "medium" | "compact";
   setCharIndex: React.Dispatch<React.SetStateAction<number>>;
+  jokerIndexes: number[]
+  aktifKelime: Kelime
 }
 
 //ScoreBoard.tsx

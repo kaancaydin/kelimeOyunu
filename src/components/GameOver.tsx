@@ -9,7 +9,18 @@ interface MainGameProps {
 
 export const GameOver = ({ state, actions }: MainGameProps) => {
   const { score, totalPoints, ozetListesi } = state;
-  const { RestartTheGame, setStartGame } = actions;
+  const { StartTheGame, BackToMenu } = actions;
+  const qetQuestionStatus = (durum: string | null) => {
+    switch (durum) {
+      case "dogru":
+        return "DOĞRU";
+      case "yanlis":
+        return "YANLIŞ";
+      default:
+        return "PAS";
+    }
+  };
+  
   return (
     <div
       className="flex items-center flex-col gap-8 p-6 sm:p-10 
@@ -41,12 +52,16 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
         className="flex flex-col items-center bg-linear-to-br from-indigo-600/40 to-purple-700/40 
       backdrop-blur-md px-2 py-3 sm:px-10 sm:py-4 rounded-4xl border border-white/20 shadow-2xl"
       >
-        <span className="text-xs sm:text-sm text-gray-400 uppercase tracking-wide font-black">Toplam skor</span>
-        <p className="text-2xl sm:text-5xl tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] font-rubik font-lack ">{totalPoints}</p>
+        <span className="text-xs sm:text-sm text-gray-400 uppercase tracking-wide font-black">
+          Toplam skor
+        </span>
+        <p className="text-2xl sm:text-5xl tracking-tighter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] font-rubik font-lack ">
+          {totalPoints}
+        </p>
       </div>
       <div className="grid grid-cols-[1fr_3fr] sm:grid-cols-[2fr_5fr] gap-2 sm:gap-3">
         <button
-          onClick={() => setStartGame(false)}
+          onClick={BackToMenu}
           className="cursor-pointer  bg-[rgba(255,255,255,0.2)] rounded-full
            items-center justify-center group relative inline-flex p-2
           hover:scale-105 active:opacity-50 transition-all duration-150"
@@ -54,7 +69,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
           <BackIcon />
         </button>
         <GameButton
-          onClick={RestartTheGame}
+          onClick={StartTheGame}
           variant="restart"
           className="text-base uppercase tracking-widest"
         >
@@ -62,25 +77,29 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
           <ArrowIcon />
         </GameButton>
       </div>
-      <div className="w-full space-y-3 sm:space-y-5 mt-0 sm:mt-4">
-        {ozetListesi.map((soru, index) => (
-          <div
-            key={index}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl
+      {ozetListesi.length > 0 && (
+        <div className="w-full space-y-3 sm:space-y-5 mt-0 sm:mt-4">
+          <p className={`text-white font-bold text-sm sm:text-lg ml-1`}>
+            Soru Analizi
+          </p>
+          {ozetListesi.map((soru, index) => (
+            <div
+              key={index}
+              className="w-full bg-white/5 border border-white/10 rounded-2xl
             p-3 sm:p-6 flex flex-col gap-4"
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="text-gray-400">Soru</span>
-                <span className="text-indigo-400 font-mono text-[16px] ml-1">
-                  {soru.soruSayisi}
-                </span>
-                <h4 className="text-xl sm:text-2xl font-black text-white uppercase  tracking-tight">
-                  {soru.kelime}
-                </h4>
-              </div>
-              <div
-                className={`px-2 sm:px-4 py-0.5 sm:py-1 rounded-full text-xs font-bold border
+            >
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="text-gray-400">Soru</span>
+                  <span className="text-indigo-400 font-mono text-[16px] ml-1">
+                    {soru.soruSayisi}
+                  </span>
+                  <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                    {soru.kelime}
+                  </h4>
+                </div>
+                <div
+                  className={`px-2 sm:px-4 py-0.5 sm:py-1 rounded-full text-xs font-bold border
                 ${
                   soru.durum === "dogru"
                     ? "bg-green-500/20 text-green-400 border-green-500/40"
@@ -88,22 +107,25 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
                       ? "bg-yellow-500/20 text-yellow-400 border-yellow-500/40"
                       : "bg-red-500/20 text-red-400 border-red-400/40"
                 }`}
-              >
-                {soru.durum.toUpperCase()}
+                >
+                  {qetQuestionStatus(soru.durum)}
+                </div>
+              </div>
+              <p className="text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/10 pl-2 sm:pl-4">
+                {soru.aciklama}
+              </p>
+              <div className="flex gap-4 pt-0px sm:pt-2  text-xs sm:text-[14px] font-medium upppercase tracking-widest">
+                <span>
+                  Alınan harf:
+                  <b className=" font-rubik font-black text-[#50A2FF]">
+                    {soru.alinanHarf}
+                  </b>
+                </span>
               </div>
             </div>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/10 pl-2 sm:pl-4">
-              {soru.aciklama}
-            </p>
-            <div className="flex gap-4 pt-0px sm:pt-2  text-xs sm:text-[14px] font-medium upppercase tracking-widest">
-              <span>
-                Alınan harf: 
-                <b className=" font-rubik font-black text-[#50A2FF]"> {soru.alinanHarf}</b>
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

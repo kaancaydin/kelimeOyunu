@@ -1,40 +1,49 @@
-import type { KelimeData, Kelime } from "../types/wordTypes";
-import type { TimerModeProps } from "../types/propTypes";
-import { useEffect, useState, useRef, useCallback } from "react";
+import type { KelimeData } from "../types/wordTypes";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useReducer,
+  useMemo,
+} from "react";
 import { getTheme } from "../utils/getTheme";
 import type { KeyboardTheme } from "../virtualKeyboard/KeyboardPalettes";
 import type { SoruOzeti } from "../types/kayitType";
+import { gameReducer, initialState } from "./gameReducer";
 
 export const useGameLogic = () => {
+  const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  const {
+    currentIndex,
+    //sonuc,
+    //gameEnd,
+    gameList,
+    startGame,
+    timerMode,
+    score,
+    takenWordsPQ,
+    jokerIndexes,
+  } = state;
+
   const [data, setData] = useState<KelimeData | null>(null);
   const [harfler, setHarfler] = useState<string[]>([]);
-  const [currentIndex, setIndex] = useState<number>(0);
-  const [sonuc, setSonuc] = useState<string>("");
-  const [gameEnd, setGameEnd] = useState(false);
-  const [gameList, setGameList] = useState<Kelime[]>([]);
-  const [startGame, setStartGame] = useState(false);
-  const [zaman, setZaman] = useState(180);
   const keyboardProgress = useRef(false);
   const [theme, setTheme] = useState<KeyboardTheme>(() => getTheme());
   const [charIndex, setCharIndex] = useState<number>(0); // sanal klavye için //v-keyboard
-  const [ozetListesi, setOzetListesi] = useState<SoruOzeti[]>([]);
-  const [takenWordsPQ, setTakenWordsPQ] = useState<number>(0);
-  const [score, setScore] = useState({
-    correct: 0,
-    wrong: 0,
-    takenWords: 0,
-    pass: 5,
-  });
+  const [zaman, setZaman] = useState(210);
+  const [extraTimer, setExtraTimer] = useState(15);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const timerRef = useRef<number | null>(null);
-  const [extraTimer, setExtraTimer] = useState<number>(15);
-  const [timerMode, setTimerMode] = useState<TimerModeProps>("pause");
 
   const aktifKelime = gameList[currentIndex] || null;
 
-  const totalPoints =
-    score.correct * 10 - score.wrong * 5 - score.takenWords * 2;
+  const totalPoints = useMemo(() => {
+    //memo sayesinde her renderda yeniden hesaplanmıyor, verimli
+    return score.correct * 10 - score.wrong * 5 - score.takenWords * 2;
+  }, [score.correct, score.wrong, score.takenWords]);
 
   useEffect(() => {
     const loadWords = async () => {
@@ -44,8 +53,12 @@ export const useGameLogic = () => {
         if (!res.ok) throw new Error("JSON yüklenemedi");
 
         const json: KelimeData = await res.json();
+        const upperWords = json.kelimeler.map((k) => ({
+          ...k,
+          kelime: k.kelime.toLocaleUpperCase("tr-TR"),
+        }));
         //await new Promise(r => setTimeout(r, 500)); loading ekranı için
-        setData(json);
+        setData({ ...json, kelimeler: upperWords });
       } catch (err) {
         console.error(err);
       }
@@ -58,51 +71,90 @@ export const useGameLogic = () => {
     if (!startGame || gameList.length === 0) return;
 
     if (aktifKelime) {
-      setHarfler(Array(aktifKelime.kelime.length).fill(""));
-      setSonuc("");
+      const harfBosalt = Array(aktifKelime.kelime.length).fill("");
+      //dispatch({ type: "SET_SONUC", payload: "" });
+      setHarfler(harfBosalt);
       // Input focus için ufak bir timeout (render beklemek için)
-      setTimeout(() => inputRefs.current[0]?.focus(), 50);
+      requestAnimationFrame(() => {
+        inputRefs.current[0]?.focus();
+      });
     }
   }, [currentIndex, aktifKelime, gameList.length, startGame]);
 
   const NextQuestion = useCallback(
     (durum: "dogru" | "yanlis" | "pas") => {
-      if (aktifKelime) {
-        const yeniKayit: SoruOzeti = {
-          soruSayisi: currentIndex + 1,
-          kelime: aktifKelime.kelime,
-          aciklama: aktifKelime.aciklama,
-          durum: durum,
-          alinanHarf: takenWordsPQ
-        };
-        setOzetListesi((prev) => [...prev, yeniKayit]);
-      }
+      if (!aktifKelime) return;
 
-      setIndex((prev) => {
-        if (prev < gameList.length - 1) {
-          setExtraTimer(15);
-          setTimerMode("main");
-          setTakenWordsPQ(0);
-          return prev + 1;
-        } else {
-          setGameEnd(true);
-          return prev;
-        }
-      });
+      const yeniKayit: SoruOzeti = {
+        soruSayisi: currentIndex + 1,
+        kelime: aktifKelime.kelime,
+        aciklama: aktifKelime.aciklama,
+        durum: durum,
+        alinanHarf: takenWordsPQ,
+      };
+      setExtraTimer(15);
+      dispatch({ type: "NEXT_QUESTION", yeniKayit });
     },
-    [gameList.length, aktifKelime, takenWordsPQ, currentIndex],
+    [aktifKelime, takenWordsPQ, currentIndex],
   );
 
-  //Timers
+  const kontrolEt = useCallback(
+    (guncelHarfler: string[], guncelJokerler: number[]) => {
+      // 1. Güvenlik Kontrolleri (Parametre üzerinden)
+      if (
+        !aktifKelime ||
+        keyboardProgress.current ||
+        guncelHarfler.includes("")
+      )
+        return;
 
+      const girilen = guncelHarfler.join("").toLocaleUpperCase("tr-TR");
+      const dogru = aktifKelime.kelime;
+
+      keyboardProgress.current = true;
+
+      if (girilen === dogru) {
+        // DOĞRU CEVAP
+        dispatch({ type: "CEVAP", payload: "dogru" });
+        setTimeout(() => {
+          NextQuestion("dogru");
+          keyboardProgress.current = false;
+        }, 400);
+      } else {
+        // YANLIŞ CEVAP
+        dispatch({ type: "CEVAP", payload: "tekrar" });
+        setTimeout(() => {
+          dispatch({ type: "SET_SONUC", payload: "" });
+        }, 1000);
+        // Jokerli harfleri koru, diğerlerini boşalt
+        const noJoker = guncelHarfler.map((harf, index) =>
+          guncelJokerler.includes(index) ? harf : "",
+        );
+        const emptyWord = noJoker.findIndex((h) => h === "");
+
+        setTimeout(() => {
+          //dispatch({ type: "SET_HARFLER", payload: noJoker });
+          setHarfler(noJoker);
+          keyboardProgress.current = false;
+
+          if (emptyWord !== -1) {
+            requestAnimationFrame(() => {
+              inputRefs.current[emptyWord]?.focus();
+            });
+          }
+        }, 800);
+      }
+    },
+    [NextQuestion, aktifKelime],
+  );
+
+  //timers
   useEffect(() => {
-    //useEffect veriyi hafızada tutar
     if (timerMode !== "main") return;
     timerRef.current = window.setInterval(() => {
       setZaman((prev) => {
         if (prev <= 1) {
-          setTimerMode("pause");
-          setGameEnd(true);
+          dispatch({ type: "QUIT_GAME" });
           return 0;
         }
         return prev - 1;
@@ -115,21 +167,17 @@ export const useGameLogic = () => {
         timerRef.current = null;
       }
     };
-  }, [timerMode]); //Sadece isTimerActive değiştiğinde bu kutuyu(useEffect'i) çalıştır
-
+  }, [timerMode]);
   useEffect(() => {
     if (timerMode !== "extra") return;
     if (extraTimer === 0) {
-      setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 }));
+      dispatch({ type: "CEVAP", payload: "yanlis" });
 
-      setSonuc("Süre doldu, Yanlış!");
-      setTimerMode("pause");
       setTimeout(() => {
         NextQuestion("yanlis");
-        setSonuc("");
       }, 500);
 
-      return; //süre doldu, diğer soruya geçer, süreyi sıfırlar ve cevap yoksa yanlış sayar
+      return; //süre doldu, diğer soruya geçer, ektra süreyi sıfırlar ve cevap yoksa yanlış sayar
     }
     const timeout = setTimeout(() => {
       setExtraTimer((prev) => {
@@ -139,7 +187,6 @@ export const useGameLogic = () => {
 
     return () => clearTimeout(timeout);
   }, [extraTimer, timerMode, NextQuestion]);
-
   //theme
   useEffect(() => {
     localStorage.setItem("keyboardTheme", theme);
@@ -166,206 +213,186 @@ export const useGameLogic = () => {
       const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
       return group.slice(0, 3); //5er soru sor
     });
-    setGameList(pool);
-    setIndex(0);
-    setStartGame(true);
-    setGameEnd(false);
-    setSonuc("");
-    setTimerMode("main");
+    dispatch({ type: "START_GAME", payload: pool });
+    setZaman(210);
     setExtraTimer(15);
-    setZaman(180);
-    setOzetListesi([])
-  };
-
-  const kontrolEt = () => {
-    if (
-      !aktifKelime ||
-      sonuc === "Doğru!" ||
-      keyboardProgress.current ||
-      harfler.includes("")
-    )
-      return;
-    const girilen = harfler.join("").toLocaleUpperCase("tr-TR");
-    const dogru = aktifKelime.kelime.toLocaleUpperCase("tr-TR");
-
-    keyboardProgress.current = true;
-    if (girilen === dogru) {
-      setSonuc("Doğru!");
-      setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
-      // 1 saniye bekleyip sonraki soruya geç (süre eklenirse kaldırılacak)
-      setTimeout(() => {
-        NextQuestion("dogru");
-        keyboardProgress.current = false;
-      }, 600);
-    } else {
-      setSonuc("Bir daha dene!");
-      //setScore((prev) => ({ ...prev, wrong: prev.wrong + 1 })); yanlış sadece extra süre biterse
-      setTimeout(() => {
-        setSonuc("");
-        keyboardProgress.current = false;
-      }, 800);
-    }
+    //dispatch({ type: "SET_SONUC", payload: "" });
   };
 
   const harfVer = () => {
-    if (!aktifKelime) return;
-    if (timerMode === "extra") {
-      setTimeout(() => {
-        setSonuc(`Zaman durduğunda harf alamazsınız!`);
-      }, 50);
-      setTimeout(() => {
-        setSonuc("");
-      }, 1000);
-
+    if (!aktifKelime || timerMode === "extra") {
+      if (timerMode === "extra") {
+        /* dispatch({
+          type: "SET_SONUC",
+          payload: "Zaman durduğubnda harf alamazsınız!",
+        }); */
+        /* setTimeout(() => {
+          dispatch({ type: "SET_SONUC", payload: "" });
+        }, 1000); */
+        //not in use for test
+      }
       return;
     }
     const bosIndex = harfler
       .map((h, index) => (h === "" ? index : null)) //boş olup olmayan yerleri kontrol ettik
       .filter((index) => index !== null) as number[]; //boş ise sayı dizisine attık
+
     if (bosIndex.length > 0) {
       const randomSecim = bosIndex[Math.floor(Math.random() * bosIndex.length)];
-      const yeniHarfler = [...harfler]; //harflerin lopyası oluşturuldu
-      const alinanHarf =
-        aktifKelime.kelime[randomSecim].toLocaleUpperCase("tr-TR");
-      yeniHarfler[randomSecim] = alinanHarf; //harfi yerleştirdik
-      setHarfler(yeniHarfler); //güncelleme
-      setTimeout(() => {
-        setSonuc(`${aktifKelime.kelime[randomSecim]} Harfi alındı`);
-      }, 50);
-      setTimeout(() => {
-        setSonuc("");
-      }, 1000);
-      inputRefs.current[randomSecim]?.focus(); //alınan harfe odaklanma sağlandı
-      if (inputRefs.current[randomSecim]) {
-        inputRefs.current[randomSecim].disabled = true;
+      const alinanHarf = aktifKelime.kelime[randomSecim];
+      const guncelHarfler = [...harfler];
+      guncelHarfler[randomSecim] = alinanHarf;
+      setHarfler(guncelHarfler);
+      dispatch({
+        type: "HARF_VER",
+        payload: { index: randomSecim },
+      });
+
+      if (!guncelHarfler.includes("")) {
+        setTimeout(() => {
+          kontrolEt(guncelHarfler, jokerIndexes); //alınan son harfa göre oto kontrol
+        }, 0);
+      } else {
+        const focusOnEmpty = harfler.findIndex(
+          (h, i) => h === "" && i !== randomSecim, //boş ve müsait olan ilk yere focus at
+        );
+        if (focusOnEmpty !== -1) {
+          requestAnimationFrame(() => {
+            inputRefs.current[focusOnEmpty]?.focus(); //en baştaki boş inputa focus at
+          });
+        }
       }
-      //Puan düşürme
-      setScore((prev) => ({ ...prev, takenWords: prev.takenWords + 1 }));
-      setTakenWordsPQ((prev) => prev + 1); //kelime bası alınan harf sayısı
-    } else {
-      /* NextQuestion('dogru')
-      setScore((prev) => ({ ...prev, correct: prev.correct + 1 })); */
-      setTimeout(() => {
-        setSonuc(`Alınacak harf kalmadı!`);
-      }, 50);
-      setTimeout(() => {
-        setSonuc("");
-      }, 1500);
     }
   };
 
   const gaveUp = () => {
     if (timerMode === "extra") {
-      setSonuc("");
-      setTimeout(() => {
-        setSonuc(`Zaman durduğunda PAS YAPAMAZSIN`);
-      }, 50);
-      setTimeout(() => {
-        setSonuc("");
-      }, 1000);
+      /* dispatch({
+        type: "SET_SONUC",
+        payload: "Zaman durduğunda PAS YAPAMAZSIN",
+      }); */
+      //setTimeout(() => dispatch({ type: "SET_SONUC", payload: "" }), 1000);
       return;
     }
     if (score.pass > 0) {
-      setScore((prev) => ({ ...prev, pass: prev.pass - 1 }));
-      NextQuestion("pas");
+      dispatch({ type: "CEVAP", payload: "pas" });
+      setTimeout(() => {
+        NextQuestion("pas");
+      }, 400);
     } else {
-      setTimeout(() => {
-        setSonuc(`Pas hakkın kalmadı!`);
-      }, 50);
-      setTimeout(() => {
-        setSonuc("");
-      }, 1000);
-      return;
+      //dispatch({ type: "SET_SONUC", payload: "Pas hakkın kalmadı!" });
+      //setTimeout(() => dispatch({ type: "SET_SONUC", payload: "" }), 1000);
     }
   };
 
-  const RestartTheGame = () => {
-    setScore({ correct: 0, wrong: 0, takenWords: 0, pass: 5 });
-    StartTheGame();
+  const QuitTheGame = () => {
+    dispatch({ type: "QUIT_GAME" });
+  };
+
+  const PauseTheGame = useCallback(() => {
+    dispatch({ type: "SET_TIMER_MODE", payload: "extra" });
+  }, []);
+
+  const BackToMenu = () => {
+    dispatch({ type: "BACK_MENU" });
   };
 
   //VirtualKeyboard
-
   const handleVirtualKey = (key: string) => {
     if (!aktifKelime) return;
 
-    setHarfler((prev) => {
-      const yeniHarfler = [...prev]; //kopayası alındı
+    const yeniHarfler = [...harfler];
 
-      if (key === "SİL") {
-        if (inputRefs.current[charIndex]?.disabled) return yeniHarfler;
-
-        if (yeniHarfler[charIndex] !== "") {
-          yeniHarfler[charIndex] = "";
-          setTimeout(() => inputRefs.current[charIndex]?.focus(), 10);
-        } else if (charIndex > 0) {
-          const mesafe = inputRefs.current
-            .slice(0, charIndex)
-            .reverse()
-            .findIndex((input) => input && !input.disabled);
-          if (mesafe !== -1) {
-            const hedefIndex = charIndex - 1 - mesafe;
-            yeniHarfler[hedefIndex] = "";
-            setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10);
-          }
-        }
-        return yeniHarfler;
-      } else if (key === "ENTER") {
-        if (sonuc !== "Doğru!") {
-          kontrolEt();
-        }
-      } else {
-        if (!inputRefs.current[charIndex]?.disabled) {
-          yeniHarfler[charIndex] = key.toLocaleUpperCase("tr-TR");
-
-          const sonrakiMesafe = inputRefs.current
-            .slice(charIndex + 1)
-            .findIndex((input) => input && !input.disabled);
-
-          if (sonrakiMesafe !== -1) {
-            const hedefIndex = charIndex + 1 + sonrakiMesafe;
-            setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10); //veya setCharIndex(hedefIndex)
-          }
+    if (key === "SİL") {
+      if (inputRefs.current[charIndex]?.disabled) return;
+      if (yeniHarfler[charIndex] !== "") {
+        yeniHarfler[charIndex] = "";
+        //setTimeout(() => inputRefs.current[charIndex]?.focus(), 10);
+        requestAnimationFrame(() => {
+          inputRefs.current[charIndex]?.focus();
+        });
+      } else if (charIndex > 0) {
+        const mesafe = inputRefs.current
+          .slice(0, charIndex)
+          .reverse()
+          .findIndex((input) => input && !input.disabled);
+        if (mesafe !== -1) {
+          const hedefIndex = charIndex - 1 - mesafe;
+          yeniHarfler[hedefIndex] = "";
+          //setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10);
+          requestAnimationFrame(() => {
+            inputRefs.current[hedefIndex]?.focus();
+          });
         }
       }
-      return yeniHarfler;
-    });
+    } else if (key === "ENTER") {
+      //BOŞ GEÇ
+    } else {
+      if (!inputRefs.current[charIndex]?.disabled) {
+        yeniHarfler[charIndex] = key;
+
+        const sonrakiMesafe = inputRefs.current
+          .slice(charIndex + 1)
+          .findIndex((input) => input && !input.disabled);
+
+        if (sonrakiMesafe !== -1) {
+          const hedefIndex = charIndex + 1 + sonrakiMesafe;
+          setTimeout(() => inputRefs.current[hedefIndex]?.focus(), 10); //veya setCharIndex(hedefIndex)
+        }
+        if (!yeniHarfler.includes("")) {
+          setTimeout(() => {
+            kontrolEt(yeniHarfler, jokerIndexes); //sanal klavyede oto kontrol
+          }, 0);
+        }
+      }
+    }
+    setHarfler(yeniHarfler);
+  };
+
+  // wordInput.tsx helper
+  const updateHarf = (index: number, value: string) => {
+    const yeniHarfler = [...harfler];
+    yeniHarfler[index] = value;
+    setHarfler(yeniHarfler);
+    if (!yeniHarfler.includes("")) {
+      //fiziksel klavyede oto kontrol
+      setTimeout(() => {
+        kontrolEt(yeniHarfler, jokerIndexes);
+      }, 0);
+    }
+  };
+
+  const deleteHarf = (targetIndex: number) => {
+    const yeniHarfler = [...harfler];
+    yeniHarfler[targetIndex] = "";
+    setHarfler(yeniHarfler);
   };
 
   return {
     state: {
+      ...state,
       data,
       harfler,
-      currentIndex,
-      sonuc,
-      gameEnd,
-      gameList,
-      startGame,
-      score,
       totalPoints,
       aktifKelime,
-      zaman,
       theme,
       charIndex,
+      zaman,
       extraTimer,
-      timerMode,
-      ozetListesi
     },
     actions: {
-      setHarfler,
       StartTheGame,
       kontrolEt,
       harfVer,
       gaveUp,
-      setGameEnd,
-      setStartGame,
-      RestartTheGame,
-      setZaman,
       handleVirtualKey,
       setTheme,
       setCharIndex,
-      setExtraTimer,
-      setTimerMode,
+      updateHarf,
+      deleteHarf,
+      QuitTheGame,
+      PauseTheGame,
+      BackToMenu,
     },
     refs: { inputRefs },
   };
