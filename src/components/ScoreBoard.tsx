@@ -36,7 +36,7 @@ export const ScoreBoard = ({ score }: Props) => {
         {score.takenWords}
       </ScoreStats>
       <ScoreStats colors="text-white" parent={<PassIcon />}>
-        {score.pass}
+        {5 - score.pass} 
       </ScoreStats>
     </>
   );

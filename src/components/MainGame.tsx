@@ -52,7 +52,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
              bg-gray-900 border border-white/10 
              w-[95vw] sm:w-[90vw] max-w-4xl 
              h-fit max-h-[92svh] sm:max-h-none
-               mx-auto overflow-y-auto
+               mx-auto overflow-y-auto 
              "
       >
         {/* soru sayacı */}

@@ -205,13 +205,36 @@ export const useGameLogic = () => {
     return a;
   }
 
+  const getRandomItems = <T,>(arr: T[], count: number): T[] => {
+    const result = new Array(count);
+    const len = arr.length;
+
+    // Eğer havuzda istenen sayıdan az kelime varsa hepsini dön
+    if (count >= len) return shuffle(arr);
+
+    const taken = new Set<number>(); // Seçilenleri işaretle ki aynı kelime gelmesin
+    let i = 0;
+
+    while (i < count) {
+      const randomIndex = Math.floor(Math.random() * len);
+      if (!taken.has(randomIndex)) {
+        result[i] = arr[randomIndex];
+        taken.add(randomIndex);
+        i++;
+      }
+    }
+    return result;
+  };
   const StartTheGame = () => {
     if (!data) return;
     const kelimeler = data.kelimeler;
     const levels = [5, 6, 7, 8, 9, 10]; //harfleri seç
     const pool = levels.flatMap((len) => {
-      const group = shuffle(kelimeler.filter((k) => k.harfSayisi === len)); //her harfi gruplara eşletşir
-      return group.slice(0, 3); //5er soru sor
+      // 1. Önce sadece o uzunluktaki kelimeleri filtrele (Hızlıdır)
+      const filtered = kelimeler.filter((k) => k.harfSayisi === len);
+
+      // 2. Bütün listeyi karıştırmak yerine içinden rastgele 3 tane seç
+      return getRandomItems(filtered, 3);
     });
     dispatch({ type: "START_GAME", payload: pool });
     setZaman(210);
