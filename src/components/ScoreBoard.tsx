@@ -9,16 +9,16 @@ const ScoreStats = ({
 }: ScoreStatsProps) => {
   return (
     <div
-      className={`bg-white/5  backdrop-blur-md border border-white/10 px-3 py-1.5 sm:px-4 sm:py-2
-                   rounded-3xl text-center shadow-xl gap-1 sm:gap-2 flex  items-center justify-center 
+      className={`bg-neutral-800/50 border border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 
+                   rounded-2xl text-center shadow-xl gap-1 sm:gap-2 flex  items-center justify-center 
                    ${colors}`}
     >
+      <p className="opacity-80 text-sm sm:text-base">{parent}</p>
       <p
-        className={`text-base sm:text-2xl font-black font-rubik cursor-default select-none  ${className}`}
+        className={`text-base sm:text-2xl font-sora font-black font-dmsans cursor-default select-none  ${className}`}
       >
         {children}
       </p>
-      <p>{parent}</p>
     </div>
   );
 };
@@ -36,7 +36,7 @@ export const ScoreBoard = ({ score }: Props) => {
         {score.takenWords}
       </ScoreStats>
       <ScoreStats colors="text-white" parent={<PassIcon />}>
-        {5 - score.pass} 
+        {5 - score.pass}
       </ScoreStats>
     </>
   );
@@ -53,12 +53,12 @@ const InGameScoreStats = ({
     <>
       <div
         className={`flex items-center gap-1 sm:gap-1.5 px-1.5 py-0  sm:px-3 sm:py-1.5 rounded-full
-        border-b-2 transition-all overflow-hidden
+        border-b-[3px] transition-all overflow-hidden
           ${colors} ${className}`}
       >
         <span
           key={children}
-          className={`text-lg sm:text-2xl font-bold tracking-tight cursor-default select-none ${animate}`}
+          className={`text-lg sm:text-2xl font-bold font-sora tracking-tight cursor-default select-none ${animate}`}
         >
           {children}
         </span>
@@ -92,7 +92,7 @@ export const InGameScoreBoard = ({ score, sonuc }: Props) => {
   return (
     <div
       className="relative flex items-center text-center justify-center w-full max-w-100 h-14 
-    mx-auto overflow-hidden rounded-2xl"
+    mx-auto overflow-hidden rounded-2xl "
     >
       {/*  MORPHING BANNER  */}
       <div
@@ -110,12 +110,9 @@ export const InGameScoreBoard = ({ score, sonuc }: Props) => {
       >
         {sonuc && (
           <div className="flex items-center gap-3 px-4">
-            <span className="text-white font-black italic tracking-widest text-base sm:text-lg shimmer-text uppercase">
+            <span className="text-white font-black font-sora italic tracking-widest text-base sm:text-lg shimmer-text uppercase">
               {sonuc}
             </span>
-            {/*isCorrect && (
-              <span className="text-yellow-300 animate-bounce text-xl">⭐</span>
-            )*/}
           </div>
         )}
       </div>

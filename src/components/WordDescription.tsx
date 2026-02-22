@@ -20,11 +20,10 @@ const Clues = ({ children, color, className }: CluesProps) => {
       className={`items-center rounded-full
         transition-all overflow-hidden ${color}  
         bg-linear-to-r from-transparent to-white/5 
-        ring-1 ring-offset-1 ring-offset-gray-900
-        capitalize font-medium text-gray-200 
+        ring-1 shadow-[0_0_4px_currentColor] not-italic
+        capitalize font-light text-gray-200 font-sora
         text-[10px] sm:text-base px-1 py-px sm:px-3 sm:py-1.5
         ${className}
-
         `}
     >
       {children}
@@ -39,11 +38,6 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
     compact: "min-h-16 sm:min-h-28",
   };
 
-  /*   const cluesSize = {
-    normal: "text-sm sm:text-base px-1.5 py-0.5 sm:px-3 sm:py-1.5",
-    medium: "text-xs sm:text-base px-1.5 py-0.5 sm:px-3 sm:py-1",
-    compact: "text-xs sm:text-xs px-1 py-0.5 sm:px-2 sm:py-0.5",
-  }; */
   const textSize = {
     normal: "text-base sm:text-3xl",
     medium: "text-base sm:text-3xl",
@@ -69,7 +63,7 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
       </span>
       <div className="w-full flex items-center justify-center px-2 sm:px-6 min-h-20 sm:min-h-37.5">
         <p
-          className={`font-medium leading-relaxed tracking-tight text-center italic text-gray-200
+          className={`font-medium leading-relaxed font-sora tracking-tight text-center text-gray-200
             ${textSize[density]}`}
         >
           {aktifKelime.aciklama}
@@ -79,10 +73,10 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
         ”
       </span>
       <div className="flex justify-center items-center gap-6 mt-2">
-        <Clues color="ring-pink-400">{`${aktifKelime.kelimeTuru}`}</Clues>
-        <Clues color="ring-emerald-400">{aktifKelime.koken}</Clues>
-        <Clues color="ring-sky-400">{`${aktifKelime.harfSayisi} Harf`}</Clues>
-        <Clues color="ring-amber-400">
+        <Clues color="ring-indigo-400/80">{`${aktifKelime.kelimeTuru}`}</Clues>
+        <Clues color="ring-emerald-400/80">{aktifKelime.koken}</Clues>
+        <Clues color="ring-sky-400/80">{`${aktifKelime.harfSayisi} Harf`}</Clues>
+        <Clues color="ring-amber-400/80">
           {`${aktifKelime.kelimeSayisi} Kelime`}
         </Clues>
       </div>

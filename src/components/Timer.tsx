@@ -50,11 +50,12 @@ const ExtraTimer = ({ extraTimer, timerMode }: ExtraTimerProps) => {
   );
 };
 
-export const Timer = memo(({ zaman, onPause, extraTimer, timerMode }: Props) => {
-  return (
-    <div className="flex justify-center items-center sm:gap-6 gap-4">
-      <div
-        className={`
+export const Timer = memo(
+  ({ zaman, onPause, extraTimer, timerMode }: Props) => {
+    return (
+      <div className="flex justify-center items-center sm:gap-6 gap-4">
+        <div
+          className={`
             flex justify-center items-center px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xl font-bold 
            font-rubik ring-2   cursor-default select-none
           text-sm sm:text-xl text-white tracking-wider transition-all duration-300 
@@ -67,23 +68,24 @@ export const Timer = memo(({ zaman, onPause, extraTimer, timerMode }: Props) => 
                 : "bg-rose-600 ring-rose-400/50 shadow-rose-500/30 scale-110 animate-pulse shadow-[0_0_20px_rgba(239,68,68,0.5)] "
           } 
         `}
-      >
-        {formatTime(zaman)}
+        >
+          {formatTime(zaman)}
+        </div>
+        <div className="relative w-10 h-10 flex items-center justify-center">
+          {timerMode === "extra" ? (
+            <div className="animate-morph-in">
+              <ExtraTimer extraTimer={extraTimer} timerMode={timerMode} />
+            </div>
+          ) : (
+            <button
+              onClick={onPause}
+              className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/20 transition-all hover:bg-white/10"
+            >
+              <PauseIcon />
+            </button>
+          )}
+        </div>
       </div>
-      <div className="relative w-10 h-10 flex items-center justify-center">
-        {timerMode === "extra" ? (
-          <div className="animate-morph-in">
-            <ExtraTimer extraTimer={extraTimer} timerMode={timerMode} />
-          </div>
-        ) : (
-          <button
-            onClick={onPause}
-            className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/20 transition-all hover:bg-white/10"
-          >
-            <PauseIcon />
-          </button>
-        )}
-      </div>
-    </div>
-  );
-});
+    );
+  },
+);

@@ -45,7 +45,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     harfSayisi <= 6 ? "normal" : harfSayisi <= 8 ? "medium" : "compact";
 
   return (
-    <div className="flex flex-col gap-5 overflow-x-hidden">
+    <div className="flex flex-col gap-5 overflow-x-hidden relative">
       <div
         className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
              flex flex-col justify-between items-center gap-4 sm:gap-6 
@@ -88,13 +88,16 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
             setCharIndex={setCharIndex}
             jokerIndexes={jokerIndexes}
             aktifKelime={aktifKelime}
+            sonuc={sonuc}
           />
         </div>
         <div className="flex gap-2">
           <GameButton
             variant="clue"
             onClick={harfVer}
-            className="w-fit flex flex-1 items-center justify-center gap-1.5 mx-auto"
+            disabled={timerMode === "extra"}
+            className="w-fit flex flex-1 items-center justify-center gap-1.5 mx-auto
+            disabled:opacity-50 disabled:pointer-events-none"
           >
             <span className="leading-none">Harf Al</span>
             <span className="text-sm group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300">
@@ -105,14 +108,14 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
             variant="pass"
             className="flex-1"
             onClick={gaveUp}
-            disabled={score.pass === 0}
+            disabled={score.pass === 0 || timerMode === "extra"}
             ternaryOp={
-              score.pass === 0
-                ? "text-slate-400 opacity-50 cursor-not-allowed active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]"
+              score.pass === 0 || timerMode === "extra"
+                ? "text-slate-400 opacity-50 disabled:pointer-events-none active:translate-y-0 active:shadow-[0_4px_0_0_#B6C3D4]"
                 : "text-slate-700"
             }
           >
-            <div className="shrink-0 group-hover:translate-x-1 transition-transform duration-200">
+            <div className="shrink-0group-hover:translate-x-1 transition-transform duration-200">
               <PassIcon />
             </div>
             <span>PAS</span>
@@ -128,16 +131,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
 
         <InGameScoreBoard score={score} sonuc={sonuc} />
 
-        <p
-          className={`text-xl hidden sm:text-3xl mt-2 font-black tracking-widest
-    ${
-      sonuc === "Doğru!"
-        ? "text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.6)] animate-[bounce_2s_infinite]"
-        : "text-rose-500 animate-[shake_0.5s_ease-in-out]" /* Yanlışsa titresin */
-    }`}
-        >
-          {sonuc.toUpperCase()}
-        </p>
+
       </div>
       <VirtualKeyboard onKey={handleVirtualKey} theme={theme} />
     </div>

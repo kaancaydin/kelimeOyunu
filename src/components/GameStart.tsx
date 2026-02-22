@@ -60,7 +60,7 @@ export const GameStart = ({ actions }: MainGameProps) => {
           px-12 py-4
           uppercase cursor-pointer
           rounded-full
-          font-satoshi font-black text-xl tracking-widest
+          font-clash font-black text-xl tracking-widest
           transition-all duration-300
           active:scale-95
           p-0.75 
@@ -92,7 +92,7 @@ export const GameStart = ({ actions }: MainGameProps) => {
           <div className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-2 group-active:translate-x-37.5 group-active:opacity-0">
             <PlayIcon />
           </div>
-          <span className="group-active:translate-x-2 transition-transform duration-300">
+          <span className="group-active:translate-x-2  transition-transform duration-300">
             oyunu başlat
           </span>
         </div>
