@@ -335,6 +335,126 @@
             "harfSayisi": 10,
             "kelimeSayisi": 1,
             "kelimeTuru": "Sıfat"
+        },
+        {
+            "aciklama": "Başkası tarafından yapılan veya kaza sonucu ortaya çıkan zararı ödeme",
+            "kelime": "cereme",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Ölüm cezasına çarptırılanları öldürmekle görevli olan kimse",
+            "kelime": "cellat",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Şubat ayında birer hafta arayla havada, suda ve toprakta oluştuğu sanılan sıcaklık yükselişi",
+            "kelime": "cemre",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Bir işte tutulması gereken yolu kestirememek, ne yapacağını bilememek, kararsız olmak",
+            "kelime": "bocalamak",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Fiil"
+        },
+        {
+            "aciklama": "Bir işin gizli kalmış kötü ve aksak yanı, kuşkulu bir nokta",
+            "kelime": "bityeniği",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Çiçek, dal ve yapraklarla yapılmış halka",
+            "kelime": "çelenk",
+            "koken": "Türkçe",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Her dizenin ilk harfi yukarıdan aşağıya doğru okunduğunda ortaya bir söz çıkacak bir biçimde düzenlenmiş şiir",
+            "kelime": "akrostiş",
+            "koken": "Fransızca",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Baharat veya güzel kokular satan kimse veya dükkân",
+            "kelime": "aktar",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Bir dilin seslerini gösteren, belirli bir sıraya göre dizilmiş belli sayıda harflerin bütünü",
+            "kelime": "alfabe",
+            "koken": "Fransızca",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Erkeklerin ve kadınların giydiği, genellikle önden düğmeli, kalçayı örten, kollu üst giysisi",
+            "kelime": "ceket",
+            "koken": "Farsça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Sıkıntıya, güç işlere alışmamış, nazlı büyütülmüş çocuk veya genç",
+            "kelime": "anakuzusu",
+            "koken": "Türkçe",
+            "harfSayisi": 9,
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Deyim"
+        },
+        {
+            "aciklama": "Öğrenmek istenilen şeyi söyletecek yolda dil kullanmak",
+            "kelime": "ağız aramak",
+            "koken": "Türkçe",
+            "harfSayisi": 10,
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Deyim"
+        },
+        {
+            "aciklama": "Osmanlılarda kapı kulu teşkilatındaki atlı asker",
+            "kelime": "sipahi",
+            "koken": "Farsça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "Zarar karşılığı ödenen para; ödence",
+            "kelime": "Tazminat",
+            "koken": "Arapça",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad"
+        },
+        {
+            "aciklama": "1914-1918 yılları arasında dünyanın çeşitli kıtalarında birçok devletin iki gruba ayrılarak yaptığı, o zamana kadar benzeri görülmemiş büyük savaş",
+            "kelime": "Cihanharbi",
+            "koken": "Arapça",
+            "harfSayisi": 9,
+            "kelimeSayisi": 2,
+            "kelimeTuru": "Ad"
         }
     ]
 }
