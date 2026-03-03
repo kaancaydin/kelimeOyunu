@@ -19,10 +19,10 @@ const Clues = ({ children, color, className }: CluesProps) => {
     <div
       className={`items-center rounded-full
         transition-all overflow-hidden ${color}  
-        bg-linear-to-r from-transparent to-white/5 
+        bg-linear-to-r from-white/5 to-transparent 
         ring-1 shadow-[0_0_4px_currentColor] not-italic
-        capitalize font-light text-gray-200 font-sora
-        text-[10px] sm:text-base px-1 py-px sm:px-3 sm:py-1.5
+        capitalize font-light text-gray-100 font-sora
+        text-[10px] sm:text-base px-2 py-0.5 sm:px-3 sm:py-1
         ${className}
         `}
     >
@@ -54,7 +54,7 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
   return (
     <div
       className={`relative w-full px-4 sm:px-10 py-3 sm:py-6 text-center transition-all duration-300 ease-out
-          cursor-default select-none italic text-gray-200
+          cursor-default select-none italic text-gray-200 -mb-2
       ${descSize[density]}
     `}
     >

@@ -135,7 +135,7 @@ const WordCell = memo(
                 : "text-white"
           }          
           font-extrabold font-sora border-2 text-[clamp(1.4rem,3vw,1.8rem)] 
-          caret-transparent  outline-none
+          caret-transparent  outline-none 
           text-center uppercase shrink-0  rounded-md
           transition-all duration-200 leading-none select-none appearance-none
           ${harf && !sonuc ? "border-indigo-400" : ""}
@@ -173,7 +173,7 @@ export const WordInput = ({
   const sizeClasses = {
     normal: "w-10 h-10 sm:w-16 sm:h-16",
     medium: "w-9 h-9 sm:w-16 sm:h-16",
-    compact: "w-7 h-7 sm:w-16 sm:h-16",
+    compact: "w-8 h-8 sm:w-16 sm:h-16",
   };
 
   const registerRef = useCallback(

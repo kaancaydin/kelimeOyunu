@@ -1,7 +1,9 @@
-@import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Uncial+Antiqua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@import "tailwindcss";
 
 @theme {
   --font-satoshi: "Satoshi", sans-serif;
@@ -9,6 +11,11 @@
   --font-cinzel: "Cinzel Decorative", serif;
   --font-antiqua: "Uncial Antiqua", system-ui;
   --font-rubik: "Rubik", sans-serif;
+  --font-sora: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-outfit: "Sora", ui-sans-serif, system-ui, sans-serif;
+  /*
+  --font-sora: "Sora", ui-sans-serif, system-ui, sans-serif;
+  */
 }
 
 @keyframes float {
@@ -121,15 +128,17 @@
     opacity: 0;
     scale: 0.85;
   }
+
   to {
     opacity: 1;
     scale: 1;
   }
 }
+
 /* Base banner style */
 .creative-banner {
   background: linear-gradient(135deg, #15803d, #22c55e, #16a34a);
-  box-shadow: 0 8px 25px rgba(34,197,94,0.5);
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
   border-radius: 16px;
   overflow: hidden;
   display: inline-block;
@@ -138,28 +147,56 @@
 
 /* Yukarı-aşağı hafif dans animasyonu */
 @keyframes banner-dance {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-6px); }
-  50% { transform: translateY(4px); }
-  75% { transform: translateY(-2px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-6px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+
+  75% {
+    transform: translateY(-2px);
+  }
 }
+
 .animate-banner-dance {
   animation: banner-dance 3s ease-in-out infinite;
 }
 
 /* Gradient renk geçişi + glow yazı */
 @keyframes gradient-glow {
-  0% { filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a); }
-  50% { filter: drop-shadow(0 0 8px #22c55e) drop-shadow(0 0 16px #16a34a); }
-  100% { filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a); }
+  0% {
+    filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 8px #22c55e) drop-shadow(0 0 16px #16a34a);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 4px #22c55e) drop-shadow(0 0 8px #16a34a);
+  }
 }
+
 .animate-gradient-glow {
   animation: gradient-glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(50%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {
@@ -175,13 +212,25 @@
 }
 
 @keyframes morph-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4); }
-  50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.6); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.6);
+  }
 }
 
 @keyframes text-shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .animate-morph-glow {
@@ -195,15 +244,30 @@
   -webkit-text-fill-color: transparent;
   animation: text-shimmer 2s linear infinite;
 }
+
 /* sonuc kısmı animasyonları */
 @keyframes morph-out {
-  0% { transform: scale(1) rotate(0deg); opacity: 1; }
-  100% { transform: scale(0.5) rotate(90deg); opacity: 0; }
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.5) rotate(90deg);
+    opacity: 0;
+  }
 }
 
 @keyframes morph-in {
-  0% { transform: scale(0.5) rotate(-90deg); opacity: 0; }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  0% {
+    transform: scale(0.5) rotate(-90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 .animate-morph-out {
@@ -215,27 +279,85 @@
 }
 
 @keyframes eye-pupil {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(1.2px, 0.5px); } /* Sağa aşağı bakış */
-  75% { transform: translate(-1.2px, -0.5px); } /* Sola yukarı bakış */
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(1.2px, 0.5px);
+  }
+
+  /* Sağa aşağı bakış */
+  75% {
+    transform: translate(-1.2px, -0.5px);
+  }
+
+  /* Sola yukarı bakış */
 }
 
 @keyframes eye-glare {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-0.5px, -0.2px); } /* Parlama zıt yöne kayar (derinlik efekti) */
-  75% { transform: translate(0.5px, 0.2px); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-0.5px, -0.2px);
+  }
+
+  /* Parlama zıt yöne kayar (derinlik efekti) */
+  75% {
+    transform: translate(0.5px, 0.2px);
+  }
 }
 
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0; transform: translateY(-10%); }
-  10%, 90% { opacity: 1; transform: translateY(0); }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fadeInOut {
   animation: fadeInOut 3s ease-in-out infinite;
 }
 
+.animate-joker-flash {
+  animation: jokerFlash 2s ease forwards;
+}
 
+
+@keyframes jokerFlash {
+  0% {
+    background-color: rgb(168 85 247);
+  }
+
+  /* purple-500 */
+  50% {
+    background-color: rgb(192 132 252);
+  }
+
+  /* purple-400 */
+  100% {
+    background-color: inherit;
+  }
+}
+
+@keyframes flash {
+  0% { brightness: 1.5; }
+  100% { brightness: 1; }
+}
 
 
 .animate-pupil {
@@ -249,60 +371,73 @@
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-html, body {
-margin: 0;
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+html,
+body {
+  margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%; /* Fallback */
+  /* Fallback */
   color: white;
-  height: 100svh; /* Safari için 'Small Viewport' - net çözüm */
-  background-color: #0f172a; /* Beyaz boşluk yerine arka plan rengin gözüksün */
-  overflow-x: hidden; /* Sayfanın sağa sola oynamasını engelle */
+  height: 100%;
+  /* Safari için 'Small Viewport' - net çözüm */
+  background-color: #0f172a;
+  /* Beyaz boşluk yerine arka plan rengin gözüksün */
+  overflow-x: hidden;
+  /* Sayfanın sağa sola oynamasını engelle */
 }
 
 #root {
-width: 100%;
-  height: 100svh;
+  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
 }
+
 /* Pattern overlay */
 #root::before {
   content: "";
   position: fixed;
   inset: 0;
   background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
-/*background-size: 80px 80px;*/  
+  /*background-size: 80px 80px;*/
   opacity: 0.15;
   pointer-events: none;
   z-index: 0;
 }
+
 #root::after {
-  content:"";
-  position:fixed;
-  inset:0;
+  content: "";
+  position: fixed;
+  inset: 0;
   background:
     radial-gradient(circle at center,
       transparent 45%,
-      rgba(0,0,0,.35) 100%);
-  pointer-events:none;
+      rgba(0, 0, 0, .35) 100%);
+  pointer-events: none;
 }
 
 
-#root > * {
+#root>* {
   position: relative;
   z-index: 10;
 }
@@ -330,7 +465,8 @@ background: radial-gradient(circle at center, #312e81 0%, #1e1b4b 100%);  -moz-o
 /* İçeriklerin desenin üstünde kalması için */
 
 input:disabled {
-  background-color: #374151; /* Daha koyu bir gri */
+  background-color: #374151;
+  /* Daha koyu bir gri */
   cursor: not-allowed;
   opacity: 0.7;
 }

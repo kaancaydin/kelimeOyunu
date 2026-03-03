@@ -26,7 +26,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     theme,
     extraTimer,
     timerMode,
-    jokerIndexes
+    jokerIndexes,
   } = state;
   const {
     updateHarf,
@@ -45,38 +45,34 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     harfSayisi <= 6 ? "normal" : harfSayisi <= 8 ? "medium" : "compact";
 
   return (
-    <div className="flex flex-col gap-5 overflow-x-hidden relative">
+    <div className="flex flex-col">
       <div
         className="p-4 sm:p-6 rounded-3xl sm:rounded-[3rem] 
              flex flex-col justify-between items-center gap-4 sm:gap-6 
              bg-gray-900 border border-white/10 
-             w-[95vw] sm:w-[90vw] max-w-4xl 
-             h-fit max-h-[92svh] sm:max-h-none
-               mx-auto overflow-y-auto 
+             w-[95vw] sm:w-full max-w-4xl 
+             h-fit max-h-[95svh] sm:max-h-none
+               mx-auto overflow-hidden relative
              "
       >
         {/* soru sayacı */}
         <QuestionCounter currentIndex={currentIndex} />
 
-        <GameButton
-          variant="close"
-          onClick={QuitTheGame}
-        >
+        <GameButton variant="close" onClick={QuitTheGame}>
           <CloseIcon />
         </GameButton>
 
-        <div className="w-screen/2 mt-2 sm:w-full text-center">
+        <div className="w-full mt-2">
           <WordDescription aktifKelime={aktifKelime} density={density} />
         </div>
-        <div>
-          <Timer
-            zaman={zaman}
-            onPause={PauseTheGame}
-            extraTimer={extraTimer}
-            timerMode={timerMode}
-          />
-        </div>
-        <div className=" py-1 sm:py-4 flex justify-center">
+
+        <Timer
+          zaman={zaman}
+          onPause={PauseTheGame}
+          extraTimer={extraTimer}
+          timerMode={timerMode}
+        />
+        <div className="py-1 sm:py-3">
           <WordInput
             key={`${currentIndex}-${gameEnd}`}
             updateHarf={updateHarf}
@@ -91,7 +87,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
             sonuc={sonuc}
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-[60%]">
           <GameButton
             variant="clue"
             onClick={harfVer}
@@ -115,13 +111,13 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
                 : "text-slate-700"
             }
           >
-            <div className="shrink-0group-hover:translate-x-1 transition-transform duration-200">
+            <div className="shrink-0 group-hover:translate-x-1 transition-transform duration-200">
               <PassIcon />
             </div>
             <span>PAS</span>
             <div
               className={`flex items-center justify-center text-center  font-rubik
-               rounded-lg py-px px-1 sm:px-1.5 sm:py-0.5 text-[0.8em] font-bold
+               rounded-sm px-1 py-0.5 text-[0.8em] font-bold
               ${score.pass === 0 ? "text-red-400 bg-red-500/20" : "text-white/80 bg-gray-500 "}`}
             >
               {score.pass}
@@ -130,10 +126,10 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </div>
 
         <InGameScoreBoard score={score} sonuc={sonuc} />
-
-
       </div>
-      <VirtualKeyboard onKey={handleVirtualKey} theme={theme} />
+      <div className="shrink-0 w-[95vw] sm:w-[90vw] mx-auto">
+        <VirtualKeyboard onKey={handleVirtualKey} theme={theme} />
+      </div>
     </div>
   );
 };

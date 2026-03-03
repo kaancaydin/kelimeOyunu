@@ -11,6 +11,7 @@ export interface InputProps {
   setCharIndex: React.Dispatch<React.SetStateAction<number>>;
   jokerIndexes: number[]
   aktifKelime: Kelime
+  sonuc: string;
 }
 
 //ScoreBoard.tsx

@@ -17,7 +17,7 @@ export const GameStart = ({ actions }: MainGameProps) => {
   return (
     <div className=" text-center flex justify-center flex-col ">
       <h1
-        className="text-center uppercase font-black mb-10 font-cinzel flex flex-col items-center
+        className="text-center uppercase font-black mb-8 font-cinzel flex flex-col items-center
         animate-[float_6s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
         motion-reduce:animate-none
         "
@@ -25,11 +25,10 @@ export const GameStart = ({ actions }: MainGameProps) => {
         <span
           className="
             text-6xl 
-            text-white /* Yazı rengi net beyaz olsun */
+            text-white 
             font-black 
             tracking-wider
-            /* Gölgeyi 'drop-shadow' yerine 'text-shadow' gibi veya daha kontrollü veriyoruz */
-            drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] /* Harf kenarlarını belirginleştiren sert gölge */
+            drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]
             relative
           "
         >
@@ -37,10 +36,11 @@ export const GameStart = ({ actions }: MainGameProps) => {
           {/* Yazının arkasındaki yumuşak mor parlama (Aura) */}
           <span className="absolute inset-0 blur-2xl bg-indigo-500/30 -z-10 animate-pulse"></span>
         </span>
-        <span className="text-4xl font-bold  tracking-[0.25em] drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+
+        <span className="text-5xl font-bold  tracking-[0.25em] drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
           Oyunu
         </span>
-        <div className="relative w-24 h-px bg-linear-to-r from-transparent via-indigo-500 to-transparent mt-4 overflow-hidden">
+        <div className="relative w-40 sm:w-56 h-px bg-linear-to-r from-transparent via-indigo-500 to-transparent mt-4 overflow-hidden">
           {/* sweep */}
           <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/60 to-transparent animate-[sweep_3s_linear_infinite]" />
 
@@ -52,6 +52,10 @@ export const GameStart = ({ actions }: MainGameProps) => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-indigo-300 shadow-[0_0_12px_4px_rgba(99,102,241,0.8)] animate-pulse" />
         </div>
       </h1>
+
+      <p className="text-gray-500 tracking-[0.4em] text-xs uppercase mb-5 select-none font-cinzel">
+        Bil • Kazan • Öğren
+      </p>
       <button
         onClick={handleStart}
         className="
@@ -71,9 +75,9 @@ export const GameStart = ({ actions }: MainGameProps) => {
         <span
           className="
             absolute -inset-full
-            bg-[conic-gradient(from_0deg,transparent_0%,#6366f1_10%,#4f46e5_25%,#818cf8_40%,transparent_55%)]
+            bg-[conic-gradient(from_0deg,transparent_0%,#4338ca_8%,#4f46e5_20%,#6366f1_35%,#818cf8_45%,#4f46e5_55%,transparent_65%)]
             animate-spin-slow
-            blur-sm /* Işığı biraz daha dağıtır, daha doğal durur */
+            blur-sm 
           "
         />
 
@@ -82,8 +86,8 @@ export const GameStart = ({ actions }: MainGameProps) => {
           className="
             absolute inset-0.5 
             rounded-full 
-            bg-slate-900/80 /* %80 şeffaf - Arka planı tamamen silebilirsin ama yazı okunsun diye hafif ton iyidir */
-            backdrop-blur-md /* Cam efekti için */
+            bg-indigo-950/70 
+            backdrop-blur-2xl
           "
         />
 
@@ -97,7 +101,6 @@ export const GameStart = ({ actions }: MainGameProps) => {
           </span>
         </div>
       </button>
-
     </div>
   );
 };

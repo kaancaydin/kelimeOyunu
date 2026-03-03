@@ -42,6 +42,7 @@ const ExtraTimer = ({ extraTimer, timerMode }: ExtraTimerProps) => {
                     : "bg-slate-700 opacity-20 scale-75"
                 }`}
               />
+              
             </div>
           );
         })}
@@ -59,7 +60,7 @@ export const Timer = memo(
             flex justify-center items-center px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xl font-bold 
            font-rubik ring-2   cursor-default select-none
           text-sm sm:text-xl text-white tracking-wider transition-all duration-300 
-          shadow-lg tabular-nums
+          shadow-lg tabular-nums animate-[flash_0.15s_ease-out]
           ${
             zaman > 45
               ? "bg-emerald-500 ring-emerald-400/40 shadow-emerald-400/30"
@@ -79,7 +80,7 @@ export const Timer = memo(
           ) : (
             <button
               onClick={onPause}
-              className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/20 transition-all hover:bg-white/10"
+              className="animate-morph-in cursor-pointer group p-px sm:p-1 rounded-full ring-2 ring-white/30 transition-all hover:bg-white/10"
             >
               <PauseIcon />
             </button>

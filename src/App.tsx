@@ -25,15 +25,17 @@ function App() {
   const { setTheme } = actions;
 
   return (
-    <div className="flex flex-col h-full w-full justify-between items-center ">
+    <div className="flex flex-col h-dvh w-full">
       <InfoTab theme={theme} setTheme={setTheme} />
-      <main className="flex-1 w-full flex overflow-y-auto custom-scrollbar">
-        <div className="min-h-full w-full flex flex-col items-center py-10 px-2">
+      <main
+        className={`flex-1 w-full flex  min-h-0 custom-scrollbar ${gameEnd ? "overflow-y-auto" : "overflow-hidden"}`}
+      >
+        <div className=" w-full flex flex-col items-center py-4 px-2 ">
           {startGame ? (
             gameEnd ? (
               <GameOver actions={actions} state={state} />
             ) : (
-              <div className="my-auto">
+              <div className="my-auto h-full w-full flex items-center justify-center">
                 <MainGame state={state} actions={actions} refs={refs} />
               </div>
             )

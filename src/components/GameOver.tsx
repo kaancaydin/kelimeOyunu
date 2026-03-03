@@ -13,9 +13,9 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
   const qetQuestionStatus = (durum: string | null) => {
     switch (durum) {
       case "dogru":
-        return "DOĞRU";
+        return "DOĞRU"; //✓
       case "yanlis":
-        return "YANLIŞ";
+        return "YANLIŞ"; //✗
       default:
         return "PAS";
     }
@@ -23,7 +23,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
   
   return (
     <div
-      className="flex items-center flex-col gap-8 p-6 sm:p-10 
+      className="flex items-center flex-col gap-7 p-6 
              bg-white/1 backdrop-blur-xl border border-white/20 
              rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] 
              w-[92vw] sm:w-[85vw] max-w-4xl 
@@ -45,10 +45,10 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
         </p>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 w-full max-w-md mx-auto">
+      <div className="grid grid-cols-4 gap-2 w-full max-w-md mx-auto">
         <ScoreBoard score={score} />
       </div>
-      {/* Puan  */}
+      {/* Puan */}
       <div
         className="flex flex-col items-center bg-linear-to-br from-indigo-600/20 to-purple-600/20
        px-2 py-3 sm:px-10 sm:py-4 rounded-4xl border border-indigo-400/20 shadow-sm"
@@ -84,7 +84,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
       {ozetListesi.length > 0 && (
         <div className="w-full space-y-3 sm:space-y-5 mt-0 sm:mt-4 font-outfit">
           <p className={`text-white font-black tracking-tight text-sm sm:text-lg ml-1 
-            after:block after:w-8 after:h-0.5 after:bg-indigo-400 after:mt-1`}>
+            after:block after:w-8 after:h-0.5 after:bg-indigo-500 after:mt-1`}>
             Soru Analizi
           </p>
           {ozetListesi.map((soru, index) => (
@@ -117,14 +117,14 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
                 </div>
               </div>
               <p className={`
-                text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/10 pl-2 sm:pl-4
+                text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/20 pl-2 sm:pl-4
                 `}>
                 {soru.aciklama}
               </p>
               <div className="flex gap-4 pt-0px sm:pt-2  text-xs sm:text-[14px] font-medium upppercase tracking-widest">
                 <span>
                   Alınan harf:
-                  <b className=" font-black text-[#50A2FF]">
+                  <b className=" font-black text-sky-400">
                     {soru.alinanHarf}
                   </b>
                 </span>

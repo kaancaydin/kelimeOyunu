@@ -35,7 +35,7 @@ export const initialState: GameState = {
     correct: 0,
     wrong: 0,
     takenWords: 0,
-    pass: 5,
+    pass: 20,
   },
   ozetListesi: [],
   jokerIndexes: [],

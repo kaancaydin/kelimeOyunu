@@ -33,17 +33,26 @@ export const GameButton = ({
             sm:shadow-[0_4px_0_0_#B6C3D4]
             hover:from-slate-300 hover:to-slate-400 active:shadow-none active:translate-y-0.5 
             transition-all duration-150 ease-in-out`,
-    clue: `group relative uppercase px-1.5 py-0.5 sm:px-3 sm:py-1.5 
-            rounded-full font-bold text-[11px] sm:text-base
-            bg-white/5 backdrop-blur-sm ring-2 ring-white/10 text-blue-400
-            hover:bg-blue-500 hover:text-white hover:ring-blue-400
-            shadow-sm transition-all duration-300 active:scale-95  
-            hover:shadow-[0_10px_20px_-10px_rgba(59,130,246,0.5)]`,
-    restart: `group relative inline-flex items-center justify-center px-3 py-1 sm:px-5 sm:py-3 
-            font-bold text-white text-sm sm:text-base transition-all duration-200 
-            bg-blue-600 rounded-full focus:outline-none 
-            focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 
-            hover:bg-blue-500 hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30`,
+        clue: ` group uppercase px-2 py-1 sm:px-3 sm:py-1.5
+                rounded-full font-bold text-[11px] sm:text-base
+                bg-transparent
+                text-blue-400
+                border-2 border-blue-400/40
+                border-b-[3px] border-b-blue-400
+                transition-all duration-200
+                hover:bg-blue-500/30 hover:border-blue-400
+                active:scale-95
+                `,
+        restart: `group relative inline-flex items-center justify-center
+                px-3 py-1 sm:px-5 sm:py-3
+                font-bold text-sm sm:text-base
+                rounded-full
+                bg-blue-600
+                text-white
+                border border-blue-400/40
+                transition-all duration-200
+                hover:bg-blue-500 hover:border-blue-300 active:scale-95 active:translate-y-[1px] 
+        `,
     restart2: ` cursor-pointer rounded-full
                 bg-white/10 backdrop-blur
                 ring-1 ring-white/20
@@ -57,7 +66,7 @@ export const GameButton = ({
   return (
       <button
         disabled={disabled}
-        className={`cursor-pointer select-none
+        className={`cursor-pointer select-none font-clash
         ${className}  ${ternaryOp} ${variants[variant]}
         `}
         onClick={onClick}

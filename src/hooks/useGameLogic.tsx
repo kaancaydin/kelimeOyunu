@@ -119,13 +119,13 @@ export const useGameLogic = () => {
         setTimeout(() => {
           NextQuestion("dogru");
           keyboardProgress.current = false;
-        }, 400);
+        }, 600); 
       } else {
         // YANLIŞ CEVAP
         dispatch({ type: "CEVAP", payload: "tekrar" });
         setTimeout(() => {
           dispatch({ type: "SET_SONUC", payload: "" });
-        }, 1000);
+        }, 600);
         // Jokerli harfleri koru, diğerlerini boşalt
         const noJoker = guncelHarfler.map((harf, index) =>
           guncelJokerler.includes(index) ? harf : "",
@@ -133,7 +133,6 @@ export const useGameLogic = () => {
         const emptyWord = noJoker.findIndex((h) => h === "");
 
         setTimeout(() => {
-          //dispatch({ type: "SET_HARFLER", payload: noJoker });
           setHarfler(noJoker);
           keyboardProgress.current = false;
 
@@ -175,7 +174,7 @@ export const useGameLogic = () => {
 
       setTimeout(() => {
         NextQuestion("yanlis");
-      }, 500);
+      }, 600);
 
       return; //süre doldu, diğer soruya geçer, ektra süreyi sıfırlar ve cevap yoksa yanlış sayar
     }
@@ -234,7 +233,7 @@ export const useGameLogic = () => {
       const filtered = kelimeler.filter((k) => k.harfSayisi === len);
 
       // 2. Bütün listeyi karıştırmak yerine içinden rastgele 3 tane seç
-      return getRandomItems(filtered, 3);
+      return getRandomItems(filtered, 2);
     });
     dispatch({ type: "START_GAME", payload: pool });
     setZaman(210);
@@ -252,7 +251,7 @@ export const useGameLogic = () => {
         /* setTimeout(() => {
           dispatch({ type: "SET_SONUC", payload: "" });
         }, 1000); */
-        //not in use for test
+        //animate-flash joker will be in use instead of this
       }
       return;
     }

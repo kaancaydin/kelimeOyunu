@@ -52,17 +52,17 @@ const InGameScoreStats = ({
   return (
     <>
       <div
-        className={`flex items-center gap-1 sm:gap-1.5 px-1.5 py-0  sm:px-3 sm:py-1.5 rounded-full
-        border-b-[3px] transition-all overflow-hidden
+        className={`flex items-center gap-1 sm:gap-1.5 px-2 py-1  sm:px-3 sm:py-1.5 rounded-full
+        border-b-[3px] transition-all overflow-hidden backdrop-blur-sm shadow-sm
           ${colors} ${className}`}
       >
         <span
           key={children}
-          className={`text-lg sm:text-2xl font-bold font-sora tracking-tight cursor-default select-none ${animate}`}
+          className={`text-lg sm:text-2xl font-bold font-sora tracking-tight cursor-default select-none tabular-nums  ${animate}`}
         >
           {children}
         </span>
-        <span className="opacity-80 relative top-px [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-6 sm:[&>svg]:h-6">
+        <span className="opacity-60 relative top-px [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">
           {parent}
         </span>
       </div>
@@ -75,15 +75,10 @@ export const InGameScoreBoard = ({ score, sonuc }: Props) => {
     switch (sonuc) {
       case "Doğru!":
         return "bg-emerald-600 border-emerald-400 animate-morph-glow";
-      case "Süre doldu, Yanlış!":
-        return "bg-rose-600  border-rose-400";
-      case "Bir daha dene!":
-        return "bg-orange-500  border-orange-300";
-      case "Zaman durduğunda PAS YAPAMAZSIN":
-      case "Pas hakkın kalmadı!":
-      case "Zaman durduğunda harf alamazsınız!":
-      case "Harf vermek için yer yok!":
+      case "Süre doldu, yanlış!":
         return "bg-red-800 border-red-600";
+      case "Bir daha dene!":
+        return "bg-rose-600  border-rose-400";
       default:
         return "bg-blue-500  border-blue-300 ";
     }
