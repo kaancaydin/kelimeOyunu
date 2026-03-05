@@ -1,4 +1,4 @@
-import { PlayIcon } from "./Icons";
+import { StartButton } from "../elementStyles/startButton";
 
 import type { GameLogicType } from "../types/GameLogicTypes";
 interface MainGameProps {
@@ -10,12 +10,17 @@ export const GameStart = ({ actions }: MainGameProps) => {
 
   const handleStart = () => {
     setTimeout(() => {
-      StartTheGame();
+      StartTheGame("classic");
+    }, 400);
+  };
+  const fillGap = () => {
+    setTimeout(() => {
+      StartTheGame("fillgap");
     }, 400);
   };
   //geçici flex eklendi!!!
   return (
-    <div className=" text-center flex justify-center flex-col ">
+    <div className=" text-center flex justify-center flex-col gap-2 ">
       <h1
         className="text-center uppercase font-black mb-8 font-cinzel flex flex-col items-center
         animate-[float_6s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
@@ -56,51 +61,25 @@ export const GameStart = ({ actions }: MainGameProps) => {
       <p className="text-gray-500 tracking-[0.4em] text-xs uppercase mb-5 select-none font-cinzel">
         Bil • Kazan • Öğren
       </p>
-      <button
+
+      <StartButton
+        mode="KLASİK MOD"
         onClick={handleStart}
-        className="
-          relative group
-          flex items-center justify-center gap-3
-          px-12 py-4
-          uppercase cursor-pointer
-          rounded-full
-          font-clash font-black text-xl tracking-widest
-          transition-all duration-300
-          active:scale-95
-          p-0.75 
-          overflow-hidden
-        "
-      >
-        {/* Dönen RGB Işık Katmanı */}
-        <span
-          className="
-            absolute -inset-full
-            bg-[conic-gradient(from_0deg,transparent_0%,#4338ca_8%,#4f46e5_20%,#6366f1_35%,#818cf8_45%,#4f46e5_55%,transparent_65%)]
-            animate-spin-slow
-            blur-sm 
-          "
-        />
-
-        {/* İç Katman: Transparanlık burada sağlanıyor */}
-        <span
-          className="
-            absolute inset-0.5 
-            rounded-full 
-            bg-indigo-950/70 
-            backdrop-blur-2xl
-          "
-        />
-
-        {/* İçerik */}
-        <div className="relative z-10 flex items-center gap-3 text-white">
-          <div className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-2 group-active:translate-x-37.5 group-active:opacity-0">
-            <PlayIcon />
-          </div>
-          <span className="group-active:translate-x-2  transition-transform duration-300">
-            oyunu başlat
-          </span>
-        </div>
-      </button>
+        rgbColor="bg-[conic-gradient(from_0deg,transparent_0%,#4338ca_8%,#4f46e5_20%,#6366f1_35%,#818cf8_45%,#4f46e5_55%,transparent_65%)]"
+        borderColor="            
+        border border-white/15
+        shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]
+        bg-indigo-950/70"
+      />
+      <StartButton
+        mode="Boşlukları Doldur"
+        onClick={fillGap}
+        rgbColor="bg-[conic-gradient(from_0deg,transparent_0%,#0891b2_8%,#06b6d4_20%,#22d3ee_35%,#67e8f9_45%,#06b6d4_55%,transparent_65%)]"
+        borderColor="            
+        bg-cyan-950/80 
+        border border-white/15
+        shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]"
+      />
     </div>
   );
 };

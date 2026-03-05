@@ -33,7 +33,7 @@ export const GameButton = ({
             sm:shadow-[0_4px_0_0_#B6C3D4]
             hover:from-slate-300 hover:to-slate-400 active:shadow-none active:translate-y-0.5 
             transition-all duration-150 ease-in-out`,
-        clue: ` group uppercase px-2 py-1 sm:px-3 sm:py-1.5
+    clue: ` group uppercase px-2 py-1 sm:px-3 sm:py-1.5
                 rounded-full font-bold text-[11px] sm:text-base
                 bg-transparent
                 text-blue-400
@@ -43,7 +43,7 @@ export const GameButton = ({
                 hover:bg-blue-500/30 hover:border-blue-400
                 active:scale-95
                 `,
-        restart: `group relative inline-flex items-center justify-center
+    restart: `group relative inline-flex items-center justify-center
                 px-3 py-1 sm:px-5 sm:py-3
                 font-bold text-sm sm:text-base
                 rounded-full
@@ -64,16 +64,14 @@ export const GameButton = ({
   };
 
   return (
-      <button
-        disabled={disabled}
-        className={`cursor-pointer select-none font-clash
+    <button
+      disabled={disabled}
+      className={`cursor-pointer select-none font-clash
         ${className}  ${ternaryOp} ${variants[variant]}
         `}
-        onClick={onClick}
-      >
-        {/*{icon && <div className={`${iconClass}`}>{icon}</div>}*/}
-        {children}
-        {/*{extra && <div className={`${extraClass}`}>{extra}</div>}*/}
-      </button>
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 };

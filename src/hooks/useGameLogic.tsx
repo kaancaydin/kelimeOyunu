@@ -10,6 +10,7 @@ import {
 import { getTheme } from "../utils/getTheme";
 import type { KeyboardTheme } from "../virtualKeyboard/KeyboardPalettes";
 import type { SoruOzeti } from "../types/kayitType";
+import type { GameMode } from "../types/reducerTypes";
 import { gameReducer, initialState } from "./gameReducer";
 
 export const useGameLogic = () => {
@@ -25,6 +26,7 @@ export const useGameLogic = () => {
     score,
     takenWordsPQ,
     jokerIndexes,
+    gameMode
   } = state;
 
   const [data, setData] = useState<KelimeData | null>(null);
@@ -224,22 +226,32 @@ export const useGameLogic = () => {
     }
     return result;
   };
-  const StartTheGame = () => {
+  const StartTheGame = (mode: GameMode) => {
     if (!data) return;
     const kelimeler = data.kelimeler;
+    const mainPool = mode === "fillgap" //ana havuzumuz
+      ? kelimeler.filter((k)=> k.cumle !== null)
+      : kelimeler
     const levels = [5, 6, 7, 8, 9, 10]; //harfleri seç
+    
     const pool = levels.flatMap((len) => {
       // 1. Önce sadece o uzunluktaki kelimeleri filtrele (Hızlıdır)
-      const filtered = kelimeler.filter((k) => k.harfSayisi === len);
-
+      const filtered = mainPool.filter((k) => k.harfSayisi === len);
+      if (filtered.length === 0) return [];
       // 2. Bütün listeyi karıştırmak yerine içinden rastgele 3 tane seç
       return getRandomItems(filtered, 2);
     });
-    dispatch({ type: "START_GAME", payload: pool });
+
+    dispatch({ type: "START_GAME", payload: pool, mode:mode });
     setZaman(210);
     setExtraTimer(15);
-    //dispatch({ type: "SET_SONUC", payload: "" });
   };
+
+  const RestartTheGame = () => {
+    const mode = gameMode || "classic" //null dönmemesi için
+
+    StartTheGame(mode)
+  }
 
   const harfVer = () => {
     if (!aktifKelime || timerMode === "extra") {
@@ -404,6 +416,7 @@ export const useGameLogic = () => {
     },
     actions: {
       StartTheGame,
+      RestartTheGame,
       kontrolEt,
       harfVer,
       gaveUp,

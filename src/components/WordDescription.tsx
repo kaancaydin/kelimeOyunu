@@ -1,15 +1,10 @@
-interface Kelime {
-  aciklama: string;
-  kelime: string;
-  harfSayisi: number;
-  kelimeSayisi: number;
-  koken: string;
-  kelimeTuru: string;
-}
+import type { Kelime } from "../types/wordTypes";
+import type { GameMode } from "../types/reducerTypes";
 
 interface Props {
   aktifKelime: Kelime;
   density: "normal" | "medium" | "compact";
+  gameMode: GameMode | null;
 }
 
 import type { CluesProps } from "../types/elementTypes";
@@ -31,7 +26,11 @@ const Clues = ({ children, color, className }: CluesProps) => {
   );
 };
 
-export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
+export const WordDescription = ({
+  aktifKelime,
+  density = "normal",
+  gameMode,
+}: Props) => {
   const descSize = {
     normal: "min-h-20 sm:min-h-37.5",
     medium: "min-h-18 sm:min-h-32",
@@ -44,6 +43,25 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
     compact: "text-sm sm:text-3xl",
   };
 
+  const maskele = (cumle: string, kelime: string) => {
+    if (!cumle || !kelime) return "";
+
+    const kucukKelime = kelime.toLocaleUpperCase("tr-TR");
+    const kucukCumle = cumle.toLocaleUpperCase("tr-TR");
+
+    // Eğer kelime cümle içinde hiç yoksa (küçük harf kontrolüyle)
+    if (!kucukCumle.includes(kucukKelime)) return cumle;
+
+    // Kelimenin cümledeki başlangıç ve bitiş indexini bulalım
+    const startIndex = kucukCumle.indexOf(kucukKelime);
+    const endIndex = startIndex + kucukKelime.length;
+
+    // Cümlenin başını al + maskeyi koy + cümlenin kalanını al
+    const maske = "_ ".repeat(kelime.length).trim();
+
+    return cumle.substring(0, startIndex) + maske + cumle.substring(endIndex);
+  };
+
   if (!aktifKelime) {
     return (
       <div className="min-h-20 flex items-center justify-center italic text-gray-500">
@@ -51,6 +69,7 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
       </div>
     );
   }
+  //console.log(gameMode, aktifKelime.cumle, aktifKelime.kelime);
   return (
     <div
       className={`relative w-full px-4 sm:px-10 py-3 sm:py-6 text-center transition-all duration-300 ease-out
@@ -66,7 +85,9 @@ export const WordDescription = ({ aktifKelime, density = "normal" }: Props) => {
           className={`font-medium leading-relaxed font-sora tracking-tight text-center text-gray-200
             ${textSize[density]}`}
         >
-          {aktifKelime.aciklama}
+          {gameMode === "classic"
+            ? aktifKelime.aciklama
+            : maskele(aktifKelime.cumle, aktifKelime.kelime)}{" "}
         </p>
       </div>
       <span className="absolute bottom-7 sm:bottom-13 right-3 text-4xl sm:text-6xl text-indigo-500/20 font-serif">

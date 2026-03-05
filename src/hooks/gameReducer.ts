@@ -1,27 +1,7 @@
-import type { TimerModeProps } from "../types/propTypes";
-import type { Kelime } from "../types/wordTypes";
+import type { Cevap, GameState, GameMode } from "../types/reducerTypes";
 import type { SoruOzeti } from "../types/kayitType";
+import type { Kelime } from "../types/wordTypes";
 
-type Cevap = "dogru" | "yanlis" | "pas" | "tekrar";
-
-type GameState = {
-  currentIndex: number;
-  sonuc: string;
-  gameEnd: boolean;
-  gameList: Kelime[];
-  startGame: boolean;
-  timerMode: TimerModeProps;
-  takenWordsPQ: number;
-  score: {
-    correct: number;
-    wrong: number;
-    takenWords: number;
-    pass: number;
-  };
-  ozetListesi: SoruOzeti[];
-  jokerIndexes: number[];
-  autoNext: boolean;
-};
 
 export const initialState: GameState = {
   currentIndex: 0,
@@ -40,10 +20,11 @@ export const initialState: GameState = {
   ozetListesi: [],
   jokerIndexes: [],
   autoNext: false,
+  gameMode: null
 };
 
 type Action =
-  | { type: "START_GAME"; payload: Kelime[] }
+  | { type: "START_GAME"; payload: Kelime[]; mode: GameMode }
   | { type: "QUIT_GAME" }
   | { type: "BACK_MENU" }
   | { type: "CEVAP"; payload: Cevap }
@@ -62,6 +43,7 @@ export function gameReducer(state: GameState, action: Action): GameState {
       return {
         ...initialState,
         gameList: action.payload,
+        gameMode: action.mode,
         currentIndex: 0,
         startGame: true,
         gameEnd: false,

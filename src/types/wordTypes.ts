@@ -5,6 +5,7 @@ export type Kelime = {
   kelimeSayisi: number;
   koken: string;
   kelimeTuru: string;
+  cumle: string;
 };
 
 export type KelimeData = {

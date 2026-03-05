@@ -27,6 +27,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
     extraTimer,
     timerMode,
     jokerIndexes,
+    gameMode
   } = state;
   const {
     updateHarf,
@@ -63,7 +64,7 @@ export const MainGame = ({ state, actions, refs }: MainGameProps) => {
         </GameButton>
 
         <div className="w-full mt-2">
-          <WordDescription aktifKelime={aktifKelime} density={density} />
+          <WordDescription aktifKelime={aktifKelime} density={density} gameMode={gameMode}/>
         </div>
 
         <Timer

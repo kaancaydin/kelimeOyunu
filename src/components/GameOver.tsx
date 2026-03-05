@@ -9,7 +9,7 @@ interface MainGameProps {
 
 export const GameOver = ({ state, actions }: MainGameProps) => {
   const { score, totalPoints, ozetListesi } = state;
-  const { StartTheGame, BackToMenu } = actions;
+  const { RestartTheGame, BackToMenu } = actions;
   const qetQuestionStatus = (durum: string | null) => {
     switch (durum) {
       case "dogru":
@@ -73,7 +73,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
           <BackIcon />
         </button>
         <GameButton
-          onClick={StartTheGame}
+          onClick={RestartTheGame}
           variant="restart"
           className="text-base uppercase tracking-widest"
         >
