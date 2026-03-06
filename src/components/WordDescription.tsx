@@ -43,23 +43,42 @@ export const WordDescription = ({
     compact: "text-sm sm:text-3xl",
   };
 
+  //boşluk doldurmada kelimeyi gizlemek için
   const maskele = (cumle: string, kelime: string) => {
     if (!cumle || !kelime) return "";
 
-    const kucukKelime = kelime.toLocaleUpperCase("tr-TR");
-    const kucukCumle = cumle.toLocaleUpperCase("tr-TR");
+    const maskKelime = kelime.toLocaleUpperCase("tr-TR");
+    const maskCumle = cumle.toLocaleUpperCase("tr-TR");
 
-    // Eğer kelime cümle içinde hiç yoksa (küçük harf kontrolüyle)
-    if (!kucukCumle.includes(kucukKelime)) return cumle;
+    // kelime içinde varmı kontrolü
+    if (!maskCumle.includes(maskKelime)) return cumle;
 
-    // Kelimenin cümledeki başlangıç ve bitiş indexini bulalım
-    const startIndex = kucukCumle.indexOf(kucukKelime);
-    const endIndex = startIndex + kucukKelime.length;
+    // cümle içindeki indexi bulma
+    const startIndex = maskCumle.indexOf(maskKelime);
+    const endIndex = startIndex + maskKelime.length;
 
-    // Cümlenin başını al + maskeyi koy + cümlenin kalanını al
-    const maske = "_ ".repeat(kelime.length).trim();
+    // maskele
+    const mask = (
+      <span className="inline-flex gap-0.5 sm:gap-1 mx-1 align-middle">
+        {Array.from({ length: kelime.length }).map((_, i) => (
+          <span
+            key={i}
+            className="w-5 h-6 sm:w-8 sm:h-9 border border-white/5 border-b-2 border-b-indigo-500/80 bg-indigo-500/20 shadow-[0_2px_8px_-4px_rgba(99,102,241,0.3)]
+            flex items-center justify-center rounded-md text-transparent select-none"
+          >
+            _
+          </span>
+        ))}
+      </span>
+    );
 
-    return cumle.substring(0, startIndex) + maske + cumle.substring(endIndex);
+    return(
+      <>
+        {cumle.substring(0,startIndex)}
+        {mask}
+        {cumle.substring(endIndex)}
+      </>
+    )
   };
 
   if (!aktifKelime) {
@@ -69,7 +88,6 @@ export const WordDescription = ({
       </div>
     );
   }
-  //console.log(gameMode, aktifKelime.cumle, aktifKelime.kelime);
   return (
     <div
       className={`relative w-full px-4 sm:px-10 py-3 sm:py-6 text-center transition-all duration-300 ease-out
@@ -105,16 +123,14 @@ export const WordDescription = ({
   );
 };
 
-/* yedek tasarım
-<div className="flex justify-center gap-4 flex-wrap">
-  <span className="px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium">
-    {aktifKelime.harfSayisi} Harf
+/* const mask = (
+  <span className="relative inline-block mx-1.5 px-2 py-0.5 align-baseline">
+    <span className="font-mono tracking-[0.3em] text-indigo-400/90 font-bold">
+      {"_".repeat(kelime.length)}
+    </span>
+
+    <span className="absolute inset-0 bg-indigo-500/10 backdrop-blur-[1px] rounded border border-indigo-500/20 -z-10" />
+    
+    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-indigo-500/40 rounded-full" />
   </span>
-  <span className="px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium capitalize">
-    {aktifKelime.koken}
-  </span>
-  <span className="px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium">
-    {aktifKelime.kelimeSayisi} Kelime
-  </span>
-</div>
-*/
+); */

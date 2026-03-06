@@ -8,7 +8,7 @@ interface MainGameProps {
 }
 
 export const GameOver = ({ state, actions }: MainGameProps) => {
-  const { score, totalPoints, ozetListesi } = state;
+  const { score, totalPoints, ozetListesi, gameMode } = state;
   const { RestartTheGame, BackToMenu } = actions;
   const qetQuestionStatus = (durum: string | null) => {
     switch (durum) {
@@ -20,7 +20,36 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
         return "PAS";
     }
   };
-  
+
+  const shineTheGap = (cumle: string, kelime: string) => {
+    if (!kelime || !cumle) return "";
+
+    const maskKelime = kelime.toLocaleUpperCase("tr-TR");
+    const maskCumle = cumle.toLocaleUpperCase("tr-TR");
+
+    if (!maskCumle.includes(maskKelime)) return cumle;
+
+    const startIndex = maskCumle.indexOf(maskKelime);
+    const endIndex = startIndex + maskKelime.length;
+
+    const shineIt = (
+      <span className="relative inline-block mx-1 font-black tracking-tight text-indigo-400">
+        {cumle.substring(startIndex, endIndex)}
+        <span className="absolute -bottom-1 left-0 right-0 h-1 bg-indigo-500/50 rounded-full shadow-[0_0_4px_rgba(99,102,241,0.6)]" />
+
+        <span className="absolute inset-0 bg-indigo-500/10 blur-sm -z-10 rounded"/>
+      </span>
+    );
+
+    return (
+      <>
+        {cumle.substring(0, startIndex)}
+        {shineIt}
+        {cumle.substring(endIndex)}
+      </>
+    );
+  };
+
   return (
     <div
       className="flex items-center flex-col gap-7 p-6 
@@ -31,8 +60,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
     >
       {/* Başlık Bölümü */}
       <div className="text-center space-y-1 sm:space-y-2 -mb-5 sm:-mb-3">
-        <h2 
-        className="text-3xl sm:text-5xl font-black tracking-tighter bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
+        <h2 className="text-3xl sm:text-5xl font-black tracking-tighter bg-linear-to-b from-white to-gray-400 bg-clip-text text-transparent">
           TEBRİKLER!
         </h2>
         <p className="text-gray-300/80 tracking-[0.25em] text-xs sm:text-sm">
@@ -83,15 +111,17 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
       </div>
       {ozetListesi.length > 0 && (
         <div className="w-full space-y-3 sm:space-y-5 mt-0 sm:mt-4 font-outfit">
-          <p className={`text-white font-black tracking-tight text-sm sm:text-lg ml-1 
-            after:block after:w-8 after:h-0.5 after:bg-indigo-500 after:mt-1`}>
+          <p
+            className={`text-white font-black tracking-tight text-sm sm:text-lg ml-1 
+            after:block after:w-8 after:h-0.5 after:bg-indigo-500 after:mt-1`}
+          >
             Soru Analizi
           </p>
           {ozetListesi.map((soru, index) => (
             <div
               key={index}
               className="w-full bg-white/5 border border-white/10 rounded-2xl 
-            p-3 sm:p-6 flex flex-col gap-4" 
+            p-3 sm:p-6 flex flex-col gap-4"
             >
               <div className="flex justify-between items-start">
                 <div>
@@ -116,17 +146,17 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
                   {qetQuestionStatus(soru.durum)}
                 </div>
               </div>
-              <p className={`
+              <p
+                className={`
                 text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/20 pl-2 sm:pl-4
-                `}>
-                {soru.aciklama}
+                `}
+              >
+                {gameMode === "classic" ? soru.aciklama : shineTheGap(soru.cumle,soru.kelime)}
               </p>
               <div className="flex gap-4 pt-0px sm:pt-2  text-xs sm:text-[14px] font-medium upppercase tracking-widest">
                 <span>
                   Alınan harf:
-                  <b className=" font-black text-sky-400">
-                    {soru.alinanHarf}
-                  </b>
+                  <b className=" font-black text-sky-400">{soru.alinanHarf}</b>
                 </span>
               </div>
             </div>
