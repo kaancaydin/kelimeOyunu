@@ -4,5 +4,6 @@ export interface SoruOzeti {
     aciklama: string
     durum: 'dogru' | 'yanlis' | 'pas'
     alinanHarf: number
+    cumle: string
 }
 

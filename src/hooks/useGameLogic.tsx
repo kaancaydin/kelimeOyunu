@@ -18,8 +18,6 @@ export const useGameLogic = () => {
 
   const {
     currentIndex,
-    //sonuc,
-    //gameEnd,
     gameList,
     startGame,
     timerMode,
@@ -90,6 +88,7 @@ export const useGameLogic = () => {
       const yeniKayit: SoruOzeti = {
         soruSayisi: currentIndex + 1,
         kelime: aktifKelime.kelime,
+        cumle: aktifKelime.cumle,
         aciklama: aktifKelime.aciklama,
         durum: durum,
         alinanHarf: takenWordsPQ,
@@ -256,14 +255,7 @@ export const useGameLogic = () => {
   const harfVer = () => {
     if (!aktifKelime || timerMode === "extra") {
       if (timerMode === "extra") {
-        /* dispatch({
-          type: "SET_SONUC",
-          payload: "Zaman durduğubnda harf alamazsınız!",
-        }); */
-        /* setTimeout(() => {
-          dispatch({ type: "SET_SONUC", payload: "" });
-        }, 1000); */
-        //animate-flash joker will be in use instead of this
+        //animate-flash joker will be in use 
       }
       return;
     }
@@ -276,6 +268,7 @@ export const useGameLogic = () => {
       const alinanHarf = aktifKelime.kelime[randomSecim];
       const guncelHarfler = [...harfler];
       guncelHarfler[randomSecim] = alinanHarf;
+      const guncelJokerler = [...jokerIndexes, randomSecim]
       setHarfler(guncelHarfler);
       dispatch({
         type: "HARF_VER",
@@ -284,7 +277,7 @@ export const useGameLogic = () => {
 
       if (!guncelHarfler.includes("")) {
         setTimeout(() => {
-          kontrolEt(guncelHarfler, jokerIndexes); //alınan son harfa göre oto kontrol
+          kontrolEt(guncelHarfler, guncelJokerler); //alınan son harfa göre oto kontrol
         }, 0);
       } else {
         const focusOnEmpty = harfler.findIndex(
