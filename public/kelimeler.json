@@ -7,7 +7,7 @@
             "harfSayisi": 5,
             "kelimeSayisi": 1,
             "kelimeTuru": "Ad",
-            "cumle": null
+            "cumle": "Kılıç kınından çıkmadıkça it sürüsü dağılmaz."
         },
         {
             "aciklama": "Motorlu taşıtların çekiş ve hızını ayarlamaya yarayan dişliler düzeni",
@@ -34,7 +34,7 @@
             "harfSayisi": 6,
             "kelimeSayisi": 1,
             "kelimeTuru": "Ad",
-            "cumle": "Başın öne eğilmesin, aldırma kartal aldırma."
+            "cumle": "Göklerde Kartal gibiydim, kanatlarımdan vuruldum."
         },
         {
             "aciklama": "Bir şeyin belli biçimde ve yolda yapılmasını söyleme, bunu üsteleyerek hatırlatma",
@@ -232,7 +232,7 @@
             "harfSayisi": 8,
             "kelimeSayisi": 1,
             "kelimeTuru": "Ad",
-            "cumle": null
+            "cumle": "Han kapısında duran değnekçi, arabacıları sıraya diziyordu."
         },
         {
             "aciklama": "Bilgisayarlarda görüntünün monitöre yansıtılmasını sağlayan ve kaliteyi belirleyen bağdaştırıcı",
@@ -304,7 +304,7 @@
             "harfSayisi": 12,
             "kelimeSayisi": 1,
             "kelimeTuru": "Ad",
-            "cumle": "Bir an bile tebessüm etmedi."
+            "cumle": "Bir tebessüm bin dil değerindedir."
         },
         {
             "aciklama": "Bir bilgisayarda bulunan fiziksel birimler",
@@ -512,6 +512,123 @@
             "kelimeSayisi": 2,
             "kelimeTuru": "Ad",
             "cumle": null
+        },
+        {
+            "aciklama": "Gerektiğinde yardımda bulunmama, bir kimsenin güvenini yok etme, hainlik etme",
+            "kelime": "ihanet",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Her ihanet sevgiyle başlar."
+        },
+        {
+            "aciklama": "Bir veya birkaç heceden oluşan, anlamlı ses birliği; söz, sözcük, lügat",
+            "kelime": "kelime",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Sakın tek bir kelime daha edeyim deme! Neden biliyor musun? Çünkü inanırım."
+        },
+        {
+            "aciklama": "Sığır, koyun gibi eti yenecek hayvanları kesen veya dükkânında perakende olarak satan kimse; etçi",
+            "kelime": "kasap",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Koyun can derdinde kasap et derdinde."
+        },
+        {
+            "aciklama": "Bir maddenin yanması ile çıkan ve içinde katı zerrelerle buğu bulunan değişik renklerde gaz; tütün",
+            "kelime": "duman",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Ateş olmayan yerden duman çıkmaz."
+        },
+        {
+            "aciklama": "Hz. Âdem'e secde etmediği için cennetten kovulan, insanları Allah'ın emirlerine karşı kışkırtan, kötülüğe yönelten cin; iblis",
+            "kelime": "şeytan",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Acele işe şeytan karışır."
+        },
+        {
+            "aciklama": "Yerde ve tel, at, bisiklet, ip, at vb. üzerinde dengeye dayanan, tehlikeli, heyecan verici gösteriler yapan kimse; akrobat",
+            "kelime": "cambaz",
+            "koken": "Arapça",
+            "harfSayisi": 6,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "İki cambaz bir ipte oynamaz."
+        },
+        {
+            "aciklama": "Doğada element, bileşik veya bunların karışımları hâlinde bulunan, kütlesi ve ağırlığı olan, duyularla algılanabilen şey",
+            "kelime": "cisim",
+            "koken": "Arapça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Bir cisim yaklaşıyor efendim."
+        },
+        {
+            "aciklama": "Çeşitli işlerde kullanılmak üzere düz, enlice, uzun ve az kalın biçimde işlenmiş ağaç parçası",
+            "kelime": "tahta",
+            "koken": "Farsça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Doğada bulunan 4 element. Ateş, su, toprak, tahta."
+        },
+        {
+            "aciklama": "Arap alfabesinin ilk harfinin adı, okunuşu",
+            "kelime": "elif",
+            "koken": "Arapça",
+            "harfSayisi": 4,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Yengeye elif dedin usta."
+        },
+        {
+            "aciklama": "Killi kalkerleri özel fırınlarda pişirip ezmekle elde edilen, çamuru çarçabuk katılaşıp sertleşen ve yapılarda harç malzemesi olarak kullanılan kül renginde veya beyaz toz",
+            "kelime": "çimento",
+            "koken": "İtalyanca",
+            "harfSayisi": 7,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Yaz kızım 200 torba çimento 20 kamyon çakıl..."
+        },
+        {
+            "aciklama": "Savaşta veya tehlikeli bir durumda yararlık gösteren (kimse); yiğit",
+            "kelime": "kahraman",
+            "koken": "Arapça",
+            "harfSayisi": 8,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Sıfat",
+            "cumle": "Sonunu düşünen kahraman olamaz."
+        },
+        {
+            "aciklama": "İlkel toplumlarda topluluğun ondan türediği sanılan ve kutsal sayılan hayvan, ağaç, rüzgâr vb. herhangi bir doğal nesne; ongun",
+            "kelime": "totem",
+            "koken": "Fransızca",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Folklorik olarak sana saygım var ama sana tapamam totem."
+        },
+        {
+            "aciklama": "Koyun ve keçi sürülerini otlatan kimse",
+            "kelime": "çoban",
+            "koken": "Farsça",
+            "harfSayisi": 5,
+            "kelimeSayisi": 1,
+            "kelimeTuru": "Ad",
+            "cumle": "Çam sakızı, çoban armağanı."
         }
     ]
 }
