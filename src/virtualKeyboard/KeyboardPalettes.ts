@@ -1,76 +1,85 @@
 export const keyboardThemes = {
   defaultMode: {
-    name: "Default Mode",
+    name: "Varsayılan Mod",
     shell: "bg-[#445A88]",
     keyBg: "bg-[#DDE2EE]",
     keyText: "text-[#020617]",
     actKeyBg: "bg-[#778DBB]",
     actKeyText: "text-white",
-    actKeyBorder: "border border-sky-400/20 shadow-sm shadow-sky-400/20"
+    actKeyBorder: "border-sky-400/20 shadow-sm shadow-sky-400/20",
   },
-  lightMode: {
-    name: "Light Mode",
-    shell: "bg-[#B3B3B3]",
-    keyBg: "bg-[#F1F5F9]",
+  sutlac: {
+    name: "Sütlaç",
+    shell: "bg-[#FFF4E6]",
+    keyBg: "bg-[#ffffff] border-[#E0CFC0]",
+    keyText: "text-[#3B1D0F]",
+    actKeyBg: "bg-[#E2BFA9]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-[#DABFAE]",
+  },
+  yanikSutlac: {
+    name: "Yanık Sütlaç",
+    shell: "bg-[#0A0A0B]",
+    keyBg: "bg-[#1A1A1C] border-[#2D241F]",
+    keyText: "text-[#F5EEE6]",
+    actKeyBg: "bg-[#8B4513]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-[#A0522D]",
+  },
+  laleDevri: {
+    name: "Lale Devri",
+    shell: "bg-[#B91C1C]",
+    keyBg: "bg-[#FFF3E0]",
+    keyText: "text-[#3B1D0F]",
+    actKeyBg: "bg-[#991B1B]",
+    actKeyText: "text-[#FFD700]",
+    actKeyBorder: "border-[#FFD700]",
+  },
+  turkKahvesi: {
+    name: "Türk Kahvesi",
+    shell: "bg-[#654321]",
+    keyBg: "bg-[#F5E6D3] border-[#ccb69b]",
+    keyText: "text-[#3B2A1A]",
+    actKeyBg: "bg-[#4A2C1A]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-[#C8A27A]",
+  },
+  antepFistik: {
+    name: "Antep Fıstığı",
+    shell: "bg-[#93C572]",
+    keyBg: "bg-[#F5F1E6] border-[#6B8E23]",
+    keyText: "text-[#3A4A2B]",
+    actKeyBg: "bg-[#7eb35b]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-[#B6D7A8]",
+  },
+  kapadokya: {
+    name: "Kapadokya",
+    shell: "bg-[#C05621]",
+    keyBg: "bg-[#F5E1C8] border-[#C9A27A]",
+    keyText: "text-[#3B1D0F]",
+    actKeyBg: "bg-[#F59E0B]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-[#E7B98C]",
+  },
+  ispartaGulu: {
+    name: "Isparta Gülü",
+    shell: "bg-[#f8b5c4]",
+    keyBg: "bg-[#FFF1F2] border-[#e08d9f]",
     keyText: "text-[#020617]",
-    actKeyBg: "bg-[#808080]",
+    actKeyBg: "bg-[#BE185D]",
     actKeyText: "text-white",
-    actKeyBorder: "border-2 border-white/20"
+    actKeyBorder: "border-[#c86b83]",
   },
-  darkMode: {
-    name: "Dark Mode",
-    shell: "bg-[#020617]",
-    keyBg: "bg-[#F1F5F9]",
+  egeMavisi: {
+    name: "Ege Mavisi",
+    shell: "bg-[#7FB3D5]",
+    keyBg: "bg-[#ffffff] border-[#5d8fb0]",
     keyText: "text-[#020617]",
-    actKeyBg: "bg-[#0F172A]",
+    actKeyBg: "bg-[#437ba3]",
     actKeyText: "text-white",
-    actKeyBorder: "border-2 border-white/20"
+    actKeyBorder: "border-[#5B93BA]",
   },
-  techNeon: {
-    name: "Tech Neon",
-    shell: "bg-black",
-    keyBg: "bg-gray-900",
-    keyText: "text-gray-100",
-    actKeyBg: "bg-cyan-400",
-    actKeyText: "text-white",
-    actKeyBorder: "border-0"
-  },
-  sageCalm: {
-    name: "Sage Calm",
-    shell: "bg-[#085E41]",
-    keyBg: "bg-[#ECFDF5]",
-    keyText: "text-[#042F21]",
-    actKeyBg: "bg-[#10B981]",
-    actKeyText: "text-white",
-    actKeyBorder: "border-1 border-[#D0FBED]"
-  },
-  warmMinimal: {
-    name: "Warm Minimal",
-    shell: "bg-amber-50",
-    keyBg: "bg-amber-300",
-    keyText: "text-amber-900",
-    actKeyBg: "bg-rose-400",
-    actKeyText: "text-white",
-    actKeyBorder: "border border-orange-100"
-  },
-  roseMono: {
-    name: "Rose Mono",
-    shell: "bg-[#7A0C1C]",
-    keyBg: "bg-[#FFF1F2]",
-    keyText: "text-[#020617]",
-    actKeyBg: "bg-[#FB7185]",
-    actKeyText: "text-white",
-    actKeyBorder: "border border-rose-100"
-  },
-  articBlue: {
-    name: "Arctic Blue",
-    shell: "bg-[#003B99]",
-    keyBg: "bg-[#B6D0FF]",
-    keyText: "text-[#020617]",
-    actKeyBg: "bg-[#3B82F6]",
-    actKeyText: "text-white",
-    actKeyBorder: "border border-blue-100"
-  }
 } as const;
 
 export type KeyboardTheme = keyof typeof keyboardThemes;
@@ -79,10 +88,17 @@ export const isKeyboardTheme = (value: string): value is KeyboardTheme => {
   return value in keyboardThemes;
 };
 
-
 /*
  keyboard color pallets
-
+  kestane: {
+  name: "Kestane",
+  shell: "bg-[#8B5E3C]",        // koyu sütlü kahve
+  keyBg: "bg-[#A67C58]",        // açık kahve tuşlar
+  keyText: "text-[#FFF4E6]",    // pastel krem / okunabilir
+  actKeyBg: "bg-[#5C3A21]",     // aktif koyu tuş
+  actKeyText: "text-[#FFF4E6]",
+  actKeyBorder: "border border-[#A67C58]"
+},
 arctic blue -
 top: bg-[#020617]
 keys: bg-[#EFF6FF] text-[#020617]
@@ -132,5 +148,22 @@ shadow: shadow-[0_2px_4px_rgba(0,0,0,0.15)]
   ekstra
   "k": [0.24, 0.45, 0.85, 1]
   
-  
+    lightMode: {
+    name: "lightMode",
+    shell: "bg-[#B3B3B3]",
+    keyBg: "bg-[#F1F5F9]",
+    keyText: "text-[#020617]",
+    actKeyBg: "bg-[#808080]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-2 border-white/20"
+  },
+    darkMode: {
+    name: "Dark Mode",
+    shell: "bg-[#020617]",
+    keyBg: "bg-[#F1F5F9]",
+    keyText: "text-[#020617]",
+    actKeyBg: "bg-[#0F172A]",
+    actKeyText: "text-white",
+    actKeyBorder: "border-2 border-white/20"
+  },
   */

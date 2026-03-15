@@ -43,7 +43,10 @@ export const InfoTab = ({ theme, setTheme }: Props) => {
             </button>
             <div className="w-full max-w-xs flex flex-col gap-1">
               <label className="text-white/90 text-sm font-semibold ml-2">
-                Klavye Teması
+                Sanal Klavye Teması
+              </label>
+              <label className="text-white/60 text-xs font-medium ml-2 mt-0.5">
+                Ülkemizden esinlenilen temaları keşfedin!
               </label>
               <div className="relative flex items-center">
                 <div
