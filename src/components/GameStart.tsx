@@ -1,4 +1,4 @@
-import { StartButton } from "../elementStyles/startButton";
+import { StartButton } from "../elementStyles/StartButton";
 
 import type { GameLogicType } from "../types/GameLogicTypes";
 interface MainGameProps {
@@ -18,18 +18,66 @@ export const GameStart = ({ actions }: MainGameProps) => {
       StartTheGame("fillgap");
     }, 400);
   };
-  //geçici flex eklendi!!!
   return (
     <div className=" text-center flex justify-center flex-col gap-2 ">
+      <h1 className="flex flex-col items-center select-none gap-4">
+        <div className="flex gap-2">
+          {"KELİME".split("").map((letter, i) => (
+            <span
+              key={i}
+              className=" w-13 h-13 sm:w-16 sm:h-16  
+              flex items-center justify-center
+              text-3xl sm:text-4xl
+              font-black font-clash
+              text-white rounded-md
+              border border-indigo-400
+               bg-neutral-900
+               shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+            >
+              {letter}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          {"OYUNU".split("").map((letter, i) => (
+            <span
+              key={i}
+              className=" w-12 h-12 sm:w-14 sm:h-14
+              flex items-center justify-center
+              text-3xl sm:text-4xl
+              font-black font-clash
+              text-white rounded-md
+              border border-indigo-400
+               bg-neutral-900
+               shadow-[0_4px_10px_rgba(0,0,0,0.5)]"
+            >
+              {letter}
+            </span>
+          ))}
+        </div>
+        <div className="relative w-52 sm:w-72 h-px bg-linear-to-r from-transparent via-indigo-500 to-transparent mt-4 overflow-hidden">
+          {/* sweep */}
+          <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/60 to-transparent animate-[sweep_3s_linear_infinite]" />
+
+          {/* particles */}
+          <span className="absolute left-6 top-0 w-0.5 h-0.5 bg-indigo-300 rounded-full animate-[sparkle_2s_ease-in-out_infinite]" />
+          <span className="absolute right-6 top-0 w-0.5 h-0.5 bg-indigo-300 rounded-full animate-[sparkle_3s_ease-in-out_infinite]" />
+
+          {/* center orb */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-indigo-300 shadow-[0_0_12px_4px_rgba(99,102,241,0.8)] animate-pulse" />
+        </div>
+      </h1>
       <h1
-        className="text-center uppercase font-black mb-8 font-cinzel flex flex-col items-center
-        animate-[float_6s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
+        className=" hidden
+        text-center uppercase font-black mb-8 font-cinzel  flex-col items-center
+        animate-[float_8s_ease-in-out_infinite] cursor-default select-none group-hover:shadow-[0_0_20px_6px_rgba(99,102,241,1)]
         motion-reduce:animate-none
         "
       >
         <span
           className="
             text-6xl 
+            sm:text-7xl
             text-white 
             font-black 
             tracking-wider
@@ -42,10 +90,10 @@ export const GameStart = ({ actions }: MainGameProps) => {
           <span className="absolute inset-0 blur-2xl bg-indigo-500/30 -z-10 animate-pulse"></span>
         </span>
 
-        <span className="text-5xl font-bold  tracking-[0.25em] drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+        <span className="text-4xl sm:text-5xl font-bold  tracking-[0.25em] drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
           Oyunu
         </span>
-        <div className="relative w-40 sm:w-56 h-px bg-linear-to-r from-transparent via-indigo-500 to-transparent mt-4 overflow-hidden">
+        <div className="relative w-52 sm:w-72 h-px bg-linear-to-r from-transparent via-indigo-500 to-transparent mt-4 overflow-hidden">
           {/* sweep */}
           <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/60 to-transparent animate-[sweep_3s_linear_infinite]" />
 
@@ -56,9 +104,9 @@ export const GameStart = ({ actions }: MainGameProps) => {
           {/* center orb */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-indigo-300 shadow-[0_0_12px_4px_rgba(99,102,241,0.8)] animate-pulse" />
         </div>
-      </h1>
+      </h1> {/* hidden for now */}
 
-      <p className="text-gray-500 tracking-[0.4em] text-xs uppercase mb-5 select-none font-cinzel">
+      <p className="text-indigo-200 tracking-[0.3em] text-xs uppercase mb-5 mt-5 select-none font-cinzel">
         Bil • Kazan • Öğren
       </p>
 

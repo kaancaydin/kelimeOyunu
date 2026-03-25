@@ -37,7 +37,7 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
         {cumle.substring(startIndex, endIndex)}
         <span className="absolute -bottom-1 left-0 right-0 h-1 bg-indigo-500/50 rounded-full shadow-[0_0_4px_rgba(99,102,241,0.6)]" />
 
-        <span className="absolute inset-0 bg-indigo-500/10 blur-sm -z-10 rounded"/>
+        <span className="absolute inset-0 bg-indigo-500/10 blur-sm -z-10 rounded" />
       </span>
     );
 
@@ -151,12 +151,36 @@ export const GameOver = ({ state, actions }: MainGameProps) => {
                 text-gray-400 text-base sm:text-lg leading-relaxed border-l-2 border-white/20 pl-2 sm:pl-4
                 `}
               >
-                {gameMode === "classic" ? soru.aciklama : shineTheGap(soru.cumle,soru.kelime)}
+                {gameMode === "classic"
+                  ? soru.aciklama
+                  : shineTheGap(soru.boslukDoldurma.cumle, soru.kelime)}
               </p>
-              <div className="flex gap-4 pt-0px sm:pt-2  text-xs sm:text-[14px] font-medium upppercase tracking-widest">
-                <span>
+              {gameMode === "fillgap" && (
+                <div
+                  className="flex items-center gap-2  font-medium 
+                border-l-2 pl-2 my-2 border-indigo-500/50"
+                >
+                  {soru.boslukDoldurma.kaynak && ( //kaynak yoksa diye optional chaining
+                    <>
+                      <span className="text-slate-400 text-[12px] sm:text-[14px] ">
+                        {soru.boslukDoldurma.kaynak}
+                      </span>
+                      <span className="text-slate-600">•</span>
+                    </>
+                  )}
+                  {soru.boslukDoldurma?.cumleTuru && ( //bu veri her cumle için olsa da kontrol amaçlı optional chaining
+                    <span className="bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded text-[10px] sm:text-[12px]">
+                      {soru.boslukDoldurma.cumleTuru.toLocaleUpperCase("tr-TR")}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <div className="flex items-center gap-2  ">
+                <div className="h-px flex-1 bg-white/10" />
+                <span className="text-xs sm:text-sm text-slate-400 uppercase">
                   Alınan harf:
-                  <b className=" font-black text-sky-400">{soru.alinanHarf}</b>
+                  <b className=" font-black text-sky-400"> {soru.alinanHarf}</b>
                 </span>
               </div>
             </div>

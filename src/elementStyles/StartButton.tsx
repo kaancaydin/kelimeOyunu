@@ -13,7 +13,8 @@ export const StartButton = ({
       className="
         relative group
         flex items-center justify-center gap-3
-        px-12 py-4
+        px-6 py-4
+        sm:px-12 sm:py-4
         uppercase cursor-pointer
         rounded-full
         font-clash font-black text-xl tracking-widest

@@ -359,6 +359,26 @@
   100% { brightness: 1; }
 }
 
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes snakeBorder {
+  to { --angle: 360deg; }
+}
+
+@keyframes bgShift {
+  0%   { background-color: #262626; color: #ffffff; }
+  20%  { background-color: #445a88; color: #f0f4ff; }
+  40%  { background-color: #B91C1C; color: #ffe4e4; }
+  60%  { background-color: #93C572; color: #1a2e0e; }
+  80%  { background-color: #f8b5c4; color: #4a1020; }
+  90%  { background-color: #7FB3D5; color: #0c2233; }
+  100% { background-color: #262626; color: #ffffff; }
+}
+
 
 .animate-pupil {
   animation: eye-pupil 4s ease-in-out infinite;

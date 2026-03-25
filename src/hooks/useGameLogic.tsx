@@ -88,7 +88,7 @@ export const useGameLogic = () => {
       const yeniKayit: SoruOzeti = {
         soruSayisi: currentIndex + 1,
         kelime: aktifKelime.kelime,
-        cumle: aktifKelime.cumle,
+        boslukDoldurma: aktifKelime.boslukDoldurma,
         aciklama: aktifKelime.aciklama,
         durum: durum,
         alinanHarf: takenWordsPQ,
@@ -229,7 +229,7 @@ export const useGameLogic = () => {
     if (!data) return;
     const kelimeler = data.kelimeler;
     const mainPool = mode === "fillgap" //ana havuzumuz
-      ? kelimeler.filter((k)=> k.cumle !== null)
+      ? kelimeler.filter((k)=> k.boslukDoldurma.cumle !== null)
       : kelimeler
     const levels = [5, 6, 7, 8, 9, 10]; //harfleri seç
     
@@ -352,9 +352,11 @@ export const useGameLogic = () => {
           });
         }
       }
-    } else if (key === "ENTER") {
+    } /* else if (key === "ENTER") {
       //BOŞ GEÇ
-    } else {
+      //enter tuşu kullanılmadığı için silindi
+      //enter key is deleted because it was not in use, system checks the answers automatically
+    } */ else {
       if (!inputRefs.current[charIndex]?.disabled) {
         yeniHarfler[charIndex] = key;
 

@@ -24,8 +24,8 @@ export const GameButton = ({
     checkSmall: `group px-1.5 py-0.5 sm:px-2 sm:py-1.5  
                 bg-[#47369B] rounded-full hover:bg-purple-700
                 text-base sm:text-lg active:scale-95 shadow-lg ring ring-white/20`,
-    close: `hover:scale-90 p-0.5 sm:p-2 bg-red-500/10 border border-red-500/20 z-50
-            rounded-full hover:bg-red-500/20 transition-all duration-200 top-3.5 fixed right-2`,
+    close: `hover:scale-90 p-0.5 sm:p-1 bg-red-500/10 border border-red-500/20 z-50
+            rounded-full hover:bg-red-500/20 transition-all duration-200 absolute top-2 sm:top-2.5 right-1.25 sm:right-3`,
     pass: `group flex items-center gap-1 sm:gap-3 px-1.5 py-0.5 sm:px-2 sm:py-1 
             rounded-full flex-row
             font-black  justify-center text-sm sm:text-lg

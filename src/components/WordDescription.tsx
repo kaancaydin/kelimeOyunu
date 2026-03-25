@@ -11,13 +11,16 @@ import type { CluesProps } from "../types/elementTypes";
 
 const Clues = ({ children, color, className }: CluesProps) => {
   return (
-    <div
-      className={`items-center rounded-full
+    <div 
+    //design change
+    //bg-linear-to-r from-white/5 to-transparent text-white font-medium
+      className={`inline-flex  justify-center text-center
+        items-center rounded-full shrink-0
         transition-all overflow-hidden ${color}  
-        bg-linear-to-r from-white/5 to-transparent 
-        ring-1 shadow-[0_0_4px_currentColor] not-italic
-        capitalize font-light text-gray-100 font-sora
-        text-[10px] sm:text-base px-2 py-0.5 sm:px-3 sm:py-1
+        ring-3 shadow-[0_0_4px_currentColor] not-italic
+        capitalize font-medium font-sora  text-zinc-800
+        text-[9px] sm:text-base px-2 py-1 sm:px-3 sm:py-1.5 
+        w-max whitespace-nowrap
         ${className}
         `}
     >
@@ -72,13 +75,13 @@ export const WordDescription = ({
       </span>
     );
 
-    return(
+    return (
       <>
-        {cumle.substring(0,startIndex)}
+        {cumle.substring(0, startIndex)}
         {mask}
         {cumle.substring(endIndex)}
       </>
-    )
+    );
   };
 
   if (!aktifKelime) {
@@ -105,17 +108,22 @@ export const WordDescription = ({
         >
           {gameMode === "classic"
             ? aktifKelime.aciklama
-            : maskele(aktifKelime.cumle, aktifKelime.kelime)}{" "}
+            : maskele(
+                aktifKelime.boslukDoldurma.cumle,
+                aktifKelime.kelime,
+              )}{" "}
         </p>
       </div>
       <span className="absolute bottom-7 sm:bottom-13 right-3 text-4xl sm:text-6xl text-indigo-500/20 font-serif">
         ”
       </span>
       <div className="flex justify-center items-center gap-6 mt-2">
-        <Clues color="ring-indigo-400/80">{`${aktifKelime.kelimeTuru}`}</Clues>
-        <Clues color="ring-emerald-400/80">{aktifKelime.koken}</Clues>
-        <Clues color="ring-sky-400/80">{`${aktifKelime.harfSayisi} Harf`}</Clues>
-        <Clues color="ring-amber-400/80">
+        <Clues color="bg-violet-400 ring-violet-800/80">
+        {`${gameMode === "fillgap" ? aktifKelime.boslukDoldurma.cumleTuru : aktifKelime.kelimeTuru}`}
+        </Clues>
+        <Clues color="bg-cyan-400 ring-cyan-800/80">{aktifKelime.koken}</Clues>
+        <Clues color="bg-green-400 ring-green-800/80 ">{`${aktifKelime.harfSayisi} Harf`}</Clues>
+        <Clues color="bg-rose-400 ring-rose-800/80">
           {`${aktifKelime.kelimeSayisi} Kelime`}
         </Clues>
       </div>

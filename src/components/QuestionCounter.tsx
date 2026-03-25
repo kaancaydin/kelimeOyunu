@@ -6,7 +6,7 @@ export const QuestionCounter = ({ currentIndex }: Props) => {
   return (
 <p
   className="
-  absolute top-1.5 left-1/2 -translate-x-1/2
+  absolute top-1 sm:top-1.5 left-1/2 -translate-x-1/2
   flex items-center gap-2
   px-1.5 py-0
   sm:px-2 sm:py-0.5
