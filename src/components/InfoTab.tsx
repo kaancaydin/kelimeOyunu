@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CloseIcon, DownArrowIcon, InfoIcon } from "./Icons";
+import { CloseIcon, DownArrowIcon, InfoIcon, FullScreenIcon } from "./Icons";
 import {
   keyboardThemes,
   type KeyboardTheme,
@@ -8,9 +8,12 @@ import {
 interface Props {
   theme: string;
   setTheme: React.Dispatch<React.SetStateAction<KeyboardTheme>>;
+  enter: () => Promise<void>;
+  exit: () => Promise<void>;
+  active: boolean
 }
 
-export const InfoTab = ({ theme, setTheme }: Props) => {
+export const InfoTab = ({ theme, setTheme, enter, exit, active }: Props) => {
   const [infoTab, setInfoTab] = useState(false);
 
   const selectedTheme = keyboardThemes[theme as KeyboardTheme];
@@ -35,12 +38,21 @@ export const InfoTab = ({ theme, setTheme }: Props) => {
             <button
               className="cursor-pointer absolute top-2 right-2 bg-white/20 rounded-full p-0.5 text-rose-700
               hover:bg-rose-700 hover:text-white active:scale-90 transition-all duration-150"
+              title="Tam Ekran"
               onClick={() => {
                 setInfoTab(false);
               }}
             >
               <CloseIcon />
             </button>
+            <div className="flex justify-center items-center gap-2">
+              <button
+                className={`p-3 bg-white/20 border-2 ${active ? "text-red-600" : "text-white"} border-white/80 rounded-full font-semibold hover:scale-110  cursor-pointer transition-all duration-150"`}
+                onClick={active ? exit : enter}
+              >
+                {active ? <CloseIcon /> : <FullScreenIcon />}
+              </button>
+            </div>
             <div className="w-full max-w-xs flex flex-col gap-1">
               <label className="text-white/90 text-sm font-semibold ml-2">
                 Sanal Klavye Teması

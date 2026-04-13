@@ -425,7 +425,8 @@ body {
   /* Sayfanın sağa sola oynamasını engelle */
 }
 
-#root {
+#root,
+:fullscreen {
   height: 100dvh;
   min-height: 100dvh;
   display: flex;
@@ -434,7 +435,8 @@ body {
 }
 
 /* Pattern overlay */
-#root::before {
+#root::before,
+:fullscreen::before  {
   content: "";
   position: fixed;
   inset: 0;
@@ -445,7 +447,8 @@ body {
   z-index: 0;
 }
 
-#root::after {
+#root::after,
+:fullscreen::after  {
   content: "";
   position: fixed;
   inset: 0;
@@ -457,12 +460,35 @@ body {
 }
 
 
-#root>* {
+#root>* ,
+:fullscreen >* {
   position: relative;
   z-index: 10;
 }
 
+/* Safari desteği  */
+:-webkit-full-screen {
+  height: 100dvh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+}
 
+:-webkit-full-screen::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+:-webkit-full-screen > * {
+  position: relative;
+  z-index: 10;
+}
 
 /*
 background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);  text-rendering: optimizeLegibility;
